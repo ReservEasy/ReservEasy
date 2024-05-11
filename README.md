@@ -2,9 +2,9 @@
 
 Sistema de Gerenciamento de Equipamentos e Espaços - IFBaiano Campus Guanambi
 
-![Logo do Sistema](link_para_logo)
-
----
+<div align = "center">
+    <img src="/assets_read-me/logotipo.png" alt="Logo do Sistema" style="width:50%;">
+</div>
 
 ## Visão Geral
 
