@@ -1,0 +1,138 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Sora:wght@100;200;300;400;500;600;700;800&display=swap");
+*{
+    font-family: "Sora";
+}
+
+html, body{
+    height: 100%;
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F6F6F6;
+}
+.login-usuario {
+    padding: 10px;
+    margin: auto;
+    height: 60%;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+    padding: 70px;
+    border-radius: 25px;
+}
+
+
+.login-convidativo {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-convidativo  img {
+    width: 40%;
+    height: auto;
+}
+.title-login {
+    wordwrap: wrap;
+    color: #13510e;
+    text-transform: uppercase;
+    font-size: 40px;
+    font-weight: bold;
+    display: flex;
+    text-align: center;
+}
+.form-usuario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-with-background {
+    width: 100%;
+    height: auto;
+    padding: 20px 35px;
+    background: rgba(255, 182, 103, 0.1);
+    backdrop-filter: blur(25px);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+
+form p input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    width: 250px;
+}
+p label {
+    font-size: 15px;
+    color: #333333;
+}
+.input-login > input {
+    background-color: #ffffff00;
+    border: 0.1px solid #666666;
+    border-radius: 5px;
+    padding: 10px 5px;
+    width: 100%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+#button-entrar-login {
+    color: #ffffff;
+    background-color: #fc8301;
+    border: none;
+    border-radius: 10px;
+    width: 70px;
+    height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#button-entrar-login:hover {
+    background-color: #e07605;
+
+}
+
+.recuperacao-senha-usuario {
+    font-size: 12px;
+    color: #666666;
+    text-align: center;
+}
+.cadastro-usuario {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+.cadastro-usuario > #mensagem-cadastro,
+.cadastro-usuario > .link-cadastro-usuario {
+    font-size: 12px;
+    color: #666666;
+}
+.cadastro-usuario > .link-cadastro-usuario {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.link-acesso-adm {
+    font-size: 12px;
+    color: #666666;
+    font-weight: bold;
+    text-decoration: underline;
+}

@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Login | ReservEase</title>
+</head>
+
+<body>
+    
+    <section class="login-usuario">
+        <div class="login-convidativo">
+            <img src="{% static 'img/logotipo.png' %}" alt="Logotipo do sistema">
+            <h1 class="title-login">Qual a reserva do dia?</h1>
+        </div>
+        <div class="form-usuario">
+            <div class="circle-form">
+                <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+                <lord-icon
+                    src="https://cdn.lordicon.com/hbvyhtse.json"
+                    trigger="hover"
+                    colors="primary:#13510e"
+                    style="width:80px;height:80px">
+                </lord-icon>
+            </div>
+            <div class="form-with-background">
+                <form action="" method="post" class="user">
+
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    {% comment %} <div class="input-login">
+                        <label for="usuario">Seu usuário:</label>
+                        <input type="text" name="usuario" id="usuario">
+                    </div>
+                    <div class="input-login">
+                        <label for="senha">Sua senha:</label>
+                        <input type="password" name="senha" id="senha">
+                    </div>
+                    <a href="recuperacao-senha-usuario.html" class="recuperacao-senha-usuario">Esqueceu a sua senha?</a>{% endcomment %}
+                    <button type="submit" id="button-entrar-login" value="Logar">Entrar</button>
+                </form>
+                <div class="cadastro-usuario">
+                    <p id="mensagem-cadastro">Ainda não tem uma conta?</p>
+                    <a href="/accounts/register/" class="link-cadastro-usuario">Crie sua conta agora</a>
+                </div>
+                {% comment %} <div class="acesso-adm">
+                    <a href="#" class="link-acesso-adm">Acesso do Administrador</a>
+                </div> {% endcomment %}
+            </div>
+        </div>
+    </section>
+    
+
+</body>
+
+</html>

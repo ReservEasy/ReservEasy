@@ -1,0 +1,77 @@
+{% extends "partials/_base.html" %}
+{% block content %}
+<style>
+    form {
+        margin: 20px auto;
+        width: 40%;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    select, 
+    input[type="file"],
+    input[type="text"],
+    textarea {
+        background-color: white;
+        border: 0.1px solid #666666;
+        border-radius: 5px;
+        padding: 5px 5px;
+        width: 100%;
+        margin-top: 5px;
+    }
+   button[type="submit"] {
+        width: 20%;
+        background-color: #13510e;
+        color: white;
+        padding: 7px 10px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    
+    .btn.submit:hover {
+        background-color: #45a049;
+    }
+    p{
+        display: flex;
+        flex-direction: column;
+    }
+
+    p label {
+        font-size:15px;
+        color: #333333;
+        font-weight: bold;
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background: #ccc;
+        margin: 20px 0;
+    }
+    h2{
+        color: #333; 
+        font-size: 24px; 
+        font-weight: bold; 
+        text-align: center;
+        padding: 20px;
+    }
+</style>
+
+<form action="/recursos/editar/{{id_recurso}}" method="post" enctype="multipart/form-data">
+    <h2>Atualizar Recurso {{recurso.nome}}</h2>
+    <div inputs-crud> 
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br>
+    </div>
+    <button type="submit" class="btn btn-primary">Atualizar</button>
+</form>
+
+{% endblock content %}

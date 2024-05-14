@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+</head>
+
+<body>
+    <header class="header-usuario">
+        <div class="header-part-right">
+            <img src="{% static 'img/logotipo.png' %}" alt="Logotipo do sistema" id="logo-header">
+            {% comment %} <div class="btns-usuario">
+                <a href="#" class="btn-header">Início</a>
+                <a href="#" class="btn-header">Eventos</a>
+                <a href="#" class="btn-header">Painel de Controle</a>
+                <a href="#" class="btn-header">Meu perfil</a>
+            </div> {% endcomment %}
+        </div>
+        <div class="btn-usuario-subst">
+            <a href="#" class="btn-subst" id="btn-subst-profile">
+                <img src="{% static 'img/user.png' %}" alt="user" class="photo-usuario">
+                <p class="name-usuario">{{user}}</p>
+            </a>
+            <a href="#" class="btn-subst" data-bs-toggle="modal" data-bs-target="#confirmacaoModal">Sair</a>
+        </div>
+    </header>
+    <!-- Modal -->
+    <div class="modal fade" id="confirmacaoModal" tabindex="-1" aria-labelledby="confirmacaoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmacaoModalLabel">Confirmação de saída</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    Tem certeza de que deseja sair?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <a href="/accounts/logout" class="btn btn-primary elements-exclusiv" >Sair</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

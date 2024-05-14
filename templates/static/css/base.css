@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#layout-base{
+    width: 100%;
+}
+  #layout-base #conteudo-layout {
+    background-color: #415cac;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  
+#layout-base #conteudo-layout #conteudo {
+    /* Define como o item cresce para preencher o espaço disponível */
+    flex-grow: 1;
+    
+    /* Define que o item não deve encolher para caber no contêiner flexível */
+    flex-shrink: 0;
+    
+    /* Define o tamanho inicial do item com base no seu conteúdo ou nas regras de estilo */
+    flex-basis: auto;
+}
+
+  .conteudo-fluido{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .d-flex {
+    display: flex !important;
+  }
+
+  .flex-column {
+    flex-direction: column !important;
+  }

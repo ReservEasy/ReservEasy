@@ -1,0 +1,152 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Sora:wght@100;200;300;400;500;600;700;800&display=swap");
+
+*{
+    font-family: "Sora";
+}
+
+html, body{
+    width:100%;
+}
+body{
+    display: flex;
+    align-items: center;
+    background-color: #F6F6F6;
+    justify-content: center;
+}
+
+
+.cadastro-usuario{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 700px;
+}
+
+.identicacao-page-cadastro{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.title-cadastro-usuario, .divisa-title-cadastro-usuario{
+    color: #13510e;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.logotipo-cadastro-usuario{
+    width: 70px;
+    height: auto;
+}
+
+.form-with-background-cadastro{
+    padding: 25px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    justify-content: center;
+}
+
+.circle-form > img{
+    width: 60px;
+    height: auto;
+    margin-bottom: 20px;
+}
+.dois-inputs{
+display: flex;
+align-items: flex-start;
+gap: 25px;
+}
+
+.input-cadastro-usuario {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 250px;
+}
+p label {
+    font-size: 15px;
+    font-weight: 300;
+    color: #333333;
+}
+p input {
+    background-color: #ffffff00;
+    border: 0.1px solid #666666;
+    border-radius: 5px;
+    width:90%;
+    padding: 5px 5px;
+}
+
+.observacao-cadastro-estudante, p span, form ul{
+    font-size: 12px;
+    margin-top: -2px;
+    word-wrap: wrap;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+p{
+    width:50%;
+    gap:10px;
+}
+form p{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+}
+#button-cadastrar-usuario {
+    color: #ffffff;
+    background-color: #13510e;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    width: 90px;
+    height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#button-cadastrar-usuario:hover{
+    background-color: #0e380b;
+}
+
+.login-usuario > a, .login-usuario {
+    font-size: 12px;
+    color: #666666;
+    text-align: center;
+}
+.login-usuario > a {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.content-confirmacao-cadastro{
+    background-color: #ffffff;
+    padding: 100px 200px;
+    border-radius: 20px;
+}
+
+{% comment %} p input[type="password"]{
+    width:100%;
+} {% endcomment %}
+
+.inputs-form{
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content: center;
+}
+
+.inputs-form > p:nth-child(12){   
+    display: none;
+}

@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/cadastro-usuario.css' %}">
+    <title>Cadastro | ReservEase</title>
+</head>
+
+<body>
+    <section class="cadastro-usuario">
+        <div class="identicacao-page-cadastro">
+            <h1 class="title-cadastro-usuario">Seja bem-vindo!</h1>
+            <h1 class="divisa-title-cadastro-usuario">|</h1>
+            <img src="{% static 'img/logotipo.png' %}" alt="Logotipo do Sistema" class="logotipo-cadastro-usuario">
+        </div>
+        <div class="form-with-background-cadastro">
+            <div class="circle-form">
+                <img src="{% static 'img/user.png'%}" alt="imagem usuario">
+            </div>
+            <form action="" method="post" class="cadastro-usuario">
+                <div class="inputs-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+            </div>
+                <button type="submit" id="button-cadastrar-usuario">Cadastrar</button>
+            </form>
+            <p class="login-usuario">Possui uma conta? <a href="/accounts/login/">Acesse sua conta agora</a></p>
+        </div>
+    </section>
+</body>
+
+</html>

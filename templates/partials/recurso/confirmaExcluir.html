@@ -1,0 +1,88 @@
+{%  extends 'partials/_base.html'%}
+
+{% block content %}
+
+<style>
+    .btn{
+        display: flex;
+        align-items: center;
+        background-color: #13510e;
+        color: white;
+        padding: 7px 18px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .btn-confirmar{
+        color: #fff;
+        background-color: #27ae60;
+        border: 1px solid #27ae60;
+    }
+    .btn-recusar{
+        color: #fff;
+        background-color: #e74c3c;
+        border: 1px solid #e74c3c;
+    }
+    .btn-confirmar:hover {
+        background-color: #2ecc71;
+        border-color: #2ecc71;
+    }
+
+    .btn-recusar:hover {
+        background-color: #c0392b;
+        border-color: #c0392b;
+    }
+    .btn-confirmacao{
+        display: flex;
+        gap:30px;
+    }
+    img{
+        width: 100%;
+    }
+
+    .formEditar{
+        display: flex;
+        width: 100%;
+        gap: 60px;
+    }
+
+    .formEditar .imageRecurso{
+        width: 40%;
+        margin: 24px 0 0 16px;
+    }
+    
+
+    d1{
+        width: 50%%;
+    }
+
+    .container{
+        margin-top:40px ;
+    }
+</style>
+<div class="container">
+    <h3 class="mt-3">Tem certeza que deseja excluir esse {{ recurso.tipo}}?</h3>
+    <div class="formEditar">
+        <dl class="mt-4">
+             <dt>Nome:</dt>
+             <dd>{{ recurso.nome }}</dd>
+
+            <dt>Descrição:</dt>
+             <dd>{{ recurso.descricao }}</dd>
+
+             <dt>Tipo:</dt>
+            <dd>{{ recurso.tipo}}</dd>
+            
+        </dl>
+        <div class="imageRecurso">
+        <dt>Imagem:</dt>
+        <img src="{{ recurso.imagem.url }}" alt="{{ recurso.nome }}">
+    </div>
+</div>
+    <div class="btn-confirmacao">
+    <a href="/recursos/deletar/{{ recurso.id }}" class="btn btn-confirmar" >Sim</a>
+    <a href="/recursos/" class="btn btn-recusar">Não</a>
+    </div>
+</div>
+{% endblock %}
