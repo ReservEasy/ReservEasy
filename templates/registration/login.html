@@ -11,14 +11,18 @@
 </head>
 
 <body>
+
+    {%block topbar%}
+        {%include 'partials/_topbar.html'%}
+    {%endblock%}
     
     <section class="login-usuario">
         <div class="login-convidativo">
-            <img src="{% static 'img/logotipo.png' %}" alt="Logotipo do sistema">
             <h1 class="title-login">Qual a reserva do dia?</h1>
+            <img src="{% static 'img/logotipo.png' %}" alt="Logotipo do sistema">
         </div>
         <div class="form-usuario">
-            <div class="circle-form">
+            <div class="circle-form" id="iconContainer">
                 <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
                 <lord-icon
                     src="https://cdn.lordicon.com/hbvyhtse.json"
@@ -47,14 +51,11 @@
                     <p id="mensagem-cadastro">Ainda não tem uma conta?</p>
                     <a href="/accounts/register/" class="link-cadastro-usuario">Crie sua conta agora</a>
                 </div>
-                {% comment %} <div class="acesso-adm">
-                    <a href="#" class="link-acesso-adm">Acesso do Administrador</a>
-                </div> {% endcomment %}
             </div>
         </div>
     </section>
     
-
+    
 </body>
 
 </html>

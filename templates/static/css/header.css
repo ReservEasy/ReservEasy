@@ -1,25 +1,25 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Sora:wght@100;200;300;400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 
 * {
   margin: 0;
   padding: 0;
-  font-family: "Sora";
+  font-family: "Poppins";
 }
 
 .header-usuario {
-  background: radial-gradient(
-    50% 50% at 50% 50%,
-    rgba(19, 81, 14, 0.92) 0%,
-    rgba(19, 81, 14, 0.95) 73.96%,
-    #13510e 100%
-  );
+  background-color: #011035;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 10%;
-  background-color: #fff;
-    box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
-    width: 100%;
+  box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999px;
 }
 
 .header-part-right {
@@ -30,9 +30,9 @@
 }
 
 #logo-header {
-  width: 70px;
   padding: 10px;
-  height: auto;
+  height: 60px;
+  width: auto;
 }
 
 .btn-usuario-subst {
@@ -56,13 +56,13 @@
 .btn-header,
 .btn-subst {
   color: #ffffff;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
 }
 
 .btn-header:hover,
 .btn-subst:hover {
-  color: #dddddd;
+  color: #A3C23E;
 }
 
 .btn-subst:nth-child(2) {
@@ -72,11 +72,8 @@
 }
 
 .btn-subst:nth-child(2):hover {
-  border: 1px solid #dddddd;
-  background-color: #dddddd;
-  border-width: 3px;
-  color: #14520f;
-  font-weight: bold;
+  background-color: #fff;
+  color: #A3C23E;
 }
 
 #btn-subst-profile {
@@ -92,6 +89,7 @@
 }
 .name-usuario{
   margin: 0 0 0 5px;
+  font-size: 15px;
 }
 .elements-exclusiv{
   background-color: #14520f;

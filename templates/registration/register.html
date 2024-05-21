@@ -5,11 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'favicon.icon' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/cadastro-usuario.css' %}">
     <title>Cadastro | ReservEase</title>
 </head>
 
 <body>
+
     <section class="cadastro-usuario">
         <div class="identicacao-page-cadastro">
             <h1 class="title-cadastro-usuario">Seja bem-vindo!</h1>
@@ -20,16 +22,159 @@
             <div class="circle-form">
                 <img src="{% static 'img/user.png'%}" alt="imagem usuario">
             </div>
-            <form action="" method="post" class="cadastro-usuario">
+            <div class="user-type-selection">
+                <div class="radio-group">
+                    <input type="radio" id="servidor" name="user_type" value="servidor" onclick="showInputsForm()"> 
+                    <label for="servidor">Servidor</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="discente" name="user_type" value="discente" onclick="showInputsForm()">
+                    <label for="discente">Discente</label>
+                </div>
+            </div>
+
+            {% comment %} <form action="" method="post" class="cadastro-usuario">
                 <div class="inputs-form">
                 {% csrf_token %}
                 {{ form.as_p }}
             </div>
                 <button type="submit" id="button-cadastrar-usuario">Cadastrar</button>
+            </form> {% endcomment %}
+            
+            <form action="" method="post" class="cadastro-usuario" id="cadastro-form-discente" style="display: none;" >
+                <div class="inputs-form discente" >
+                    {% csrf_token %}
+                    <p>
+                        {{ form.username.label_tag }}
+                        {{ form.username }}
+                        <span class="helptext">Obrigatório. 150 caracteres ou menos. Letras, números e @/./+/-/_ apenas.</span>
+                    </p>
+                    <p>
+                        {{ form.first_name.label_tag }}
+                        {{ form.first_name }}
+                    </p>
+                    <p>
+                        {{ form.last_name.label_tag }}
+                        {{ form.last_name }}
+                    </p>
+                    <p>
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                    </p>
+                    <p>
+                        {{ form.matricula.label_tag }}
+                        {{ form.matricula }}
+                    </p>
+                    <p>
+                        {{ form.turma.label_tag }}
+                        {{ form.turma }}
+                    </p>
+                    <p>
+                        {{ form.telefone.label_tag }}
+                        {{ form.telefone }}
+                    </p>
+                    <p>
+                        {{ form.data_nascimento.label_tag }}
+                        {{ form.data_nascimento }}
+                    </p>
+                    <p>
+                        {{ form.password.label_tag }}
+                        {{ form.password }}
+                        <ul>
+                            <li>Sua senha não pode ser muito parecida com o resto das suas informações pessoais.</li>
+                            <li>Sua senha precisa conter pelo menos 8 caracteres.</li>
+                            <li>Sua senha não pode ser uma senha comumente utilizada.</li>
+                            <li>Sua senha não pode ser inteiramente numérica.</li>
+                        </ul>
+                    </p>
+                    <p>
+                        {{ form.password2.label_tag }}
+                        {{ form.password2 }}
+                        <span class="helptext">Informe a mesma senha informada anteriormente, para verificação.</span>
+                    </p>
+                </div>
+                <button type="submit" id="button-cadastrar-usuario">Cadastrar </button>
             </form>
+            
+            <form action="" method="post" class="cadastro-usuario" id="cadastro-form-servidor" style="display: none;" >
+                <div class="inputs-form servidor" >
+                    {% csrf_token %}
+                    <p>
+                        {{ form.username.label_tag }}
+                        {{ form.username }}
+                        <span class="helptext">Obrigatório. 150 caracteres ou menos. Letras, números e @/./+/-/_ apenas.</span>
+                    </p>
+                    <p>
+                        {{ form.first_name.label_tag }}
+                        {{ form.first_name }}
+                    </p>
+                    <p>
+                        {{ form.last_name.label_tag }}
+                        {{ form.last_name }}
+                    </p>
+                    <p>
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                    </p>
+                    <p>
+                        <label for="matricula">Siape</label>
+                        {{ form.matricula }}
+                    </p>
+                    <p>
+                        {{ form.cargo.label_tag }}
+                        {{ form.cargo }}
+                    </p>
+                    <p>
+                        {{ form.telefone.label_tag }}
+                        {{ form.telefone }}
+                    </p>
+                    <p>
+                        {{ form.data_nascimento.label_tag }}
+                        {{ form.data_nascimento }}
+                    </p>
+                    <p>
+                        {{ form.password.label_tag }}
+                        {{ form.password }}
+                        <ul>
+                            <li>Sua senha não pode ser muito parecida com o resto das suas informações pessoais.</li>
+                            <li>Sua senha precisa conter pelo menos 8 caracteres.</li>
+                            <li>Sua senha não pode ser uma senha comumente utilizada.</li>
+                            <li>Sua senha não pode ser inteiramente numérica.</li>
+                        </ul>
+                    </p>
+                    <p>
+                        {{ form.password2.label_tag }}
+                        {{ form.password2 }}
+                        <span class="helptext">Informe a mesma senha informada anteriormente, para verificação.</span>
+                    </p>
+                </div>
+                <button type="submit" id="button-cadastrar-usuario">Cadastrar </button>
+            </form>
+            
+            
             <p class="login-usuario">Possui uma conta? <a href="/accounts/login/">Acesse sua conta agora</a></p>
         </div>
     </section>
+    <script>
+        function showInputsForm() {
+            var discenteRadio = document.getElementById("discente");
+            var servidorRadio = document.getElementById("servidor");
+            var servidorInputs = document.getElementById("cadastro-form-servidor");
+            var discenteInputs = document.getElementById("cadastro-form-discente");
+
+        
+            if (discenteRadio.checked) {
+                discenteInputs.style.display = "flex";
+                servidorInputs.style.display = "none";
+            } else if (servidorRadio.checked) {
+                discenteInputs.style.display = "none";
+                servidorInputs.style.display = "flex";
+                var cargoInput = servidorInputs.querySelector("[name='cargo']");
+            cargoInput.value = "";
+            }
+            
+        }
+    </script>
 </body>
 
 </html>

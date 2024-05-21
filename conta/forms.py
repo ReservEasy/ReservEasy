@@ -14,5 +14,7 @@ class UsuarioForm(UserCreationForm):
             'telefone',
             'turma',
             'data_nascimento',
+            'cargo',
+            'password'
         ]
         #falta telefone, add depois para arrumar erro do template

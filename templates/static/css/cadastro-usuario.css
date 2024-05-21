@@ -1,19 +1,18 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Sora:wght@100;200;300;400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
 
 *{
-    font-family: "Sora";
+    font-family: "Poppins";
 }
 
-html, body{
-    width:100%;
-}
+
 body{
     display: flex;
     align-items: center;
     background-color: #F6F6F6;
     justify-content: center;
 }
-
 
 .cadastro-usuario{
     display: flex;
@@ -31,13 +30,13 @@ body{
 }
 
 .title-cadastro-usuario, .divisa-title-cadastro-usuario{
-    color: #13510e;
+    color: #A3C23E;
     font-weight: bold;
     font-size: 35px;
 }
 
 .logotipo-cadastro-usuario{
-    width: 70px;
+    width: 50px;
     height: auto;
 }
 
@@ -69,7 +68,7 @@ gap: 25px;
     width: 250px;
 }
 p label {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 300;
     color: #333333;
 }
@@ -78,7 +77,8 @@ p input {
     border: 0.1px solid #666666;
     border-radius: 5px;
     width:90%;
-    padding: 5px 5px;
+    padding: 6px 5px;
+    font-size:13px;
 }
 
 .observacao-cadastro-estudante, p span, form ul{
@@ -136,9 +136,7 @@ form p{
     border-radius: 20px;
 }
 
-{% comment %} p input[type="password"]{
-    width:100%;
-} {% endcomment %}
+
 
 .inputs-form{
     display: flex;
@@ -149,4 +147,9 @@ form p{
 
 .inputs-form > p:nth-child(12){   
     display: none;
+}
+
+.user-type-selection{
+    display: flex;
+    gap: 50px;
 }
