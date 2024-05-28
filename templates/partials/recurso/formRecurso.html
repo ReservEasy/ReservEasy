@@ -3,16 +3,9 @@
 {% block content %}
 
 <style>
-    form {
-        margin: 20px auto;
-        width: 40%;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #f9f9f9;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    form{
+        width: 95%;
+        margin-left: 15px;
     }
     select, 
     input[type="file"],
@@ -57,14 +50,43 @@
         background: #ccc;
         margin: 20px 0;
     }
+    .identification-section{
+        margin-top: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 95%;
+        margin-left: 15px;
+    }
+    .identification-section a, .services-btns a{
+        background-color: #022376;
+        color: #fff;
+        padding: 5px 12px;
+        font-size: 12px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    .identification-section a:hover{
+        text-decoration: none;
+        background-color: #010C29;
+    }
+    .title-service{
+        font-size:25px;  
+    }
+    .subtitle-service{
+        margin-top: 10px;
+        font-size: 15px;
+        margin-left: 15px;
+    }
 </style>
-
-<form action="/recursos/create/" method="post" enctype="multipart/form-data">
-    <div inputs-crud> 
+<div class="identification-section">
+    <h1 class="title-service">Estoque - Coordenação de Assuntos Estudantis #1</h1>
+    <a href="">Voltar</a>
+</div>
+<h2 class="subtitle-service">Insira os dados gerais do novo recurso</h2>
+<form action="/recursos/create/" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <br>
-    </div>
     <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
 {% endblock content %}
