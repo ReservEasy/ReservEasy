@@ -17,28 +17,37 @@
 </head>
 
 <body id="page-top">
-
+{% comment %} 
     <!-- Page Wrapper -->
     <div id="wrapper">
+        <!-- Topbar -->
+        {%block topbar%}
+        {%include 'partials/_topbar.html'%}
+    {%endblock%}
+    <!-- End of Topbar --> {% endcomment %}
+
+
+        
 
     
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-        {%block topbar%}
-            {%include 'partials/_topbar.html'%}
-        {%endblock%}
-                <!-- End of Topbar -->
-
+            <div id="content" style="display:flex;">
+                <!-- Sidebar -->
+                {%block sidebar%}
+                    {%include 'partials/_sidebar.html'%}
+                {%endblock%}
+        <!-- End of Sidebar -->
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" >
                     {% block content %}
                     {% endblock %}
                 </div>
                 <!-- /.container-fluid -->
+
+                
+                
 
             </div>
             <!-- End of Main Content -->

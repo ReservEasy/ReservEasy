@@ -1,10 +1,26 @@
+
 *{
     margin: 0;
     padding: 0;
 }
+body{
+  background-color: #F5F5F9 !important;
+}
 #layout-base{
     width: 100%;
 }
+
+#content{
+  display:flex;
+
+}
+
+#wrapper{
+  display:flex;
+  flex-direction: column;
+}
+
+
   #layout-base #conteudo-layout {
     background-color: #415cac;
     width: 100%;
@@ -25,6 +41,7 @@
   .conteudo-fluido{
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    
   }
 
   .d-flex {
