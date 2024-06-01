@@ -1,3 +1,5 @@
+// SEARCH 
+
 function normalizeText(text) {
     return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
@@ -27,3 +29,4 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let initialCount = document.querySelectorAll('.tr-row').length;
     document.getElementById("resource-count").textContent = initialCount;
 });
+

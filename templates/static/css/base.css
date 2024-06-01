@@ -3,17 +3,13 @@
     margin: 0;
     padding: 0;
 }
-body{
+{% comment %} body{
   background-color: #F5F5F9 !important;
-}
+} {% endcomment %}
 #layout-base{
     width: 100%;
 }
 
-#content{
-  display:flex;
-
-}
 
 #wrapper{
   display:flex;

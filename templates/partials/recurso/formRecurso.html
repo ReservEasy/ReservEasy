@@ -1,14 +1,65 @@
 
 {%  extends  "partials/_base.html" %}
 {% block content %}
+{% load static %}
 
 <style>
     form{
-        width: 95%;
+        width: 80%;
         margin-left: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
     }
+
+    form p:nth-child(2){
+        display: flex;
+    }
+
+    .person-file-label {
+        display: inline-block;
+        cursor: pointer;
+        font-size: 14px;
+        color: #252525;
+        font-weight: 600;
+        text-decoration: underline;
+        position: inherit;
+        background-color: transparent !important;
+    }
+    
+    .person-file-label:hover {
+        color: #A0BE3D;
+    }
+    
+    .person-file-label:active {
+        background-color: #004085;
+    }
+    
+    #id_imagem {
+        display: none; /* Esconde o input file padrão */
+    }
+    
+    .person-file-label.attached {
+        color: blue;
+    }
+    
+    .remove-file-btn {
+        display: none;
+        padding: 2px 6px;
+        cursor: pointer;
+        font-size: 14px;
+        color: white;
+        background-color: red;
+        border: none;
+        border-radius: 4px;
+    }
+    
+    .remove-file-btn.visible {
+        display: inline-block;
+    }    
+    
     select, 
-    input[type="file"],
     input[type="text"],
     textarea {
         background-color: white;
@@ -58,15 +109,16 @@
         width: 95%;
         margin-left: 15px;
     }
-    .identification-section a, .services-btns a{
+    .identification-section button, .services-btns a{
         background-color: #022376;
+        border: none;
         color: #fff;
         padding: 5px 12px;
         font-size: 12px;
         border-radius: 5px;
         text-decoration: none;
     }
-    .identification-section a:hover{
+    .identification-section button:hover{
         text-decoration: none;
         background-color: #010C29;
     }
@@ -81,7 +133,7 @@
 </style>
 <div class="identification-section">
     <h1 class="title-service">Estoque - Coordenação de Assuntos Estudantis #1</h1>
-    <a href="">Voltar</a>
+    <button id="btnVoltar" >Voltar</button>
 </div>
 <h2 class="subtitle-service">Insira os dados gerais do novo recurso</h2>
 <form action="/recursos/create/" method="post">
@@ -89,5 +141,8 @@
         {{ form.as_p }}
     <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
+<script src="{% static 'js/inputs.js '%}"></script>
+<script src="{% static 'js/windowBack.js '%}"></script>
+
 {% endblock content %}
 

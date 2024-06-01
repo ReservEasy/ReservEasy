@@ -17,14 +17,14 @@ body,html{
     gap: 40px;
     background-color: #fff;
     width: 250px;
-    height: 100%;
+    min-height: 100vh;
     border-right: 1px #ccc solid;
     display: flex;
     margin-left: 10px;
     margin-right: 10px;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: space-around;
+    justify-content: space-between;
     box-shadow: 0px 0px 5px 0px rgba(189, 189, 189, 0,8);
 }
 
@@ -50,7 +50,7 @@ body,html{
     padding: 0px 0px 0px 20px
 }
 .link{
-    color: #252525;
+    color: #596B9A;
 }
 .link > i{
     font-size: 20px;
@@ -84,7 +84,7 @@ ul li a{
 ul li a p{
     font-size: 12px;
     margin: 0;
-    color: #252525;
+    color: #596B9A;
     font-weight: 600;
 }
 

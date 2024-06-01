@@ -118,9 +118,10 @@
         width: 95%;
         margin-left: 15px;
     }
-    .identification-section a, .services-btns a{
+    .identification-section button, .services-btns a{
         background-color: #022376;
         color: #fff;
+        border: none;
         padding: 5px 12px;
         font-size: 12px;
         border-radius: 5px;
@@ -139,7 +140,7 @@
         background-color: #48551B;
         text-decoration: none;
     }
-    .identification-section a:hover{
+    .identification-section button:hover{
         text-decoration: none;
         background-color: #010C29;
     }
@@ -203,7 +204,7 @@
 
 <div class="identification-section">
     <h1 class="title-service">Estoque - Coordenação de Assuntos Estudantis #1</h1>
-    <a href="">Voltar</a>
+    <button id="btnVoltar" >Voltar</button>
 </div>
 <div class="search-tools">
     <div class="search-recursos">
@@ -266,6 +267,7 @@
 </table>
 </div>
 
-<script src="{% static 'js/utilities.js '%}"></script>
+<script src="{% static 'js/search.js '%}"></script>
+<script src="{% static 'js/windowBack.js '%}"></script>
 </body>
 {% endblock %}

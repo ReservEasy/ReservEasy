@@ -112,6 +112,12 @@ form {
     cursor: pointer;
 }
 
+.errorlist {
+    font-size: 12px;
+    width: 300px;
+    text-align: justify;
+    color: #666666;
+}
 #button-entrar-login:hover {
     background-color: #607225;
 
@@ -137,3 +143,15 @@ form {
     font-weight: bold;
 }
 
+.password-wrapper {
+    position: relative;
+
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

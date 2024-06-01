@@ -93,6 +93,10 @@
                         <span class="helptext">Informe a mesma senha informada anteriormente, para verificação.</span>
                     </p>
                 </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="termo_uso" name="termo_uso" required>
+                    <label class="form-check-label" for="termo_uso">Estou de acordo com o <a href="#" data-toggle="modal" data-target="#termosDeUsoModal">termo de uso</a></label>
+                </div>
                 <button type="submit" id="button-cadastrar-usuario">Cadastrar </button>
             </form>
             
@@ -117,7 +121,7 @@
                         {{ form.email }}
                     </p>
                     <p>
-                        <label for="matricula">Siape</label>
+                        <label for="matricula">Siape:</label>
                         {{ form.matricula }}
                     </p>
                     <p>
@@ -148,33 +152,23 @@
                         <span class="helptext">Informe a mesma senha informada anteriormente, para verificação.</span>
                     </p>
                 </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="termo_uso" name="termo_uso" required>
+                    <label class="form-check-label" for="termo_uso">Estou de acordo com os <a href="#" data-toggle="modal" data-target="#termosDeUsoModal">termos de uso</a></label>
+                </div>
                 <button type="submit" id="button-cadastrar-usuario">Cadastrar </button>
             </form>
             
             
             <p class="login-usuario">Possui uma conta? <a href="/accounts/login/">Acesse sua conta agora</a></p>
         </div>
+    </div>
+    </div>
     </section>
-    <script>
-        function showInputsForm() {
-            var discenteRadio = document.getElementById("discente");
-            var servidorRadio = document.getElementById("servidor");
-            var servidorInputs = document.getElementById("cadastro-form-servidor");
-            var discenteInputs = document.getElementById("cadastro-form-discente");
-
-        
-            if (discenteRadio.checked) {
-                discenteInputs.style.display = "flex";
-                servidorInputs.style.display = "none";
-            } else if (servidorRadio.checked) {
-                discenteInputs.style.display = "none";
-                servidorInputs.style.display = "flex";
-                var cargoInput = servidorInputs.querySelector("[name='cargo']");
-            cargoInput.value = "";
-            }
-            
-        }
-    </script>
+    <script src="{% static 'js/showInputs.js '%}"></script>
+    
+    
+</body>
 </body>
 
 </html>

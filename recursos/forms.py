@@ -5,5 +5,5 @@ from .models import Recurso
 class RecursoForm(ModelForm):
     class Meta:
         model = Recurso
-        fields = ['nome', 'imagem', 'descricao', 'tipo']
+        fields = ['nome','imagem', 'descricao', 'tipo']
 
