@@ -1,0 +1,31 @@
+
+{%  extends  "partials/_base.html" %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/formRecurso.css' %}">
+</head>
+<body>
+<div class="identification-section">
+    <h1 class="title-service">Estoque - Coordenação de Assuntos Estudantis #1</h1>
+    <button id="btnVoltar" >Voltar</button>
+</div>
+<h2 class="subtitle-service">Insira os dados gerais do novo equipamento</h2>
+<form action="/recursos/createEquipamento/" method="post" enctype="multipart/form-data">
+        
+    <div class="input-recurso">
+        {% csrf_token %}
+        {{ form.as_p }}
+    </div>
+    <div class="button-container">
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </div>
+</form>
+<script src="{% static 'js/inputs.js '%}"></script>
+<script src="{% static 'js/windowBack.js '%}"></script>
+
+{% endblock content %}
+</body>
+</html>

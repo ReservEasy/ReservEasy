@@ -49,20 +49,20 @@ body,html{
     gap: 20px;
     padding: 0px 0px 0px 20px
 }
-.link{
+.link-service{
     color: #596B9A;
 }
-.link > i{
+.link-service > i{
     font-size: 20px;
 }
-.link:hover{
+.link-service:hover{
     color: #A3C23E;
     text-decoration: none;
 }
 
-.link p:hover{
+{% comment %} .link p:hover{
     color: #A3C23E;
-}
+} {% endcomment %}
 
 .title-dashboard-servicos{
     font-weight: bold;
@@ -145,7 +145,7 @@ font-size:20px;
     margin: 0;
 }
 
-.logout-atalho:hover{
+.logout-atalho:hover, .link-service:hover{
     color: #A3C23E;
     text-decoration: none;
 }

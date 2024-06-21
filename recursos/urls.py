@@ -4,9 +4,10 @@ from . import views
 
 urlpatterns = [
     #path("", views.index, name="index"),
-    path("create/", views.criar, name="criar"),
+    path("createEquipamento/", views.criarEquipamento, name="criarEquipamento"),
+    path("createEspaco/", views.criarEspaco, name="criarEspaco"),
     path("", views.listarRecursos, name="listar"), #padrão ir pra cá, padrão listar
-    path("editar/<int:id_recurso>", views.editar, name="editar"),
+    path('editar/<int:id_recurso>/', views.editarRecurso, name='editarRecurso'),
     path("deletar/<int:id_recurso>", views.deletar, name="deletar"), 
     path("deletar/confirmar/<int:id_recurso>", views.confirmarDelete, name="confirmar"), 
     path("detalhar/<int:id_recurso>", views.detail, name="detalhar"), 

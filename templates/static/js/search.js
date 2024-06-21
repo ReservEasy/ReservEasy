@@ -26,7 +26,8 @@ function search() {
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    let initialCount = document.querySelectorAll('.tr-row').length;
+    let rows = document.querySelectorAll('.tr-row');
+    // Ignora o cabeçalho da tabela ao contar
+    let initialCount = rows.length > 0 ? rows.length - 1 : 0;
     document.getElementById("resource-count").textContent = initialCount;
 });
-

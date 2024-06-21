@@ -1,3 +1,4 @@
+from typing import Any
 from django.forms import ModelForm
 from .models import Usuario
 from django.contrib.auth.forms import UserCreationForm
@@ -17,4 +18,10 @@ class UsuarioForm(UserCreationForm):
             'cargo',
             'password'
         ]
-        #falta telefone, add depois para arrumar erro do template
+
+# mascara do input do form0
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        self.fields['telefone'].widget.attrs.update({'class': 'mask-telefone'})
+        self.fields['data_nascimento'].widget.attrs.update({'class': 'mask-date'})

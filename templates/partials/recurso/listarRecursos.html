@@ -81,7 +81,7 @@
     }
 
     .btn-editar:hover {
-        background-color: #28a745;
+        background-color: #48551B;
         color: #fff;
     }
 
@@ -103,6 +103,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        height: 70px;
     }
 
     .th-column {
@@ -139,6 +140,7 @@
     .services-btns a:hover{
         background-color: #48551B;
         text-decoration: none;
+        color: #fff;
     }
     .identification-section button:hover{
         text-decoration: none;
@@ -216,8 +218,8 @@
     </div>
     <div class="services-btns">
         {% if is_admin_setor %}
-        <a href="/recursos/create/">Cadastrar Equipamento</a>
-        <a href="/recursos/create/">Cadastrar Espaço</a>
+        <a href="/recursos/createEquipamento/" class="btn">Cadastrar Equipamento</a>
+        <a href="/recursos/createEspaco/" class="btn">Cadastrar Espaço</a>
         {% endif %}
     </div>
 </div>
@@ -234,7 +236,6 @@
             <th class="th-column">Quant Total</th>
             <th class="th-column">Quant Disponível</th>
             <th class="th-column">Descrição</th>
-            <th class="th-column">Tipo</th>
             {% if is_admin_setor %}
                 <th class="th-column">Ações</th>
             {% endif %}
@@ -246,10 +247,9 @@
         <tr class="tr-row">
             <td><img src="{{ recurso.imagem.url }}" alt="{{ recurso.nome }}"></td>
             <td class="recurso-view">{{ recurso.nome }}</td>
-            <td>{{ recurso.quantidade_total }}</td>
-            <td>{{ recurso.quantidade_disponivel }}</td>
+            <td>{{ recurso.quantTotal|default:"1" }}</td>
+            <td>{{ recurso.quantDisponivel }}</td>
             <td>{{ recurso.descricao }}</td>
-            <td>{{ recurso.tipo }}</td>
             {% if is_admin_setor %}
                 <td class="actions">
                     <a href="/recursos/editar/{{ recurso.id }}" class="btn btn-editar"><i class="fa-solid fa-pen-to-square"></i></a>

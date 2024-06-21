@@ -1,0 +1,140 @@
+{% extends "partials/_base.html" %}
+{% block content %}
+{% load static %}
+
+<style>
+    .identification-section {
+        margin-top: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 95%;
+        margin-left: 15px;
+    }
+    .identification-section button, .services-btns a {
+        background-color: #022376;
+        border: none;
+        color: #fff;
+        padding: 5px 12px;
+        font-size: 12px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    .identification-section button:hover {
+        background-color: #010C29;
+    }
+    .title-service {
+        font-size: 25px;
+    }
+    .subtitle-service {
+        margin-top: 10px;
+        font-size: 15px;
+        margin-left: 15px;
+    }
+    
+    div label {
+        font-size: 14px;
+        font-weight: 300;
+        color: #333333;
+    }
+    div input {
+        background-color: transparent;
+        border: 0.1px solid #666666;
+        border-radius: 5px;
+        width: 100%;
+        padding: 6px 5px;
+        font-size: 13px;
+    }
+    form {
+        display: flex;
+        margin-top: 40px;
+        width: 80%;
+        flex-direction: column;
+        justify-content: center;
+        gap: 15px;
+        margin-left: 15px;
+        flex-wrap: wrap;
+    }
+    p {
+        width: 50%;
+        gap: 10px;
+    }
+    form .inputs-crud{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        gap: 20px 40px;
+    }
+    .container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .container a {
+        font-size: 14px;
+    }
+    .container input[type="checkbox"] {
+        width: 15px;
+        height: 15px;
+    }
+    button[type="submit"] {
+        background-color: #022376;
+        border: none;
+        color: #fff;
+        padding: 6px 20px;
+        font-size: 13px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    button[type="submit"]:hover {
+        background-color: #010C29;
+    }
+    form .button-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    
+    #imagem-clear_id,
+        #imagem-clear_id + label {
+            display: none;
+        }
+
+</style>
+
+<div class="identification-section">
+    <h1 class="title-service">Estoque - Coordenação de Assuntos Estudantis #1</h1>
+    <button id="btnVoltar">Voltar</button>
+</div>
+
+<h2 class="subtitle-service">Dados gerais do recurso:</h2>
+
+<form action="/recursos/editar/{{ id_recurso }}/" method="post" enctype="multipart/form-data">
+    <div class="inputs-crud">
+        {% csrf_token %}
+        {{ form.as_div }}
+    </div>
+
+    <div class="button-container">
+        <button type="submit" class="btn btn-primary">Atualizar</button>
+    </div>
+</form>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var fileInput = document.getElementById('id_imagem');
+        var clearCheckbox = document.getElementById('imagem-clear_id');
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                clearCheckbox.checked = true;
+            } else {
+                clearCheckbox.checked = false;
+            }
+        });
+    });
+<script src="{% static 'js/windowBack.js' %}"></script>
+
+{% endblock content %}
