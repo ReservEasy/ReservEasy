@@ -252,10 +252,14 @@
             <td>{{ recurso.descricao }}</td>
             {% if is_admin_setor %}
                 <td class="actions">
-                    <a href="/recursos/editar/{{ recurso.id }}" class="btn btn-editar"><i class="fa-solid fa-pen-to-square"></i></a>
-                    <a href="/recursos/deletar/confirmar/{{ recurso.id }}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
-                </td>
+                     <a href="/recursos/editar/{{ recurso.id }}" class="btn btn-editar"><i class="fa-solid fa-pen-to-square"></i></a>
+                    {% if recurso.get_tipo == "Equipamento" %}
+                        <a href="/recursos/deletarEquipamento/confirmar/{{ recurso.id }}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+                    {% elif recurso.get_tipo == "Espaco" %}
+                        <a href="/recursos/deletarEspaco/confirmar/{{ recurso.id }}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
             {% endif %}
+    </td>
+{% endif %}
         </tr>
         {% endfor %}
         {% else %}

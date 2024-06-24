@@ -13,6 +13,10 @@ class Recurso(models.Model):
 
     class Meta: #a classe Recurso é abstrata e nao vai ter uma tabela para ela, apenas um modelo
         abstract = True
+    
+    #descobrir qual tipo de classe a instancia pertence 
+    def get_tipo(self):
+        return self.__class__.__name__
 
 #herdando de recurso
 class Equipamento(Recurso):

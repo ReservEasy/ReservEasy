@@ -9,7 +9,8 @@ urlpatterns = [
     path("", views.listarRecursos, name="listar"), #padrão ir pra cá, padrão listar
     path('editar/<int:id_recurso>/', views.editarRecurso, name='editarRecurso'),
     path("deletar/<int:id_recurso>", views.deletar, name="deletar"), 
-    path("deletar/confirmar/<int:id_recurso>", views.confirmarDelete, name="confirmar"), 
+    path("deletarEquipamento/confirmar/<int:id_recurso>", views.confirmarDeleteEquipamento, name="confirmarDeleteEquipamento"), 
+    path("deletarEspaco/confirmar/<int:id_recurso>", views.confirmarDeleteEspaco, name="confirmarDeleteEspaco"), 
     path("detalhar/<int:id_recurso>", views.detail, name="detalhar"), 
     #<int:id_cidade> == padrão de como será
 

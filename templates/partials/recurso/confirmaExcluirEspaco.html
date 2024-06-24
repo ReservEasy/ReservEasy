@@ -1,0 +1,50 @@
+{% extends 'partials/_base.html' %}
+
+{% block content %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/deleteRecurso.css' %}">
+</head>
+
+<body>
+
+<div class="identification-section">
+    <h1 class="title-service">Estoque - Coordenação de Assuntos Estudantis #1</h1>
+    <button id="btnVoltar">Voltar</button>
+</div>
+
+<div class="container">
+    <h3 class="mt-3">Tem certeza que deseja excluir esse recurso?</h3>
+    <p>Essa ação excluirá os dados do recurso cadastrado e não poderá ser desfeita.</p>
+
+    <div class="formEditar">
+        <dl class="mt-4">
+            <dt>Nome:</dt>
+            <dd>{{ recurso.nome }}</dd>
+
+            <dt>Descrição:</dt>
+            <dd>{{ recurso.descricao }}</dd>
+
+                <dt>Localização:</dt>
+                <dd>{{ recurso.localizacao }}</dd>
+        </dl>
+
+        <div class="imageRecurso">
+            <dt>Imagem:</dt>
+            <img src="{{ recurso.imagem.url }}" alt="{{ recurso.nome }}">
+        </div>
+    </div>
+
+    <div class="btn-confirmacao">
+        <a href="/recursos/deletar/{{ recurso.id }}" class="btn btn-confirmar">Sim</a>
+        <a href="/recursos/" class="btn btn-recusar">Não</a>
+    </div>
+
+
+</div>
+
+<script src="{% static 'js/windowBack.js' %}"></script>
+</body>
+{% endblock %}
+
+    
