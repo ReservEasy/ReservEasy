@@ -4,7 +4,6 @@
         
     }
     form .input-recurso{
-        width: 80%;
         margin-left: 15px;
         display: flex;
         flex-wrap: wrap;
@@ -144,4 +143,29 @@
         display: flex;
         gap: 20px;
         align-items: center;
+    }
+    .image-preview {
+        width: 400px;
+        height: 200px;
+        border: 2px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f0f0f0;
+        color: #ccc;
+        font-size: 16px;
+        border-radius: 50%;
+    }
+    .image-preview img {
+        max-width: 80%;
+        max-height: 80%;
+    }
+    .image-preview span {
+        font-size: 12px; 
+    }
+    .layoutFlex{
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap:15px;
     }

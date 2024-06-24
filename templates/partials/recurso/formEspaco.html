@@ -6,6 +6,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="{% static 'css/formRecurso.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div class="identification-section">
@@ -13,6 +14,8 @@
     <button id="btnVoltar" >Voltar</button>
 </div>
 <h2 class="subtitle-service">Insira os dados gerais do novo recurso</h2>
+<div class="layoutFlex">
+    <div class="image-preview" id="image-preview"><span>Pré-visualização da imagem</span></div>
 <form action="/recursos/createEspaco/" method="post" enctype="multipart/form-data">
     <div class="input-recurso">
         {% csrf_token %}
@@ -21,11 +24,12 @@
     <div class="button-container">
         <button type="submit" class="btn btn-primary">Cadastrar</button>
     </div>
-<div class="button-container">
-        <button type="submit" class="btn btn-primary">Cadastrar</button>
-    </div></form>
+    
+</form>
+</div>
 <script src="{% static 'js/inputs.js '%}"></script>
 <script src="{% static 'js/windowBack.js '%}"></script>
+<script src="{% static 'js/updateImagePreview.js '%}"></script>
 
 {% endblock content %}
 </body>
