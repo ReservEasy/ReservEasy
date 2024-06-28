@@ -22,13 +22,15 @@
                 <a href="#" class="btn-header">Meu perfil</a>
             </div> {% endcomment %}
         </div>
-        <div class="btn-usuario-subst">
-            <a href="#" class="btn-subst" id="btn-subst-profile">
-                <img src="{% static 'img/user.png' %}" alt="user" class="photo-usuario">
-                <p class="name-usuario">{{user}}</p>
-            </a>
-            <a href="#" class="btn-subst" data-bs-toggle="modal" data-bs-target="#confirmacaoModal">Sair</a>
-        </div>
+        {% if user.is_authenticated %}
+            <div class="btn-usuario-subst">
+                <a href="#" class="btn-subst" id="btn-subst-profile">
+                    <img src="{% static 'img/user.png' %}" alt="user" class="photo-usuario">
+                    <p class="name-usuario">{{user}}</p>
+                </a>
+                <a href="#" class="btn-subst" data-bs-toggle="modal" data-bs-target="#confirmacaoModal">Sair</a>
+            </div>
+        {% endif %}
     </header>
     <!-- Modal -->
     <div class="modal fade" id="confirmacaoModal" tabindex="-1" aria-labelledby="confirmacaoModalLabel" aria-hidden="true">

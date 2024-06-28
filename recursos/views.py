@@ -26,6 +26,7 @@ def index(request):
 #         form = RecursoForm()
 #     return render(request, 'partials/recurso/formRecurso.html', {'form':form})
 
+@user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def criarEquipamento(request):
     if request.method == 'POST':
         form = EquipamentoForm(request.POST, request.FILES)
@@ -36,6 +37,7 @@ def criarEquipamento(request):
         form = EquipamentoForm()
     return render(request, 'partials/recurso/formEquipamento.html', {'form': form})
 
+@user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def criarEspaco(request):
     if request.method == 'POST':
         form = EspacoForm(request.POST, request.FILES)
@@ -49,9 +51,9 @@ def criarEspaco(request):
 #metodo que lista todos os registros
 @login_required
 def listarRecursos(request):
-    user = request.user
-    administrador_setor = Group.objects.get(name='Administrador de Setor')
-    is_admin_setor = administrador_setor in user.groups.all()
+    user = request.user #armazena qual usuário realizou a solicitação de listagem
+    administrador_setor = Group.objects.get(name='Administrador de Setor') #obtem o grupo administrador de setor no bd
+    is_admin_setor = administrador_setor in user.groups.all() #verifica se o grupo obtido está presente entre os grupos no qual o usuário atual pertence
 
     equipamentos = Equipamento.objects.all()
     espacos = Espaco.objects.all()

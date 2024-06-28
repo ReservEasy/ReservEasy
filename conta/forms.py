@@ -16,7 +16,8 @@ class UsuarioForm(UserCreationForm):
             'turma',
             'data_nascimento',
             'cargo',
-            'password'
+            'password1',
+            'password2'
         ]
 
 # mascara do input do form0

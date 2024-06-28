@@ -11,7 +11,7 @@ from .forms import UsuarioForm
 
 # def index(request):
 #     return HttpResponse("Hello, world. You're at the rua index.")
-
+# converte a senha em um hash
 
 def register(request):
     if request.method == 'POST':

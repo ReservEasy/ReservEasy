@@ -44,52 +44,90 @@
             <form action="" method="post" class="cadastro-usuario" id="cadastro-form-discente" style="display: none;" >
                 <div class="inputs-form discente" >
                     {% csrf_token %}
+                    {% if form.non_field_errors %}
+                    <div class="error">{{ form.non_field_errors }}</div>
+                {% endif %}
                     <p>
                         {{ form.username.label_tag }}
                         {{ form.username }}
+                        {% if form.username.errors %}
+                        <div class="error">{{ form.username.errors }}</div>
+                        {% endif %}
                         <span class="helptext">Obrigatório. 150 caracteres ou menos. Letras, números e @/./+/-/_ apenas.</span>
                     </p>
                     <p>
                         {{ form.first_name.label_tag }}
                         {{ form.first_name }}
+                        {% if form.first_name.errors %}
+                            <div class="error">{{ form.first_name.errors }}</div>
+                        {% endif %}
                     </p>
                     <p>
                         {{ form.last_name.label_tag }}
                         {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                            <div class="error">{{ form.last_name.errors }}</div>
+                        {% endif %}
                     </p>
                     <p>
                         {{ form.email.label_tag }}
                         {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="error">{{ form.email.errors }}</div>
+                        {% endif %}
                     </p>
                     <p>
                         {{ form.matricula.label_tag }}
                         {{ form.matricula }}
+                        {% if form.matricula.errors %}
+                            <div class="error">{{ form.matricula.errors }}</div>
+                        {% endif %}
                     </p>
                     <p>
                         {{ form.turma.label_tag }}
                         {{ form.turma }}
+                        {% if form.turma.errors %}
+                        <div class="error">{{ form.turma.errors }}</div>
+                        {% endif %}
                     </p>
                     <p>
                         {{ form.telefone.label_tag }}
                         {{ form.telefone }}
+                        {% if form.telefone.errors %}
+                            <div class="error">{{ form.telefone.errors }}</div>
+                        {% endif %}
                     </p>
                     <p>
                         {{ form.data_nascimento.label_tag }}
                         {{ form.data_nascimento }}
+                        {% if form.data_nascimento.errors %}
+                            <div class="error">{{ form.data_nascimento.errors }}</div>
+                        {% endif %}
                     </p>
                     <p>
-                        {{ form.password.label_tag }}
-                        {{ form.password }}
+                        {{ form.password1.label_tag }}
+                        {{ form.password1 }}
+                        {% if form.password1.errors %}
+                        <div class="error">
+                            {{ form.password1.errors }}
+                        </div>
+                        {% endif %}
                         <ul>
-                            <li>Sua senha não pode ser muito parecida com o resto das suas informações pessoais.</li>
-                            <li>Sua senha precisa conter pelo menos 8 caracteres.</li>
-                            <li>Sua senha não pode ser uma senha comumente utilizada.</li>
-                            <li>Sua senha não pode ser inteiramente numérica.</li>
+                            <strong> Informações sobre sua senha:</strong>
+                            <li>Ela não pode ser muito parecida com suas informações pessoais.</li>
+                            <li>Ela precisa conter pelo menos 8 caracteres.</li>
+                            <li>Ela não pode ser uma senha comumente utilizada.</li>
+                            <li>Ela não pode ser inteiramente numérica.</li>
                         </ul>
                     </p>
                     <p>
                         {{ form.password2.label_tag }}
                         {{ form.password2 }}
+                        {% if form.password2.errors %}
+                        <div class="error">
+                            <strong> {{ form.password2.errors }} </strong>
+                        </div>
+                        {% endif %}
                         <span class="helptext">Informe a mesma senha informada anteriormente, para verificação.</span>
                     </p>
                 </div>
@@ -100,55 +138,95 @@
                 <button type="submit" id="button-cadastrar-usuario">Cadastrar </button>
             </form>
             
-            <form action="" method="post" class="cadastro-usuario" id="cadastro-form-servidor" style="display: none;" >
-                <div class="inputs-form servidor" >
+            <form action="" method="post" class="cadastro-usuario" id="cadastro-form-servidor" style="display: none;">
+                <div class="inputs-form servidor">
                     {% csrf_token %}
+                    {% if form.non_field_errors %}
+                        <div class="error">{{ form.non_field_errors }}</div>
+                    {% endif %}
                     <p>
                         {{ form.username.label_tag }}
                         {{ form.username }}
+                        {% if form.username.errors %}
+                            <div class="error">{{ form.username.errors }}</div>
+                        {% endif %}
                         <span class="helptext">Obrigatório. 150 caracteres ou menos. Letras, números e @/./+/-/_ apenas.</span>
                     </p>
                     <p>
                         {{ form.first_name.label_tag }}
                         {{ form.first_name }}
+                        {% if form.first_name.errors %}
+                            <div class="error">{{ form.first_name.errors }}</div>
+                        {% endif %}
                     </p>
                     <p>
                         {{ form.last_name.label_tag }}
                         {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                            <div class="error">{{ form.last_name.errors }}</div>
+                        {% endif %}
                     </p>
                     <p>
                         {{ form.email.label_tag }}
                         {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="error">{{ form.email.errors }}</div>
+                        {% endif %}
                     </p>
                     <p>
                         <label for="matricula">Siape:</label>
                         {{ form.matricula }}
+                        {% if form.matricula.errors %}
+                            <div class="error">{{ form.matricula.errors }}</div>
+                        {% endif %}
                     </p>
                     <p>
                         {{ form.cargo.label_tag }}
                         {{ form.cargo }}
+                        {% if form.cargo.errors %}
+                            <div class="error">{{ form.cargo.errors }}</div>
+                        {% endif %}
                     </p>
                     <p>
                         {{ form.telefone.label_tag }}
                         {{ form.telefone }}
+                        {% if form.telefone.errors %}
+                            <div class="error">{{ form.telefone.errors }}</div>
+                        {% endif %}
                     </p>
                     <p>
                         {{ form.data_nascimento.label_tag }}
                         {{ form.data_nascimento }}
+                        {% if form.data_nascimento.errors %}
+                            <div class="error">{{ form.data_nascimento.errors }}</div>
+                        {% endif %}
                     </p>
                     <p>
-                        {{ form.password.label_tag }}
-                        {{ form.password }}
+                        {{ form.password1.label_tag }}
+                        {{ form.password1 }}
+                        {% if form.password1.errors %}
+                        <div class="error">
+                            {{ form.password1.errors }}
+                        </div>
+                        
+                        {% endif %}
                         <ul>
-                            <li>Sua senha não pode ser muito parecida com o resto das suas informações pessoais.</li>
-                            <li>Sua senha precisa conter pelo menos 8 caracteres.</li>
-                            <li>Sua senha não pode ser uma senha comumente utilizada.</li>
-                            <li>Sua senha não pode ser inteiramente numérica.</li>
+                            <strong> Informações sobre sua senha:</strong>
+                            <li>Ela não pode ser muito parecida com suas informações pessoais.</li>
+                            <li>Ela precisa conter pelo menos 8 caracteres.</li>
+                            <li>Ela não pode ser uma senha comumente utilizada.</li>
+                            <li>Ela não pode ser inteiramente numérica.</li>
                         </ul>
                     </p>
                     <p>
                         {{ form.password2.label_tag }}
                         {{ form.password2 }}
+                        {% if form.password2.errors %}
+                        <div class="error">
+                            <strong> {{ form.password2.errors }} </strong>
+                        </div>
+                        
+                        {% endif %}
                         <span class="helptext">Informe a mesma senha informada anteriormente, para verificação.</span>
                     </p>
                 </div>
@@ -156,7 +234,7 @@
                     <input type="checkbox" class="form-check-input" id="termo_uso" name="termo_uso" required>
                     <label class="form-check-label" for="termo_uso">Estou de acordo com os <a href="#" data-toggle="modal" data-target="#termosDeUsoModal">termos de uso</a></label>
                 </div>
-                <button type="submit" id="button-cadastrar-usuario">Cadastrar </button>
+                <button type="submit" id="button-cadastrar-usuario">Cadastrar</button>
             </form>
             
             
@@ -169,7 +247,6 @@
     <script src="{% static 'js/jquery-3.7.1.min.js'%}"></script>
     <script src="{% static 'js/jquery.mask.min.js'%}"></script>
     <script src="{% static 'js/mask.js'%}"></script>
-</body>
 </body>
 
 </html>

@@ -14,7 +14,7 @@
     <nav class="sidebar">
         <ul class="sidebar-dashboard">
             <img id="logo-dashboard" src="{% static 'img/logo2.png' %}">
-             <ul class="dahboard-acessorapido">
+            <ul class="dahboard-acessorapido">
             <li class="acesso-rapido">
                 <a href="" class="link-service">
                     <i class="fa-solid fa-square-check"></i>
@@ -66,7 +66,7 @@
                     <p>Histórico</p>
                 </a>
             </li>
-           
+        
             <li class="servicos">
                 <a href="" class="link-service">
                     <i class="fa-solid fa-clipboard-check"></i>
@@ -79,7 +79,35 @@
         <div class="user-identification">
             <div class="text-identification">
                 <p class="user-name">{{user}}</p>
-                <p class="user-group">Admin Setor</p>
+                <p class="user-group">
+                    {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
+                        {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
+
+                            {% comment %} se ele pertencer ao grupo "Administrador Master" = 
+                            Exibe "Admin Master" no paragrafo {% endcomment %}
+                            {% if group.name == "Administrador Master" %} 
+                                Admin Master
+
+                            {% comment %} se ele não pertencer ao grupo "Administrador Master" = 
+                            verifica se pertence ao grupo "Administrador de Setor", se pertencer = 
+                            Exibe "Admin de Setor" no paragrafo {% endcomment %}
+                            {% elif group.name == "Administrador de Setor" %}  
+                                Admin de Setor
+
+                            {% comment %} se ele não pertencer a outro grupo = 
+                            Exibe "Solicitante" no paragrafo {% endcomment %}
+                            {% else %}
+                                Solicitante
+                            {% endif %} {% comment %} finaliza o if que verifica o pertencimento a grupos {% endcomment %}
+
+                        {% comment %} se a lista estiver vazia (ele nn pertencer a nenhum grupo) = 
+                        exibe "Solicitante" no paragrafo {% endcomment %}
+                        {% empty %}
+                            Solicitante
+                        {% endfor %} {% comment %} finaliza o for {% endcomment %}
+                    {% endif %} {% comment %} finaliza o if inicial (que permite entrada somente de usuarios autenticados) {% endcomment %}
+                </p>
+                
             </div>
             
         </div>
