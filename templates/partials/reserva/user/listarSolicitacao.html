@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/88a7a49c60.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/listarSolicitacao.css" %}">
+    <title>Solicitações | ReservEasy</title>
+</head>
+<body>
+    <section class="request-user">
+        <div class="request-user-title-filter">
+            <h1>Solicitações</h1>
+            <div class="request-filter-service">
+                <div class="request-filter">
+                    <button id="btnFilter">
+                        <i class="fa-solid fa-filter"></i>
+                        <p>Filtro</p>
+                    </button>
+                    <p class="request-count">5 Solicitações</p>
+                </div>
+                <button id="newRequest">Solicitar reserva</button>
+            </div>
+        </div>
+        <div class="request-list">
+            <ul class="list-solicitation">
+                <li class="item-solicitation">
+                    <div class="item-part-request">
+                    <div class="situation-request"></div>
+                    <div class="identification-request">
+                    <a href="" class="request-link">
+                        <p class="identification">Solicitação #113</p>
+                        <p class="status-finaly">Status: Aguardando devolução</p>
+                    </a>
+                    </div>
+                </div>
+                    <div class="detail-situation">
+                        <div class="status-request">
+                            <div class="situation-request"></div>
+                            <p class="status-request-text">Aprovado</p>
+                        </div>
+                        <div class="date-request">
+                            <p class="date-request-text">
+                                05 de Junho de 2024
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-solicitation">
+                    <div class="item-part-request">
+                    <div class="situation-request"></div>
+                    <div class="identification-request">
+                    <a href="" class="request-link">
+                        <p class="identification">Solicitação #113</p>
+                        <p class="status-finaly">Status: Aguardando retirada</p>
+                    </a>
+                    </div>
+                </div>
+                    <div class="detail-situation">
+                        <div class="status-request">
+                            <div class="situation-request"></div>
+                            <p class="status-request-text">Aprovado</p>
+                        </div>
+                        <div class="date-request">
+                            <p class="date-request-text">
+                                05 de Junho de 2024
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-solicitation">
+                    <div class="item-part-request">
+                    <div class="situation-request circle-reprovado"></div>
+                    <div class="identification-request">
+                    <a href="" class="request-link">
+                        <p class="identification">Solicitação #113</p>
+                        <!-- <p class="status-finaly">Status: Aguardando retirada</p> -->
+                    </a>
+                    </div>
+                </div>
+                    <div class="detail-situation">
+                        <div class="status-request status-reprovado">
+                            <div class="situation-request circle-reprovado"></div>
+                            <p class="status-request-text">Reprovado</p>
+                        </div>
+                        <div class="date-request">
+                            <p class="date-request-text">
+                                05 de Junho de 2024
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-solicitation">
+                    <div class="item-part-request">
+                    <div class="situation-request circle-analise"></div>
+                    <div class="identification-request">
+                    <a href="" class="request-link">
+                        <p class="identification">Solicitação #113</p>
+                        <!-- <p class="status-finaly">Status: Aguardando retirada</p> -->
+                    </a>
+                    </div>
+                </div>
+                    <div class="detail-situation">
+                        <div class="status-request status-analise">
+                            <div class="situation-request circle-analise"></div>
+                            <p class="status-request-text">Em análise</p>
+                        </div>
+                        <div class="date-request">
+                            <p class="date-request-text">
+                                05 de Junho de 2024
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+</body>
+</html>

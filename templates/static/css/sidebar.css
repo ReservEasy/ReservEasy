@@ -31,7 +31,7 @@ body,html{
     display: flex;
     flex-direction: column;
     margin: 0px;
-    gap: 40px;
+    gap: 30px;
     padding: 0;
 
 }
@@ -52,11 +52,15 @@ body,html{
     color: #596B9A;
 }
 .link-service > i{
-    font-size: 20px;
+    font-size: 18px;
+    width:23px;
 }
 .link-service:hover{
     color: #A3C23E;
     text-decoration: none;
+}
+.link-service:hover i.fa-users{
+    color: #A3C23E;
 }
 
 {% comment %} .link p:hover{
@@ -92,7 +96,7 @@ ul li a p{
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    gap: 30px;
+    gap: 20px;
     max-width: 150px;
 }
 
