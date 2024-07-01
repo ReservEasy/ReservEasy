@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/recuperar_senha.css'%}">
+    <title>Recuperação de senha | ReservEasy</title>
+</head>
+<body>
+    <section class="recuperate-password">
+        <div class="recuperate-password-apresentation">
+            <img src="{% static 'img/logo.png'%}" alt="" class="image-system">
+            <h1 class="recuperate-password-text">Recuperação de senha</h1>
+        </div>
+        <div class="recuperate-password-user">
+            <div class="circle-form" id="iconContainer">
+                <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+                <lord-icon
+                    src="https://cdn.lordicon.com/hbvyhtse.json"
+                    trigger="hover"
+                    colors="primary:#A0BE3D"
+                    style="width:80px;height:80px">
+                </lord-icon>
+            </div>
+            <div class="form-with-background">
+                <form action="" method="post" class="user">
+                    <p>
+                    <label for="email">Digite seu e-mail:</label>
+                    <input type="email" name="" id="">
+                    </p>
+                    <button type="submit" id="button-recuperar" value="recuperar">Recuperar</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
