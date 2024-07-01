@@ -80,68 +80,47 @@ def editarRecurso(request, id_recurso):
     
     return render(request, 'partials/recurso/editarRecurso.html', {'form': form, 'id_recurso': id_recurso})
 
-import os
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from .models import Equipamento, Espaco
-from django.contrib.auth.decorators import user_passes_test
 
-@user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists()) 
-def deletar(request, id_recurso):
-    try:
-        recurso = get_object_or_404(Equipamento, pk=id_recurso)
-    except Equipamento.DoesNotExist:
-        try:
-            recurso = get_object_or_404(Espaco, pk=id_recurso)
-        except Espaco.DoesNotExist:
-            return HttpResponseRedirect("/recursos/?msg=Recurso não encontrado")
 
-    if request.method == 'POST':
-        if isinstance(recurso, Equipamento):
-            # Lógica para exclusão de Equipamento
-            quantidade = request.POST.get('quantidade', 1)
-            try:
-                quantidade = int(quantidade)
-            except ValueError:
-                quantidade = 1
-            
-            if quantidade <= 0:
-                return HttpResponseRedirect("/recursos/?msg=Quantidade inválida")
-
-            if recurso.quantDisponivel < quantidade:
-                return HttpResponseRedirect("/recursos/?msg=Quantidade desejada maior que quantidade disponível")
-
-            recurso.quantDisponivel -= quantidade
-            recurso.save()
-
-            if recurso.quantDisponivel == 0:
-                if recurso.imagem:
-                    caminho_imagem = recurso.imagem.path
-                    if os.path.exists(caminho_imagem):
-                        os.remove(caminho_imagem)
-                recurso.delete()
-
-        elif isinstance(recurso, Espaco):
-            # Lógica para exclusão de Espaco
-            if recurso.imagem:
-                caminho_imagem = recurso.imagem.path
-                if os.path.exists(caminho_imagem):
-                    os.remove(caminho_imagem)
-            recurso.delete()
-
-        return HttpResponseRedirect("/recursos/?msg=Excluído")
-    
-    # Se não for POST, redireciona com mensagem de erro
-    return HttpResponseRedirect("/recursos/?msg=Erro: operação inválida para este recurso")
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def confirmarDeleteEquipamento(request, id_recurso):
     recurso = get_object_or_404(Equipamento, pk=id_recurso)
     return render(request, 'partials/recurso/confirmaExcluirEquipamento.html', {'recurso': recurso})
 
+def deletarEquipamento(request, id_recurso):
+    equipamento = get_object_or_404(Equipamento, pk=id_recurso)
+    
+    # Verifica se o espaço possui uma imagem associada e exclui a imagem
+    if equipamento.imagem:
+        caminho_imagem = equipamento.imagem.path
+        if os.path.exists(caminho_imagem):
+            os.remove(caminho_imagem)
+    
+    # Exclui o espaço do banco de dados
+    equipamento.delete()
+    
+    return HttpResponseRedirect("/recursos/?msg=Excluído")
+
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def confirmarDeleteEspaco(request, id_recurso):
     recurso = get_object_or_404(Espaco, pk=id_recurso)
     return render(request, 'partials/recurso/confirmaExcluirEspaco.html', {'recurso': recurso})
+
+@user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
+
+def deletarEspaco(request, id_recurso):
+    espaco = get_object_or_404(Espaco, pk=id_recurso)
+    
+    # Verifica se o espaço possui uma imagem associada e exclui a imagem
+    if espaco.imagem:
+        caminho_imagem = espaco.imagem.path
+        if os.path.exists(caminho_imagem):
+            os.remove(caminho_imagem)
+    
+    # Exclui o espaço do banco de dados
+    espaco.delete()
+    
+    return HttpResponseRedirect("/recursos/?msg=Excluído")
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def detail(request, id_recurso):

@@ -26,7 +26,7 @@
 
                 <dt>Quantidade Total:</dt>
                 <dd>{{ recurso.quantTotal }}</dd>
-        </dl>
+            </dl>
 
         <div class="imageRecurso">
             <dt>Imagem:</dt>
@@ -34,14 +34,13 @@
         </div>
     </div>
 
-    <div class="btn-confirmacao">
-        <a href="/recursos/deletar/{{ recurso.id }}" class="btn btn-confirmar">Sim</a>
-        <a href="/recursos/" class="btn btn-recusar">Não</a>
-    </div>
+    
 
     <div class="mt-4">
-        <label for="quantidadeDesejavel">Quantidade para Excluir:</label>
-            <input type="number" id="quantidadeDesejavel" name="quantidade" value="1" min="1" max="{{ recurso.quantTotal }}">
+        <div class="btn-confirmacao">
+            <a href="/recursos/deletarEspaco/{{ recurso.id }}" class="btn btn-confirmar">Sim</a>
+            <a href="/recursos/" class="btn btn-recusar">Não</a>
+        </div>
     </div>
 </div>
 

@@ -13,8 +13,8 @@
 
 .btn-confirmar {
     color: #fff;
-    background-color: #27ae60;
-    border: 1px solid #27ae60;
+    background-color: #A0BE3D;
+    border: 1px solid #fff;
 }
 
 .btn-recusar {
@@ -24,8 +24,8 @@
 }
 
 .btn-confirmar:hover {
-    background-color: #2ecc71;
-    border-color: #2ecc71;
+    background-color: #48551B;
+    border-color: #fff;
 }
 
 .btn-recusar:hover {
@@ -105,4 +105,52 @@ h3 {
     margin-top: 10px;
     font-size: 15px;
     margin-left: 15px;
+}
+dd {
+    margin: 10px 0;
+}
+
+dd label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#quantidade {
+    display: flex;
+    align-items: center;
+}
+
+#quantidade label {
+    margin-right: 10px;
+}
+
+#quantidade input[type="button"] {
+    background-color: #022376;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 0 5px;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+}
+
+#quantidade input[type="button"]:hover {
+    background-color: #010c29;
+}
+
+#quantidade input[type="text"] {
+    text-align: center;
+    width: 50px;
+    padding: 5px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.blocoAlerta {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 5px;
 }

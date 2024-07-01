@@ -73,8 +73,8 @@ p label {
     color: #333333;
 }
 p input {
-    background-color: #ffffff00;
-    border: 0.1px solid #666666;
+    background-color: light-dark(rgb(232, 240, 254), rgba(70, 90, 126, 0.4)) !important;
+    border: 0.1px solid #ccc;
     border-radius: 5px;
     width:90%;
     padding: 6px 5px;
@@ -106,7 +106,7 @@ form p{
 }
 #button-cadastrar-usuario {
     color: #ffffff;
-    background-color: #13510e;
+    background-color: #A0BE3D;
     font-weight: bold;
     border: none;
     border-radius: 5px;
@@ -138,28 +138,58 @@ form p{
 
 
 
-.inputs-form{
+#inputs-comuns, #inputs-discente, #inputs-servidor{
     display: flex;
     flex-direction: row;
     flex-wrap:wrap;
     justify-content: center;
 }
+#inputs-discente, #inputs-servidor{
+    width: 50%;
+}
 
-.inputs-form > p:nth-child(12){   
+#inputs-discente > p, #inputs-servidor> p{
+    width: 100%;
+}
+
+
+#inputs-comuns > p:nth-last-child(2){
     display: none;
 }
 
+
 .user-type-selection{
     display: flex;
-    gap: 50px;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
 }
-.form-check{
+.radiosUser{
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
+.general-errors{
+    background: rgb(228, 243, 174, 0.2);
+    backdrop-filter: blur(25px);
+    padding: 10px;
+    margin: 0;
+    border-radius: 10px;
+}
+.general-errors > ul {
+    margin: 0;
+}
+#form-check, #formCheckFinal{
     display: flex;
     align-items: center;
     gap: 5px;
 }
+#formCheckFinal{
+    flex-direction: column;
+    gap: 10px;
+}
 
-.form-check input{
+#form-check input{
     margin: 0;
 }
 .form-check-label{
