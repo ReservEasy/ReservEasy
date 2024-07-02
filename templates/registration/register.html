@@ -76,11 +76,11 @@
                 <div class="user-type-selection">
                     <div class="radiosUser">
                         <div class="radio-group">
-                            <input type="radio" id="servidor" name="user_type" value="servidor" onclick="mostrarInputsFormulario('servidor')"> 
+                            <input type="radio" id="servidor" name="user_type" value="2" {% if tipo == '2' %}checked{% endif %}>
                             <label for="servidor">Servidor</label>
                         </div>
                         <div class="radio-group">
-                            <input type="radio" id="discente" name="user_type" value="discente" onclick="mostrarInputsFormulario('discente')">
+                            <input type="radio" id="discente" name="user_type" value="1" {% if tipo == '1' %}checked{% endif %}>
                             <label for="discente">Discente</label>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                         {% endif %}
                         {% if form.errors %}
                         <ul>
-                            <li><strong>Selecione novamente o tipo de usuário utilizado anteriormente</strong></li>
+                            {% comment %} <li><strong>Selecione novamente o tipo de usuário utilizado anteriormente</strong></li> {% endcomment %}
                             {% for field, errors in form.errors.items %}
                             {% for error in errors %}
                             <li>{{ error }}</li>
@@ -100,7 +100,8 @@
                         {% endif %}
                     </div>
                 </div>
-                <div id="inputs-comuns" style="display: none;">
+                <div id="inputs-comuns" style="display: block;">
+                    <input type="hidden" name="tipo" id= "tipo">
                     <p>
                         {{ form.username.label_tag }}
                         {{ form.username }}
@@ -130,18 +131,20 @@
                         <label for="matricula">Matrícula/Siape:</label>
                         {{ form.matricula }}
                     </p>
-                    <div id="inputs-servidor" style="display: none;">
-                        <p>
-                            {{ form.cargo.label_tag }}
-                            {{ form.cargo }}
-                            
-                        </p>
-                    </div>
-                    <div id="inputs-discente" style="display: none;">
+                    <div id="inputs-discente" style="display: {% if tipo == '1' %}block{% else %}none{% endif %};">
                         <p>
                             {{ form.turma.label_tag }}
                             {{ form.turma }}
                         </p>
+
+                    </div>
+
+                    <div id="inputs-servidor" style="display: {% if tipo == '2' %}block{% else %}none{% endif %};">
+                        <p>
+                            {{ form.cargo.label_tag }}
+                            {{ form.cargo }}
+                        </p>
+
                     </div>
                     <p>
                         {{ form.password1.label_tag }}
@@ -160,7 +163,7 @@
                         <span class="helptext">Informe a mesma senha informada anteriormente, para verificação.</span>
                     </p>
                 </div>
-                <div id="formCheckFinal" style="display: none;">
+                <div id="formCheckFinal" style="display: block;">
                     <div id="form-check">
                         <input type="checkbox" class="form-check-input" id="termo_uso" name="termo_uso" required>
                         <label class="form-check-label" for="termo_uso">Estou de acordo com o <a href="#" id="open-modal-termos">termo de uso</a></label>
@@ -199,14 +202,13 @@
                 <p>Ao prosseguir com o uso do sistema, o usuário declara estar ciente e concordar com todos os pontos descritos neste Termo de Uso.</p>
             </div>
             <hr>
-           
+        
         </div>
     </div>
 
-    <script src="{% static 'js/showInputs.js '%}"></script>
     <script src="{% static 'js/jquery-3.7.1.min.js'%}"></script>
-    <script src="{% static 'js/jquery.mask.min.js'%}"></script>
-    <script src="{% static 'js/mask.js'%}"></script>
+    <script src="{% static 'js/jquery.mask.min.js'%}"></script> {% comment %} mascara em input (estilização) {% endcomment %}
+    <script src="{% static 'js/mask.js'%}"></script> {% comment %} mascara tbm {% endcomment %}
     <script>
         // Script para manipular o modal
         document.addEventListener('DOMContentLoaded', function() {
@@ -236,6 +238,55 @@
             });
         });
     </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+             // Script para mostrar as divs específicas
+
+            //definindo variaveis referentes aos inputs radio e as divs de inputs específicos
+            var servidorRadio = document.getElementById('servidor');
+            var discenteRadio = document.getElementById('discente');
+            var inputsServidor = document.getElementById('inputs-servidor');
+            var inputsDiscente = document.getElementById('inputs-discente');
+
+            //de acordo com o input radio marcado = aparece a div correspondente
+            function toggleUserType() {
+                if (servidorRadio.checked) {
+                    inputsServidor.style.display = 'block';
+                    inputsDiscente.style.display = 'none';
+                } else if (discenteRadio.checked) {
+                    inputsServidor.style.display = 'none';
+                    inputsDiscente.style.display = 'block';
+                }
+            }
+            //quando a marcação do input radio for alterada a função acima é chamada
+            servidorRadio.addEventListener('change', toggleUserType);
+            discenteRadio.addEventListener('change', toggleUserType);
+
+             // Inicializa a exibição correta com base no radio button selecionado
+            toggleUserType();
+
+            //função que define o valor do input hidden de id "tipo"
+            function defineTipo() {
+                var tipoInput = document.getElementById('tipo'); //define qual é o input
+    
+                if (servidorRadio.checked) {
+                    tipoInput.value = '2'; // Define o value do input como 2 quando o radio de servidor está marcado
+                } else if (discenteRadio.checked) {
+                    tipoInput.value = '1'; // Define o value do input como 1 quando o radio de discente está marcado
+                }
+            }
+    
+            // Adiciona um listener para chamar a função acima caso a marcação do radio mude
+            servidorRadio.addEventListener('change', defineTipo);
+            discenteRadio.addEventListener('change', defineTipo);
+    
+            // Define o tipo inicial ao carregar a página
+            defineTipo();
+        });
+    </script>
+
 
 </body>
 

@@ -15,17 +15,6 @@ import os
 def index(request):
     return HttpResponse("Hello, world. You're at the recurso index.")
 
-# @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
-# def criar(request):
-#     if request.method == 'POST':
-#         form = RecursoForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect('/recursos/?msg=Salvo')
-#     else:
-#         form = RecursoForm()
-#     return render(request, 'partials/recurso/formRecurso.html', {'form':form})
-
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def criarEquipamento(request):
     if request.method == 'POST':
@@ -37,6 +26,7 @@ def criarEquipamento(request):
         form = EquipamentoForm()
     return render(request, 'partials/recurso/formEquipamento.html', {'form': form})
 
+
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def criarEspaco(request):
     if request.method == 'POST':
@@ -47,6 +37,7 @@ def criarEspaco(request):
     else:
         form = EspacoForm()
     return render(request, 'partials/recurso/formEspaco.html', {'form': form})
+
 
 #metodo que lista todos os registros
 @login_required
@@ -81,12 +72,13 @@ def editarRecurso(request, id_recurso):
     return render(request, 'partials/recurso/editarRecurso.html', {'form': form, 'id_recurso': id_recurso})
 
 
-
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def confirmarDeleteEquipamento(request, id_recurso):
     recurso = get_object_or_404(Equipamento, pk=id_recurso)
     return render(request, 'partials/recurso/confirmaExcluirEquipamento.html', {'recurso': recurso})
 
+
+@user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def deletarEquipamento(request, id_recurso):
     equipamento = get_object_or_404(Equipamento, pk=id_recurso)
     
@@ -101,13 +93,14 @@ def deletarEquipamento(request, id_recurso):
     
     return HttpResponseRedirect("/recursos/?msg=Excluído")
 
+
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def confirmarDeleteEspaco(request, id_recurso):
     recurso = get_object_or_404(Espaco, pk=id_recurso)
     return render(request, 'partials/recurso/confirmaExcluirEspaco.html', {'recurso': recurso})
 
-@user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 
+@user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def deletarEspaco(request, id_recurso):
     espaco = get_object_or_404(Espaco, pk=id_recurso)
     
@@ -121,18 +114,5 @@ def deletarEspaco(request, id_recurso):
     espaco.delete()
     
     return HttpResponseRedirect("/recursos/?msg=Excluído")
-
-@user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
-def detail(request, id_recurso):
-    ##saida = recurso.objects.get(pk = id_recurso)
-    ##template = loader.get_template("recurso/index.html")
-    ##return HttpResponse(template.render({'recurso': saida}, request))
-
-    try:
-        saida = Recurso.objects.get(pk=id_recurso)
-    except:
-        saida = "Não há esse recurso (espaço ou equipamento)"
-    
-    return render(request, "recurso/index.html", {'recurso': saida})
 
     

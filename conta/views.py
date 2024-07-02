@@ -21,7 +21,16 @@ def register(request):
             return redirect('login')
     else:
         form = UsuarioForm()
-    return render(request, 'registration/register.html', {'form':form})
+
+    # Obtém o valor de 'tipo' do formulário, se presente
+    tipo = request.POST.get('tipo', None)
+
+    # Verifica se 'tipo' é válido e se não, define um valor padrão
+    if tipo not in ['1', '2']:
+        tipo = '1'  # Defina o valor padrão como '1' se não estiver definido
+
+    return render(request, 'registration/register.html', {'form': form, 'tipo': tipo})
+
 
 #metodo que lista todos os registros
 

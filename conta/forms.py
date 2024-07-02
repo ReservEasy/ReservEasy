@@ -1,9 +1,11 @@
 from typing import Any
+from django import forms
 from django.forms import ModelForm
 from .models import Usuario
 from django.contrib.auth.forms import UserCreationForm
 
 class UsuarioForm(UserCreationForm):
+    tipo = forms.IntegerField(widget=forms.HiddenInput())
     class Meta:
         model = Usuario
         fields = [
