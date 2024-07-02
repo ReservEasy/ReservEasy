@@ -8,6 +8,7 @@
 {% comment %} excluir o botão abaixo se o if estiver ativo {% endcomment %}
 
 <style>
+    
     a {
         text-decoration: none;
         color: #3498db;
@@ -259,7 +260,7 @@
                         <a href="/recursos/deletarEspaco/confirmar/{{ recurso.id }}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
             {% endif %}
     </td>
-{% endif %}
+    {% endif %}
         </tr>
         {% endfor %}
         {% else %}
@@ -271,7 +272,7 @@
 </table>
 </div>
 
-<script src="{% static 'js/search.js '%}"></script>
+<script src="search.js"></script>
 <script src="{% static 'js/windowBack.js '%}"></script>
 </body>
 {% endblock %}
