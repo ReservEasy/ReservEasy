@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'recursos',
-    'conta',
+    'usuario',
 ]
 
 MIDDLEWARE = [
@@ -136,4 +136,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/recursos/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
-AUTH_USER = 'conta.Usuario'
+AUTH_USER = 'usuario.Usuario'

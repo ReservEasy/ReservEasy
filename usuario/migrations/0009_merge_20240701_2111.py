@@ -6,8 +6,8 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('conta', '0008_alter_usuario_turma'),
-        ('conta', '0008_usuario_tipo_alter_usuario_turma'),
+        ('usuario', '0008_alter_usuario_turma'),
+        ('usuario', '0008_usuario_tipo_alter_usuario_turma'),
     ]
 
     operations = [
