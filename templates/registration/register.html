@@ -100,7 +100,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div id="inputs-comuns" style="display: flex;">
+                <div id="inputs-comuns" style="display: block;">
                     <input type="hidden" name="tipo" id= "tipo">
                     <p>
                         {{ form.username.label_tag }}
@@ -131,7 +131,7 @@
                         <label for="matricula">Matrícula/Siape:</label>
                         {{ form.matricula }}
                     </p>
-                    <div id="inputs-discente" style="display: {% if tipo == '1' %}flex{% else %}none{% endif %};">
+                    <div id="inputs-discente" style="display: {% if tipo == '1' %}block{% else %}none{% endif %};">
                         <p>
                             {{ form.turma.label_tag }}
                             {{ form.turma }}
@@ -139,7 +139,7 @@
 
                     </div>
 
-                    <div id="inputs-servidor" style="display: {% if tipo == '2' %}flex{% else %}none{% endif %};">
+                    <div id="inputs-servidor" style="display: {% if tipo == '2' %}block{% else %}none{% endif %};">
                         <p>
                             {{ form.cargo.label_tag }}
                             {{ form.cargo }}
@@ -163,7 +163,7 @@
                         <span class="helptext">Informe a mesma senha informada anteriormente, para verificação.</span>
                     </p>
                 </div>
-                <div id="formCheckFinal" style="display: flex;">
+                <div id="formCheckFinal" style="display: block;">
                     <div id="form-check">
                         <input type="checkbox" class="form-check-input" id="termo_uso" name="termo_uso" required>
                         <label class="form-check-label" for="termo_uso">Estou de acordo com o <a href="#" id="open-modal-termos">termo de uso</a></label>
@@ -218,7 +218,7 @@
 
             openModalLink.addEventListener('click', function(event) {
                 event.preventDefault();
-                modal.style.display = 'flex';
+                modal.style.display = 'block';
             });
 
             closeModalButton.addEventListener('click', function() {
@@ -253,11 +253,11 @@
             //de acordo com o input radio marcado = aparece a div correspondente
             function toggleUserType() {
                 if (servidorRadio.checked) {
-                    inputsServidor.style.display = 'flex';
+                    inputsServidor.style.display = 'block';
                     inputsDiscente.style.display = 'none';
                 } else if (discenteRadio.checked) {
                     inputsServidor.style.display = 'none';
-                    inputsDiscente.style.display = 'flex';
+                    inputsDiscente.style.display = 'block';
                 }
             }
             //quando a marcação do input radio for alterada a função acima é chamada
