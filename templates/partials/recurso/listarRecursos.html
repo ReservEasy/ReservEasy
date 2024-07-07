@@ -249,7 +249,8 @@
             <td><img src="{{ recurso.imagem.url }}" alt="{{ recurso.nome }}"></td>
             <td class="recurso-view">{{ recurso.nome }}</td>
             <td>{{ recurso.quantTotal|default:"1" }}</td>
-            <td>{{ recurso.quantDisponivel }}</td>
+            {% comment %} <td>{{ recurso.quantDisponivel }}</td> {% endcomment %}
+            <td>(Em construção)</td>
             <td>{{ recurso.descricao }}</td>
             {% if is_admin_setor %}
                 <td class="actions">

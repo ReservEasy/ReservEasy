@@ -10,7 +10,7 @@ from recursos import models
 #     list_display = ['nome', 'descricao', 'tipo', 'id',]
 
 class EquipamentoAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'descricao', 'quantTotal', 'quantDisponivel', 'id']
+    list_display = ['nome', 'descricao', 'quantTotal', 'id']
 
 class EspacoAdmin(admin.ModelAdmin):
     list_display = ['nome', 'descricao', 'localizacao', 'id']

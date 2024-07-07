@@ -21,12 +21,6 @@ class Recurso(models.Model):
 #herdando de recurso
 class Equipamento(Recurso):
     quantTotal = models.IntegerField()
-    quantDisponivel = models.IntegerField(null=True, blank=True)
-
-    def save(self, *args, **kwargs):
-        # Atualize o valor de quantDisponivel antes de salvar
-        self.quantDisponivel = self.quantTotal
-        super().save(*args, **kwargs) #provisorio
 
 class Espaco(Recurso):
     localizacao = models.CharField(max_length=100)
