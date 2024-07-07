@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setores | ReservEasy</title>
+    <script src="https://kit.fontawesome.com/88a7a49c60.js" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        p{
+            margin: 0;
+        }
+        .detail-user-name{
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+        .icon-user{
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #E3E3E3;
+            border-radius: 100%;
+            padding: 20px;
+        }
+        .icon-user img{
+            width: 80px;
+            height: auto;
+        }
+        .name-user{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+        .name-user p{
+            font-size: 20px;
+            font-weight: 600;
+        }
+        #btnVoltar {
+            background-color: #022376;
+            color: #fff;
+            border: none;
+            padding: 5px 12px;
+            font-size: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        
+        #btnVoltar:hover {
+            text-decoration: none;
+            background-color: #010C29;
+        }
+        .situation-request{
+        width: 20px;
+        height: 20px;
+        background-color: #A0BE3D;
+        border-radius: 50%;
+    }
+        .detail-user{
+            width: 80%;
+            margin: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .circle-reprovado{
+        background-color: #BE3D3D;
+    }
+    .status-request.status-reprovado{
+        background-color:#EBC3C3 !important;
+    }
+
+    .circle-analise{
+        background-color: #FBD038;
+    }
+    .status-request.status-analise{
+        background-color: #FFEBA6 !important;
+    }
+    .status-request{
+        min-width: 80px;
+        justify-content: center;
+        gap: 5px;
+        display: flex;
+        background-color: #E2EBC3; 
+        padding: 4px 8px;
+        align-items: center;
+        border-radius: 8px;
+    }
+    .status-request{
+        font-size: 10px;
+    }
+    .title-table{
+        font-weight: 600;
+        margin-bottom: 20px;
+        font-size: 15px;
+    }
+    .center-content{
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+    }
+    .status{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sector-view > a {
+            text-decoration: underline;
+            color: #A0BE3D;
+            margin: 0px;
+    }
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: 'Poppins';
+        }
+        .identification-section {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 95%;
+            margin-left: 15px;
+        }
+        #btnCriarSetor, #btnVoltar {
+            background-color: #022376;
+            color: #fff;
+            border: none;
+            padding: 5px 12px;
+            font-size: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        #btnCriarSetor:hover,
+        #btnVoltar:hover {
+            text-decoration: none;
+            background-color: #010C29;
+        }
+        .title-service {
+            font-size: 25px; 
+            font-weight: bold;
+            margin-top: 40px;
+            margin-left: 15px;  
+        }
+        .search-recursos {
+            display: flex;
+            flex-direction: column;
+        }
+        .search-tools {
+            margin-top: 20px;
+            width: 96%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .title-search-recursos {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .title-search-recursos p {
+            margin: 0;
+        }
+        .title-search-recursos i {
+            font-size: 12px;
+        }
+        .search-recursos {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin-left: 15px;
+        }
+        .search-recursos input {
+            border-radius: 4px;
+            border: 0.5px #ccc solid;
+            font-size: 14px;
+            background-color: white;
+            padding: 3px 8px;
+        }
+        .search-request {
+            display: flex;
+            justify-content: space-between;
+            display: flex;
+            gap: 5px;
+            align-items: flex-start;
+            margin-left: 15px;
+        }
+        .request-list {
+            /* height: 100vh; */
+            margin: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .data-service {
+            max-width: 220px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            border: 0.5px solid #ccc;
+            padding: 10px;
+            border-radius: 10px;
+            border-bottom: 5px solid #022376;
+            margin-right: 40px;
+            background-color: #fff;
+        }
+        .data-service-title, .count-data-service {
+            margin: 0;
+        }
+        .data-service-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .count-data-service {
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .th-column {
+            background-color: #E4E4E4 !important;
+            color: #252525 !important;
+            vertical-align: middle !important;
+        }
+        .table {
+            border-collapse: collapse;
+            width: 95%;
+            margin: 20px auto;
+            text-align: center;
+        }
+        th, td {
+            padding: 8px;
+            font-size: 12px;
+            text-align: center;
+            vertical-align: middle !important;
+        }
+        th {
+            background-color: #E4E4E4;
+            color: black;
+            font-size: 12px;
+        }
+        td a {
+            display: inline-block;
+            margin: 2px;
+            border-radius: 3px;
+        }
+        td a.edit {
+            color: #fff;
+            background-color: #27ae60;
+            border: 1px solid #27ae60;
+        }
+        td a.delete {
+            color: #fff;
+            background-color: #BE3D3D;
+            border: 1px solid #e74c3c;
+            font-size: 15px;
+        }
+        td.colspan-text {
+            text-align: center;
+            font-style: italic;
+            color: #7f8c8d;
+        }
+        .btn-editar {
+            font-size: 10px;
+            color: #fff;
+            background-color: #A0BE3D;
+        }
+        .btn-editar:hover {
+            background-color: #48551B;
+            color: #fff;
+        }
+        td {
+            background-color: #fff !important;
+            border: 0px solid #ccc !important;
+        }
+        .actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .th-column {
+            background-color: #E4E4E4 !important;
+            color: #252525 !important;
+            vertical-align: middle !important;
+        }
+        .btn > i {
+            font-size: 14px;
+            width: 15px;
+            height: 15px;
+        }
+        .btn {
+            padding: 5px 10px;
+        }
+        .btn-acessar {
+            color: #fff;
+            background-color: #FBD038;
+        }
+        .btn-acessar:hover {
+            background-color: #BD9505;
+            color: #fff;
+        }
+        .tr-row, .th-column {
+            border-bottom: 0px solid #ccc;
+        }
+        table, thead, tr, th, tbody, td {
+            border: 0 !important;
+            text-align: start;
+        }
+        td, .th-column {
+            padding: 5px !important;
+        }
+        th {
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+        }
+        .tr-row, tr {
+            border-bottom: 1px solid #ccc !important;
+        }
+        .th-column {
+            background-color: transparent !important;
+            border: 0px solid #ccc;
+        }
+        .request-view > a {
+            text-decoration: underline;
+            color: #A0BE3D;
+            margin: 0px;
+        }
+        .status{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    </style>
+</head>
+<body>
+    <section class="request-list">
+        <div class="identification-section">
+            <h1 class="title-service">Histórico de Solicitações</h1>
+            <div class="btns-path">
+                <button id="btnVoltar">Voltar</button>
+            </div>
+        </div>
+        <div class="search-request">
+            <div class="search-recursos">
+                <div class="title-search-recursos">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <p>Digite o nome do usuário:</p>
+                </div>
+                <input type="text" name="searchbar" id="searchbar" placeholder="Pesquisar" onkeyup="search()">
+            </div>
+            <div class="data-service">
+                <p class="count-data-service" id="resource-count">4</p>
+                <p class="data-service-title">Solicitações registradas</p>
+            </div>
+        </div>
+        <table class="table table-striped table-bordered mt-3">
+            <thead>
+                <tr class="tr-row">
+                    <th class="th-column">ID</th>
+                    <th class="th-column">Usuário</th>
+                    <th class="th-column">Data</th>
+                    <th class="th-column">Horário Inicial e Final</th>
+                    <th class="th-column">Situação</th>
+                </tr>
+            </thead>
+            <tbody id="resource-list">
+                <tr class="tr-row">
+                    <td class="request-view"><a href="">25</a></td>
+                    <td class="recurso-view">Gustavo Santos Pinto</td>
+                    <td class="recurso-view">25/02/2024</td>
+                    <td class="recurso-view">15:00 - 23:00</td>
+                    <td class="recurso-view status">
+                        <div class="status-request status-analise">
+                            <div class="situation-request circle-analise"></div>
+                            <p class="status-request-text">Em análise</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="tr-row">
+                    <td class="request-view"><a href="">26</a></td>
+                    <td class="recurso-view">Mariana Silva Costa</td>
+                    <td class="recurso-view">26/02/2024</td>
+                    <td class="recurso-view">10:00 - 12:00</td>
+                    <td class="recurso-view status">
+                        <div class="status-request status-analise">
+                            <div class=" situation-request circle-analise"></div>
+                            <p class="status-request-text">Em análise</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="tr-row">
+                    <td class="request-view"><a href="">27</a></td>
+                    <td class="recurso-view">Pedro Lima</td>
+                    <td class="recurso-view">27/02/2024</td>
+                    <td class="recurso-view">08:00 - 10:00</td>
+                    <td class="recurso-view status">
+                        <div class="status-request status-aprovado">
+                            <div class=" situation-request"></div>
+                            <p class="status-request-text">Aprovado</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="tr-row">
+                    <td class="request-view"><a href="">28</a></td>
+                    <td class="recurso-view">Ana Paula Souza</td>
+                    <td class="recurso-view">28/02/2024</td>
+                    <td class="recurso-view">14:00 - 16:00</td>
+                    <td class="recurso-view status">
+                        <div class="status-request status-reprovado">
+                            <div class=" situation-request circle-reprovado"></div>
+                            <p class="status-request-text">Reprovado</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <script>
+        // função para normalizar texto removendo acentos
+        function normalizeText(text) {
+            return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        }
+
+        // função para filtrar linhas da tabela baseado na pesquisa
+        function search() {
+            let input = normalizeText(document.getElementById("searchbar").value);
+            let rows = document.querySelectorAll('.tr-row');
+            let count = 0;
+
+            rows.forEach(row => {
+                let nameCell = row.querySelector('.recurso-view');
+                if (nameCell) {
+                    let normalizedText = normalizeText(nameCell.textContent);
+                    if (normalizedText.includes(input)) {
+                        row.style.display = "";
+                        count++;
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+            });
+
+            document.getElementById("resource-count").textContent = count;
+        }
+
+        // evento quando o conteúdo é carregado para contar linhas
+        document.addEventListener('DOMContentLoaded', () => {
+            search(); // Atualiza a contagem ao carregar a página
+        });
+    </script>
+</body>
+</html>
