@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuários | ReservEasy</title>
+    <title>Solicitação | ReservEasy</title>
     <style>
         *{
             margin: 0;
@@ -81,7 +81,7 @@
     }
         .detail-user{
             width: 80%;
-            margin: 50px;
+            margin: 20px;
             display: flex;
             flex-direction: column;
             gap: 30px;
@@ -152,9 +152,11 @@
     }
     .tables-requests-detail-user{
         display: flex;
-        flex-direction: column;
-        gap: 20px;
-        width: 80%;
+        flex-direction: row;
+        gap: 300px;
+        min-height: 25vh;
+        width: 100%;
+
     }
     .btns-path{
         display: flex;
@@ -183,7 +185,26 @@
             text-decoration: none;
             background-color: #010C29;
         }
-        
+        .progress-request{
+            background-color: #A0BE3D;
+            color: #fff;
+            border: none;
+            padding: 5px 12px;
+            font-size: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .tables-requests-detail-user-special{
+            display: flex;
+            gap: 20px;
+        }
+        .tables-requests-detail-user-special table:nth-of-type(1) {
+            width: 80%;
+        }
+
+        .tables-requests-detail-user-special table:nth-of-type(2) {
+            width: 20%;
+        }
     </style>
 </head>
 <body>
@@ -229,6 +250,40 @@
         </div>
         <div class="requests-detail-user">
             <div class="tables-requests-detail-user">
+            
+            <table class="table table-striped table-bordered mt-3">
+                <thead>
+                    <tr class="tr-row">
+                        <th class="th-column">Justificativa</th>
+                    </tr>
+                </thead>
+                <tbody id="resource-list">
+                    
+                    <tr class="tr-row">
+                        <td class="recurso-view"></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            <table class="table table-striped table-bordered mt-3">
+                <thead>
+                    <tr class="tr-row">
+                        <th class="th-column">Recursos solicitados</th>
+                    </tr>
+                </thead>
+                <tbody id="resource-list">
+                    
+                    <tr class="tr-row">
+                        <td class="recurso-view"></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        
+        </div>
+        <div class="tables-requests-detail-user-special">
+            
             <table class="table table-striped table-bordered mt-3">
                 <thead>
                     <tr class="tr-row">
@@ -260,57 +315,19 @@
             <table class="table table-striped table-bordered mt-3">
                 <thead>
                     <tr class="tr-row">
-                        <th class="th-column">Justificativa</th>
+                        <th class="th-column">Andamento</th>
                     </tr>
                 </thead>
                 <tbody id="resource-list">
                     
                     <tr class="tr-row">
-                        <td class="recurso-view"></td>
+                        <td class="recurso-view"> <div class="progress-request aprovado"> Aprovado com Pendências</div></td>
                     </tr>
                     
                 </tbody>
             </table>
         </div>
-            <table class="table table-striped table-bordered mt-3 table-recursos">
-                <thead>
-                    <tr class="tr-row">
-                        <th class="th-column">Recursos solicitados</th>
-                    </tr>
-                </thead>
-                <tbody id="resource-list">
-                    <tr class="tr-row recursos-row">
-                        <td class="recurso-view list-recursos">
-                            <input type="checkbox" name="" id="">
-                            <label for="">Xadrez</label>
-                        </td>
-                        <td class="recurso-view list-recursos">
-                            <input type="checkbox" name="" id="">
-                            <label for="">Xadrez</label>
-                        </td>
-                        <td class="recurso-view list-recursos">
-                            <input type="checkbox" name="" id="">
-                            <label for="">Xadrez</label>
-                        </td>
-                        <td class="recurso-view list-recursos">
-                            <input type="checkbox" name="" id="">
-                            <label for="">Xadrez</label>
-                        </td>
-                        <td class="recurso-view list-recursos">
-                            <input type="checkbox" name="" id="">
-                            <label for="">Xadrez</label>
-                        </td>
-                        <td class="recurso-view list-recursos btns-path">
-                            <div class="btns-path">
-                                <button id="btnEntrega">Aprovar</button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            
-
-        </div>
+        
         </div>
     </section>
 </div>

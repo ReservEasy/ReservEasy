@@ -1,0 +1,113 @@
+*{
+    font-family: Poppins;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+}
+.widget-symbol{
+    width: 200px;
+    height: 200px;
+    background-color: #022376;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-left: 15px;
+}
+.widget-symbol i{
+    font-size: 50px;
+    color: #fff;
+}
+form .button-container {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.section-form-sector{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+
+}
+button[type="submit"] {
+    background-color: #022376;
+    border: none;
+    color: #fff;
+    padding: 6px 20px;
+    font-size: 13px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+button[type="submit"]:hover{
+    text-decoration: none;
+    background-color: #010C29;
+}
+
+input[type="text"]{
+    border: 0.1px solid #666666;
+    border-radius: 5px;
+    padding: 5px 5px;
+    width: 800px;
+    margin-top: 5px;
+}
+
+.btn.submit:hover {
+    background-color: #45a049;
+}
+p{
+    display: flex;
+    flex-direction: column;
+}
+
+p label {
+    font-size:14px;
+    color: #333333;
+    font-weight: 400;
+    
+}
+
+.identification-section{
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+    margin-left: 15px;
+}
+.identification-section button, .services-btns a{
+    background-color: #022376;
+    border: none;
+    color: #fff;
+    padding: 5px 12px;
+    font-size: 12px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.identification-section button:hover{
+    text-decoration: none;
+    background-color: #010C29;
+}
+
+.title-service{
+    font-size:25px;  
+}
+.subtitle-service{
+    margin-top: 10px;
+    font-size: 15px;
+    margin-left: 15px;
+}
+
+.layoutFlex {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    gap: 100px;
+}
