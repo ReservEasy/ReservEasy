@@ -12,8 +12,8 @@ import os
 # from braces.views import GroupRequiredMixin
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the recurso index.")
+# def index(request):
+#     return HttpResponse("Hello, world. You're at the recurso index.")
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def criarEquipamento(request):
