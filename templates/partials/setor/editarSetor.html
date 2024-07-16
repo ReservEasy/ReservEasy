@@ -1,0 +1,135 @@
+<style>
+    * {
+        font-family: 'Poppins';
+    }
+
+    .identification-section {
+        margin-top: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 95%;
+        margin-left: 15px;
+    }
+
+    .identification-section button,
+    .services-btns a {
+        background-color: #022376;
+        border: none;
+        color: #fff;
+        padding: 5px 12px;
+        font-size: 12px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .identification-section button:hover {
+        background-color: #010C29;
+    }
+
+    .title-service {
+        font-size: 25px;
+    }
+
+    .subtitle-service {
+        margin-top: 10px;
+        font-size: 15px;
+        margin-left: 15px;
+    }
+
+    div label {
+        font-size: 14px;
+        font-weight: 300;
+        color: #333333;
+    }
+
+    div input {
+        background-color: white;
+        border: 0.1px solid #666666;
+        border-radius: 5px;
+        width: 100%;
+        padding: 6px 5px;
+        font-size: 13px;
+    }
+
+    form {
+        display: flex;
+        width: 90%;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    p {
+        width: 50%;
+        gap: 10px;
+    }
+
+    form .inputs-crud {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .container a {
+        font-size: 14px;
+    }
+
+    .container input[type="checkbox"] {
+        width: 15px;
+        height: 15px;
+    }
+
+    button[type="submit"] {
+        background-color: #022376;
+        border: none;
+        color: #fff;
+        padding: 6px 20px;
+        font-size: 13px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #010C29;
+    }
+
+    form .button-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .section-form-sector {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+<section class="section-form-sector">
+    <div class="identification-section">
+        <h1 class="title-service">Setores - Coordenação de Ensino #2</h1>
+        <button id="btnVoltar">Voltar</button>
+    </div>
+
+    <h2 class="subtitle-service">Dados gerais do recurso:</h2>
+
+    <form action="/recursos/editar/{{ id_recurso }}/" method="post" enctype="multipart/form-data">
+        <div class="inputs-crud">
+            <p>
+                <label for="">Nome:</label>
+                <input type="text">
+            </p>
+        </div>
+
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary">Atualizar</button>
+        </div>
+
+    </form>
+</section>

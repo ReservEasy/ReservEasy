@@ -1,0 +1,130 @@
+<head>
+    <style>
+        * {
+            font-family: 'Poppins';
+        }
+
+        .btn {
+            color: #fff;
+            background-color: #A0BE3D;
+            color: #fff;
+            border: none;
+            padding: 6px 30px;
+            font-size: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn-confirmar {
+            background-color: #A0BE3D;
+        }
+
+        .btn-recusar {
+            color: #fff;
+            background-color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
+
+        .btn-confirmar:hover {
+            background-color: #48551B;
+            border-color: #fff;
+        }
+
+        .btn-recusar:hover {
+            background-color: #c0392b;
+            border-color: #c0392b;
+        }
+
+        .btn-confirmacao {
+            display: flex;
+            gap: 30px;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        h3 {
+            font-size: 20px;
+        }
+
+        .formEditar .imageRecurso {
+            flex-direction: column;
+            gap: 20px;
+            width: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .container {
+            margin-top: 40px;
+            margin-left: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .identification-section {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 95%;
+            margin-left: 15px;
+        }
+
+        .identification-section button,
+        .services-btns a {
+            background-color: #022376;
+            border: none;
+            color: #fff;
+            padding: 5px 12px;
+            font-size: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .identification-section button:hover {
+            text-decoration: none;
+            background-color: #010c29;
+        }
+
+        .title-service {
+            font-size: 25px;
+        }
+
+        .subtitle-service {
+            margin-top: 10px;
+            font-size: 15px;
+            margin-left: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="identification-section">
+        <h1 class="title-service">Setores - Coordenação de Assuntos Estudantis #1</h1>
+        <button id="btnVoltar">Voltar</button>
+    </div>
+
+    <div class="container">
+        <h3 class="mt-3">Tem certeza que deseja excluir esse setor?</h3>
+        <p>Essa ação excluirá os dados do setor cadastrado e não poderá ser desfeita.</p>
+
+        <div class="formEditar">
+                <p>Nome: {{ recurso.nome }}</p>
+        </div>
+
+        <div class="btn-confirmacao">
+            <a href="/recursos/deletarEspaco/{{ recurso.id }}" class="btn btn-confirmar">Sim</a>
+            <a href="/recursos/" class="btn btn-recusar">Não</a>
+        </div>
+
+
+    </div>
+
+    <script src="{% static 'js/windowBack.js' %}"></script>
+</body>
