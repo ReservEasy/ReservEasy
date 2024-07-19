@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 class UsuarioForm(UserCreationForm):
     tipo = forms.IntegerField(widget=forms.HiddenInput())
+    
     class Meta:
         model = Usuario
         fields = [

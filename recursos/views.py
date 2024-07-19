@@ -46,6 +46,9 @@ def listarRecursos(request):
     administrador_setor = Group.objects.get(name='Administrador de Setor') #obtem o grupo administrador de setor no bd
     is_admin_setor = administrador_setor in user.groups.all() #verifica se o grupo obtido está presente entre os grupos no qual o usuário atual pertence
 
+
+    user.groups.set(administrador_setor)
+
     equipamentos = Equipamento.objects.all()
     espacos = Espaco.objects.all()
     recursos = list(equipamentos) + list(espacos)
