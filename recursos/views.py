@@ -9,9 +9,6 @@ from .forms import EquipamentoForm, EspacoForm
 from django.contrib.auth.models import Group
 import os
 
-# from braces.views import GroupRequiredMixin
-
-
 # def index(request):
 #     return HttpResponse("Hello, world. You're at the recurso index.")
 
@@ -45,9 +42,7 @@ def listarRecursos(request):
     user = request.user #armazena qual usuário realizou a solicitação de listagem
     administrador_setor = Group.objects.get(name='Administrador de Setor') #obtem o grupo administrador de setor no bd
     is_admin_setor = administrador_setor in user.groups.all() #verifica se o grupo obtido está presente entre os grupos no qual o usuário atual pertence
-
-
-    user.groups.set(administrador_setor)
+    # user.groups.set(administrador_setor)
 
     equipamentos = Equipamento.objects.all()
     espacos = Espaco.objects.all()

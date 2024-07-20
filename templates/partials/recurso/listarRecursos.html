@@ -259,9 +259,9 @@
                         <a href="/recursos/deletarEquipamento/confirmar/{{ recurso.id }}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
                     {% elif recurso.get_tipo == "Espaco" %}
                         <a href="/recursos/deletarEspaco/confirmar/{{ recurso.id }}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
-            {% endif %}
+                {% endif %}
+            {% endif %}     
     </td>
-    {% endif %}
         </tr>
         {% endfor %}
         {% else %}

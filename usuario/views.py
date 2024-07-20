@@ -1,17 +1,12 @@
-from django.shortcuts import render, redirect
-
-# Create your views here.
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from django.db import Error
 from django.template import loader
-# Create your views here.
-
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required, user_passes_test
+from .models import Usuario
 from .forms import UsuarioForm
-
-
-# def index(request):
-#     return HttpResponse("Hello, world. You're at the rua index.")
-# converte a senha em um hash
+from django.contrib.auth.models import Group
+import os
 
 def register(request):
     if request.method == 'POST':
@@ -31,7 +26,14 @@ def register(request):
 
     return render(request, 'registration/register.html', {'form': form, 'tipo': tipo})
 
+def usuario_ou_admin_master(u):
+    return u.groups.filter(name__in=['Administrador de Setor', 'Administrador Master']).exists()
 
-#metodo que lista todos os registros
+#metodo que lista todos os usuarios registrados
+@login_required
+@user_passes_test(usuario_ou_admin_master)
+def listarUsuarios(request):
+    usuarios = Usuario.objects.all()
+    return render(request, "partials/usuario/listarUsuarios.html", {'usuarios': usuarios})
 
-    
+

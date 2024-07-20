@@ -36,12 +36,19 @@
         </ul>
         <ul class="dashboard-servicos">
             <p class="title-dashboard-servicos">Serviços</p>
-            <li class="servicos">
-                <a href="" class="link-service">
-                    <i class="fa-solid fa-users"></i>
-                    <p>Usuários</p>
-                </a>
-            </li>
+            {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
+                {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
+                    {% if group.name == "Administrador Master" or group.name == "Administrador de Setor" %}
+                        <li class="servicos">
+                            <a href="" class="link-service">
+                                <i class="fa-solid fa-users"></i>
+                                <a href="/accounts/listar"> <p>Usuários</p> </a>
+                            </a> 
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
             <li class="servicos ">
                 <a href="" class="link-service">
                     <i class="fa-solid fa-box-archive"></i>
