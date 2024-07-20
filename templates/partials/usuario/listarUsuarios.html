@@ -1,3 +1,6 @@
+{% extends 'partials/_base.html' %}
+
+{% block content %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -9,6 +12,7 @@
     <script src="https://kit.fontawesome.com/88a7a49c60.js" crossorigin="anonymous"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
         * {
             padding: 0;
             margin: 0;
@@ -86,8 +90,6 @@
             margin-left: 15px;
         }
         .user-list {
-            /* height: 100vh; */
-            margin: 50px;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -224,6 +226,43 @@
             color: #A0BE3D;
             margin: 0px;
         }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            font-size:12px;
+        }
+        .pagination .step-links {
+            display: flex;
+            gap: 5px;
+            font-size:12px;
+        }
+        .pagination .step-links a, .pagination .step-links span {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            font-size:12px;
+        }
+        .pagination .step-links a:hover {
+            background-color: #f0f0f0;
+            border-color: #999;
+        }
+        .pagination .step-links .current {
+            background-color: #022376;
+            color: #fff;
+            border-color: #022376;
+            font-size:12px;
+        }
+        #buscarUsuario{
+            background-color: #022376;
+            font-size: 12px;
+            color: #fff;
+            border: 0px;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -240,10 +279,14 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <p>Digite o nome do usuário:</p>
                 </div>
-                <input type="text" name="searchbar" id="searchbar" placeholder="Pesquisar" onkeyup="search()">
+                <form action="{% url 'listar-usuarios' %}" method="get">
+                    {% csrf_token %}
+                    <input type="text" name="searchbar" id="searchbar" placeholder="Pesquisar" value="{{ search_query }}">
+                    <button type="submit" id="buscarUsuario">Buscar</button>
+                </form>
             </div>
             <div class="data-service">
-                <p class="count-data-service" id="resource-count">4</p>
+                <p class="count-data-service" id="resource-count">{{ total_usuarios }}</p>
                 <p class="data-service-title">Usuários cadastrados</p>
             </div>
         </div>
@@ -276,42 +319,29 @@
                 
             </tbody>
         </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if usuarios.has_previous %}
+                    <a href="?page=1">&laquo; primeira</a>
+                    <a href="?page={{ usuarios.previous_page_number }}">anterior</a>
+                {% endif %}
+
+                <span class="current">
+                    Página {{ usuarios.number }} de {{ usuarios.paginator.num_pages }}.
+                </span>
+
+                {% if usuarios.has_next %}
+                    <a href="?page={{ usuarios.next_page_number }}">próxima</a>
+                    <a href="?page={{ usuarios.paginator.num_pages }}">última &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
     </section>
 
 
     <script src="{% static 'js/windowBack.js' %}"></script>
-    <script>
-        // função para normalizar texto removendo acentos
-        function normalizeText(text) {
-            return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-        }
 
-        // função para filtrar linhas da tabela baseado na pesquisa
-        function search() {
-            let input = normalizeText(document.getElementById("searchbar").value);
-            let rows = document.querySelectorAll('.tr-row');
-            let count = 0;
-
-            rows.forEach(row => {
-                let nameCell = row.querySelector('.recurso-view');
-                if (nameCell) {
-                    let normalizedText = normalizeText(nameCell.textContent);
-                    if (normalizedText.includes(input)) {
-                        row.style.display = "";
-                        count++;
-                    } else {
-                        row.style.display = "none";
-                    }
-                }
-            });
-
-            document.getElementById("resource-count").textContent = count;
-        }
-
-        // evento quando o conteúdo é carregado para contar linhas
-        document.addEventListener('DOMContentLoaded', () => {
-            search(); // Atualiza a contagem ao carregar a página
-        });
-    </script>
 </body>
 </html>
+
+{% endblock %}

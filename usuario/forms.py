@@ -29,3 +29,4 @@ class UsuarioForm(UserCreationForm):
         
         self.fields['telefone'].widget.attrs.update({'class': 'mask-telefone'})
         self.fields['data_nascimento'].widget.attrs.update({'class': 'mask-date'})
+

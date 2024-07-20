@@ -40,9 +40,9 @@
                 {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
                     {% if group.name == "Administrador Master" or group.name == "Administrador de Setor" %}
                         <li class="servicos">
-                            <a href="" class="link-service">
+                            <a href="/accounts/listar" class="link-service">
                                 <i class="fa-solid fa-users"></i>
-                                <a href="/accounts/listar"> <p>Usuários</p> </a>
+                                <p>Usuário</p>
                             </a> 
                         </li>
                     {% endif %}
@@ -89,6 +89,7 @@
         </ul>
         <div class="sidebar-useractive">
         <div class="user-identification">
+            <i class="fa-regular fa-user"></i>
             <div class="text-identification">
                 <p class="user-name">{{ user }}</p>
                 <p class="user-group">
@@ -132,32 +133,34 @@
             </div>
         </div>
     </div>
+    {% comment %} indica mostra a pagina ativa  {% endcomment %}
     <script>
-        // Adiciona um event listener para quando o DOM estiver completamente carregado
         document.addEventListener('DOMContentLoaded', function () {
-            // Seleciona todos os links com a classe 'link-service'
             var links = document.querySelectorAll('.link-service');
-            // Obtém a URL atual da janela
-            var currentUrl = window.location.href;
-            // Itera sobre todos os links
+            var currentPath = window.location.pathname;
+            
             links.forEach(function(link) {
-                // Verifica se o href do link corresponde à URL atual
-                if (link.href === currentUrl) {
-                    // Adiciona a classe 'active' ao link correspondente
+                var linkPath = new URL(link.href).pathname;
+    
+                if (linkPath === currentPath) {
                     link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
                 }
-                // Adiciona um event listener para o clique em cada link
+            });
+    
+            links.forEach(function(link) {
                 link.addEventListener('click', function() {
-                    // Remove a classe 'active' de todos os links
                     links.forEach(function(l) {
                         l.classList.remove('active');
                     });
-                    // Adiciona a classe 'active' ao link clicado
                     this.classList.add('active');
                 });
             });
         });
     </script>
+    
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import Error
 from django.template import loader
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Usuario
@@ -33,7 +34,25 @@ def usuario_ou_admin_master(u):
 @login_required
 @user_passes_test(usuario_ou_admin_master)
 def listarUsuarios(request):
-    usuarios = Usuario.objects.all()
-    return render(request, "partials/usuario/listarUsuarios.html", {'usuarios': usuarios})
+    search_query = request.GET.get('searchbar', '')  # pega o parâmetro de pesquisa
+    if search_query:
+        usuarios_list = Usuario.objects.filter(
+            first_name__icontains=search_query
+        ) | Usuario.objects.filter(
+            last_name__icontains=search_query
+        )
+    else:
+        usuarios_list = Usuario.objects.all()
 
+    total_usuarios = usuarios_list.count()  # total de usuários registrados
 
+    # Paginação
+    paginator = Paginator(usuarios_list, 10)  # mostra apenas 10 usuários por página
+    page_number = request.GET.get('page')
+    usuarios = paginator.get_page(page_number)
+
+    return render(request, "partials/usuario/listarUsuarios.html", {
+        'usuarios': usuarios,
+        'total_usuarios': total_usuarios,
+        'search_query': search_query
+    })

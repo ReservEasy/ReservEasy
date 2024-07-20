@@ -102,9 +102,16 @@ ul li a p{
 .user-identification{
     background-color: #E1E4EA;
     padding: 5px 15px;
+    gap: 10px;
+    align-items: center;
     display: flex;
-    gap: 5px;
     border-radius: 12px;
+}
+
+.user-identification i{
+    font-weight: bold;
+    color: #022376;
+    font-size: 18px;
 }
 
 .text-identification{
@@ -149,7 +156,7 @@ font-size:20px;
 }
 
 .logout-atalho:hover, .link-service:hover{
-    color: #A3C23E;
+    color: #A3C200;
     text-decoration: none;
 }
 
@@ -157,3 +164,5 @@ font-size:20px;
 .servicos a.active {
     color: #A3C23E; 
 }
+
+user-identification
