@@ -16,19 +16,19 @@
             <img id="logo-dashboard" src="{% static 'img/logo2.png' %}">
             <ul class="dahboard-acessorapido">
             <li class="acesso-rapido">
-                <a href="" class="link-service">
+                <a href="#" class="link-service">
                     <i class="fa-solid fa-square-check"></i>
                     <p>Visão Geral</p>
                 </a>
             </li>
             <li class="acesso-rapido">
-                <a href="" class="link-service">
+                <a href="#" class="link-service">
                     <i class="fa-solid fa-gear"></i>
                     <p>Configurações</p>
                 </a>
             </li>
             <li class="acesso-rapido">
-                <a href="" class="link-service">
+                <a href="#" class="link-service">
                     <i class="fa-solid fa-circle-info"></i>
                     <p>Ajuda</p>
                 </a>
@@ -37,44 +37,43 @@
         <ul class="dashboard-servicos">
             <p class="title-dashboard-servicos">Serviços</p>
             <li class="servicos">
-                <a href="" class="link-service">
+                <a href="#" class="link-service">
                     <i class="fa-solid fa-users"></i>
                     <p>Usuários</p>
                 </a>
             </li>
-            <li class="servicos ">
-                <a href="" class="link-service">
+            <li class="servicos">
+                <a href="#" class="link-service">
                     <i class="fa-solid fa-box-archive"></i>
-                    <p >Setores</p>
+                    <p>Setores</p>
                 </a>
             </li>
-            <li class="servicos ">
-                <a href="" class="link-service">
+            <li class="servicos">
+                <a href="#" class="link-service">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <p>Pendências</p>
                 </a>
             </li>
-            <li class="servicos ">
-                <a href="" class="link-service">
+            <li class="servicos">
+                <a href="#" class="link-service">
                     <i class="fa-solid fa-inbox"></i>
                     <p>Solicitações</p>
                 </a>
             </li>
-            <li class="servicos ">
-                <a href="/recursos/" class="link-service">
+            <li class="servicos">
+                <a href="#" class="link-service">
                     <i class="fa-solid fa-boxes-stacked"></i>
                     <p>Estoque</p>
                 </a>
             </li>
-            <li class="servicos ">
-                <a href="" class="link-service">
+            <li class="servicos">
+                <a href="#" class="link-service">
                     <i class="fa-solid fa-clock-rotate-left"></i>
                     <p>Histórico</p>
                 </a>
             </li>
-        
             <li class="servicos">
-                <a href="" class="link-service">
+                <a href="#" class="link-service">
                     <i class="fa-solid fa-clipboard-check"></i>
                     <p>Reservar</p>
                 </a>
@@ -84,38 +83,23 @@
         <div class="sidebar-useractive">
         <div class="user-identification">
             <div class="text-identification">
-                <p class="user-name">{{user}}</p>
+                <p class="user-name">{{ user }}</p>
                 <p class="user-group">
-                    {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
-                        {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
-
-                            {% comment %} se ele pertencer ao grupo "Administrador Master" = 
-                            Exibe "Admin Master" no paragrafo {% endcomment %}
-                            {% if group.name == "Administrador Master" %} 
+                    {% if user.is_authenticated %}
+                        {% for group in user.groups.all %}
+                            {% if group.name == "Administrador Master" %}
                                 Admin Master
-
-                            {% comment %} se ele não pertencer ao grupo "Administrador Master" = 
-                            verifica se pertence ao grupo "Administrador de Setor", se pertencer = 
-                            Exibe "Admin de Setor" no paragrafo {% endcomment %}
-                            {% elif group.name == "Administrador de Setor" %}  
+                            {% elif group.name == "Administrador de Setor" %}
                                 Admin de Setor
-
-                            {% comment %} se ele não pertencer a outro grupo = 
-                            Exibe "Solicitante" no paragrafo {% endcomment %}
                             {% else %}
                                 Solicitante
-                            {% endif %} {% comment %} finaliza o if que verifica o pertencimento a grupos {% endcomment %}
-
-                        {% comment %} se a lista estiver vazia (ele nn pertencer a nenhum grupo) = 
-                        exibe "Solicitante" no paragrafo {% endcomment %}
+                            {% endif %}
                         {% empty %}
                             Solicitante
-                        {% endfor %} {% comment %} finaliza o for {% endcomment %}
-                    {% endif %} {% comment %} finaliza o if inicial (que permite entrada somente de usuarios autenticados) {% endcomment %}
+                        {% endfor %}
+                    {% endif %}
                 </p>
-                
             </div>
-            
         </div>
         <a href="#" class="logout-atalho" data-bs-toggle="modal" data-bs-target="#confirmacaoModal">
             <i class="fa-solid fa-right-from-bracket"></i>
@@ -136,12 +120,37 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <a href="/accounts/logout" class="btn btn-primary elements-exclusiv" >Sair</a>
+                    <a href="/accounts/logout" class="btn btn-primary elements-exclusiv">Sair</a>
                 </div>
             </div>
         </div>
     </div>
-
+    <script>
+        // Adiciona um event listener para quando o DOM estiver completamente carregado
+        document.addEventListener('DOMContentLoaded', function () {
+            // Seleciona todos os links com a classe 'link-service'
+            var links = document.querySelectorAll('.link-service');
+            // Obtém a URL atual da janela
+            var currentUrl = window.location.href;
+            // Itera sobre todos os links
+            links.forEach(function(link) {
+                // Verifica se o href do link corresponde à URL atual
+                if (link.href === currentUrl) {
+                    // Adiciona a classe 'active' ao link correspondente
+                    link.classList.add('active');
+                }
+                // Adiciona um event listener para o clique em cada link
+                link.addEventListener('click', function() {
+                    // Remove a classe 'active' de todos os links
+                    links.forEach(function(l) {
+                        l.classList.remove('active');
+                    });
+                    // Adiciona a classe 'active' ao link clicado
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

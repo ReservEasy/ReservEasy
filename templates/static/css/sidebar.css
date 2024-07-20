@@ -16,11 +16,10 @@ body,html{
 .sidebar{
     gap: 40px;
     background-color: #fff;
-    width: 250px;
+    min-width: 180px;
     min-height: 100vh;
     border-right: 1px #ccc solid;
     display: flex;
-
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
@@ -154,3 +153,7 @@ font-size:20px;
     text-decoration: none;
 }
 
+.acesso-rapido a.active,
+.servicos a.active {
+    color: #A3C23E; 
+}

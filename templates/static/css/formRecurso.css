@@ -145,8 +145,8 @@ hr {
     align-items: center;
 }
 .image-preview {
-    width: 400px;
-    height: 200px;
+    min-width: 200px;
+    min-height: 200px;
     border: 2px solid #ddd;
     display: flex;
     align-items: center;
