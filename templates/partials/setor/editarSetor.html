@@ -1,3 +1,7 @@
+{% extends 'partials/_base.html' %}
+
+{% block content %}
+{% load static %}
 <style>
     * {
         font-family: 'Poppins';
@@ -115,7 +119,7 @@
 {% load static %}
 <section class="section-form-sector">
     <div class="identification-section">
-        <h1 class="title-service">Setores - Coordenação de Ensino #2</h1>
+        <h1 class="title-service">Setores - {{setor.nome}} #{{ setor.id }}</h1>
         <button id="btnVoltar">Voltar</button>
     </div>
 
@@ -135,3 +139,4 @@
 
     <script src="{% static 'js/windowBack.js' %}"></script>
 </section>
+{% endblock %}

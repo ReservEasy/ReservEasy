@@ -7,13 +7,10 @@ form{
     align-items: center;
 }
 
-body{
-    display: flex;
-    justify-content: center;
-}
+
 .widget-symbol{
-    width: 200px;
-    height: 200px;
+    min-width: 150px;
+    min-height: 150px;
     background-color: #022376;
     display: flex;
     align-items: center;
@@ -32,7 +29,7 @@ form .button-container {
     margin-top: 20px;
 }
 .section-form-sector{
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: column;
 
@@ -109,5 +106,5 @@ p label {
     display: flex;
     align-items: flex-start;
     width: 100%;
-    gap: 100px;
+    gap: 30px;
 }

@@ -8,6 +8,7 @@ from .models import Equipamento, Espaco
 from .forms import EquipamentoForm, EspacoForm
 from django.contrib.auth.models import Group
 import os
+from django.core.paginator import Paginator
 
 # def index(request):
 #     return HttpResponse("Hello, world. You're at the recurso index.")
@@ -44,10 +45,29 @@ def listarRecursos(request):
     is_admin_setor = administrador_setor in user.groups.all() #verifica se o grupo obtido está presente entre os grupos no qual o usuário atual pertence
     # user.groups.set(administrador_setor)
 
-    equipamentos = Equipamento.objects.all()
-    espacos = Espaco.objects.all()
+    #pesquisa de itens especificos
+    search_query = request.GET.get('searchbar', '')  # pega o parâmetro de pesquisa
+    if search_query:
+        equipamentos = Equipamento.objects.filter(nome__icontains=search_query)
+        espacos = Espaco.objects.filter(nome__icontains=search_query)
+    else:
+        equipamentos = Equipamento.objects.all()
+        espacos = Espaco.objects.all()
+    
     recursos = list(equipamentos) + list(espacos)
-    return render(request, "partials/recurso/listarRecursos.html", {'recursos': recursos, 'is_admin_setor': is_admin_setor})
+    total_recursos = len(recursos)  # total de recursos registrados no BD
+    # paginação
+    paginator = Paginator(recursos, 10)  # Mostra 10 recursos por página
+    page_number = request.GET.get('page')
+    recursos_page = paginator.get_page(page_number)
+    total_recursos = len(recursos)  # total de recursos registrados no bd
+    
+    return render(request, "partials/recurso/listarRecursos.html", {
+        'recursos': recursos_page,
+        'total_recursos': total_recursos,
+        'is_admin_setor': is_admin_setor,
+        'search_query': search_query
+    })
 
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())

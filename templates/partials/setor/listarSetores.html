@@ -1,3 +1,6 @@
+{% extends 'partials/_base.html' %}
+
+{% block content %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -86,8 +89,7 @@
             margin-left: 15px;
         }
         .sector-list {
-            /* height: 100vh; */
-            margin: 50px;
+            
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -226,6 +228,43 @@
             color: #A0BE3D;
             margin: 0px;
         }
+        #buscarSetor{
+            background-color: #022376;
+            font-size: 12px;
+            color: #fff;
+            border: 0px;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            font-size:12px;
+        }
+        .pagination .step-links {
+            display: flex;
+            gap: 5px;
+            font-size:12px;
+        }
+        .pagination .step-links a, .pagination .step-links span {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            font-size:12px;
+        }
+        .pagination .step-links a:hover {
+            background-color: #f0f0f0;
+            border-color: #999;
+        }
+        .pagination .step-links .current {
+            background-color: #022376;
+            color: #fff;
+            border-color: #022376;
+            font-size:12px;
+        }
     </style>
 </head>
 <body>
@@ -234,16 +273,20 @@
             <h1 class="title-service">Setores</h1>
             <div class="btns-path">
                 <a href="/setor/criarSetor/" id="btnCriarSetor">Criar setor</a>
-                <button id="btnVoltar"> <a href="/recursos/">Voltar</a> </button> 
+                <button id="btnVoltar"> Voltar</button> 
             </div>
         </div>
         <div class="search-sector">
             <div class="search-recursos">
                 <div class="title-search-recursos">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <p>Digite o nome do Setor:</p>
+                    <p>Digite o nome do usuário:</p>
                 </div>
-                <input type="text" name="searchbar" id="searchbar" placeholder="Pesquisar" onkeyup="search()">
+                <form action="{% url 'listar' %}" method="get">
+                    {% csrf_token %}
+                    <input type="text" name="searchbar" id="searchbar" placeholder="Pesquisar" value="{{ search_query }}">
+                    <button type="submit" id="buscarSetor">Buscar</button>
+                </form>
             </div>
             <div class="data-service">
                 <p class="count-data-service" id="resource-count">4</p>
@@ -274,6 +317,23 @@
                 {% endif %}
             </tbody>
         </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if setores.has_previous %}
+                    <a href="?page=1&searchbar={{ search_query }}">&laquo; primeira</a>
+                    <a href="?page={{ setores.previous_page_number }}&searchbar={{ search_query }}">anterior</a>
+                {% endif %}
+    
+                <span class="current">
+                    Página {{ setores.number }} de {{ setores.paginator.num_pages }}.
+                </span>
+    
+                {% if setores.has_next %}
+                    <a href="?page={{ setores.next_page_number }}&searchbar={{ search_query }}">próxima</a>
+                    <a href="?page={{ setores.paginator.num_pages }}&searchbar={{ search_query }}">última &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
     </section>
 
     <script>
@@ -306,5 +366,7 @@
             document.getElementById("resource-count").textContent = rows;
         });
     </script>
+    <script src="{% static 'js/windowBack.js' %}"></script>
 </body>
 </html>
+{% endblock %}
