@@ -111,6 +111,8 @@
         align-items: center;
     }
 </style>
+
+{% load static %}
 <section class="section-form-sector">
     <div class="identification-section">
         <h1 class="title-service">Setores - Coordenação de Ensino #2</h1>
@@ -119,12 +121,10 @@
 
     <h2 class="subtitle-service">Dados gerais do recurso:</h2>
 
-    <form action="/recursos/editar/{{ id_recurso }}/" method="post" enctype="multipart/form-data">
+    <form action="/setor/editar/{{ id_setor }}/" method="post" enctype="multipart/form-data">
         <div class="inputs-crud">
-            <p>
-                <label for="">Nome:</label>
-                <input type="text">
-            </p>
+            {% csrf_token %}
+            {{ form.as_p }}
         </div>
 
         <div class="button-container">
@@ -132,4 +132,6 @@
         </div>
 
     </form>
+
+    <script src="{% static 'js/windowBack.js' %}"></script>
 </section>

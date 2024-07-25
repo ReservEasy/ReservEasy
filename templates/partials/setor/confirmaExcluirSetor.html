@@ -1,3 +1,4 @@
+{% load static %}
 <head>
     <style>
         * {
@@ -115,12 +116,12 @@
         <p>Essa ação excluirá os dados do setor cadastrado e não poderá ser desfeita.</p>
 
         <div class="formEditar">
-                <p>Nome: {{ recurso.nome }}</p>
+                <p>Nome: {{ setor.nome }}</p>
         </div>
 
         <div class="btn-confirmacao">
-            <a href="/recursos/deletarEspaco/{{ recurso.id }}" class="btn btn-confirmar">Sim</a>
-            <a href="/recursos/" class="btn btn-recusar">Não</a>
+            <a href="/setor/deletar/{{ setor.id }}" class="btn btn-confirmar">Sim</a>
+            <a href="/setor/" class="btn btn-recusar">Não</a>
         </div>
 
 

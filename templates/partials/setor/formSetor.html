@@ -1,5 +1,6 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <link rel="stylesheet" href="formSetor.css">
@@ -21,10 +22,8 @@
             <form action="" method="post">
 
                 <div class="input-recurso">
-                    <p>
-                        <label for="">Nome:</label>
-                        <input type="text" name="" id="">
-                    </p>
+                    {% csrf_token %}
+                    {{ form.as_p }}
                 </div>
                 <div class="button-container">
                     <button type="submit" class="btn btn-primary">Cadastrar</button>
@@ -33,6 +32,7 @@
         </div>
     </section>
     <script src="{% static 'js/inputs.js '%}"></script>
+    <script src="{% static 'js/windowBack.js' %}"></script>
 
 </body>
 
