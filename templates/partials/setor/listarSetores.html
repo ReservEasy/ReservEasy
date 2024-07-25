@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -232,15 +233,15 @@
         <div class="identification-section">
             <h1 class="title-service">Setores</h1>
             <div class="btns-path">
-                <a href="" id="btnCriarSetor">Criar setor</a>
-                <button id="btnVoltar">Voltar</button>
+                <a href="/setor/criarSetor/" id="btnCriarSetor">Criar setor</a>
+                <button id="btnVoltar"> <a href="/recursos/">Voltar</a> </button> 
             </div>
         </div>
         <div class="search-sector">
             <div class="search-recursos">
                 <div class="title-search-recursos">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <p>Digite o nome do recurso:</p>
+                    <p>Digite o nome do Setor:</p>
                 </div>
                 <input type="text" name="searchbar" id="searchbar" placeholder="Pesquisar" onkeyup="search()">
             </div>
@@ -258,42 +259,19 @@
                 </tr>
             </thead>
             <tbody id="resource-list">
-                <tr class="tr-row">
-                    <td class="sector-view"><a href="">25</a></td>
-                    <td class="recurso-view">Coordenação de Assuntos Estudantis (CAE)</td>
-                    <td class="actions">
-                        <a href="" class="btn btn-acessar"><i class="fa-solid fa-arrow-pointer"></i></a>
-                        <a href="" class="btn btn-editar"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <a href="" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
-                    </td>
-                </tr>
-                <tr class="tr-row">
-                    <td class="sector-view"><a href="">26</a></td>
-                    <td class="recurso-view">Biblioteca Central</td>
-                    <td class="actions">
-                        <a href="" class="btn btn-acessar"><i class="fa-solid fa-arrow-pointer"></i></a>
-                        <a href="" class="btn btn-editar"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <a href="" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
-                    </td>
-                </tr>
-                <tr class="tr-row">
-                    <td class="sector-view"><a href="">27</a></td>
-                    <td class="recurso-view">Laboratório de Informática</td>
-                    <td class="actions">
-                        <a href="" class="btn btn-acessar"><i class="fa-solid fa-arrow-pointer"></i></a>
-                        <a href="" class="btn btn-editar"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <a href="" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
-                    </td>
-                </tr>
-                <tr class="tr-row">
-                    <td class="sector-view"><a href="">28</a></td>
-                    <td class="recurso-view">Secretaria Acadêmica</td>
-                    <td class="actions">
-                        <a href="" class="btn btn-acessar"><i class="fa-solid fa-arrow-pointer"></i></a>
-                        <a href="" class="btn btn-editar"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <a href="" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
-                    </td>
-                </tr>
+                {% if setores %}
+                    {% for setor in setores %}
+                        <tr class="tr-row">
+                            <td class="sector-view"><a href="">{{ setor.id }}</a></td>
+                            <td class="recurso-view">{{ setor.nome }}</td>
+                            <td class="actions">
+                                <a href="" class="btn btn-acessar"><i class="fa-solid fa-arrow-pointer"></i></a>
+                                <a href="/setor/editar/{{ setor.id }}" class="btn btn-editar"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="/setor/deletar/confirmar/{{ setor.id }}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
             </tbody>
         </table>
     </section>
