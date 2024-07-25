@@ -8,4 +8,4 @@ class Usuario(User):
     data_nascimento = models.DateField()
     cargo = models.CharField(max_length=100, blank=True, null=True)  
     status = models.CharField(max_length=50, default='Ativo', blank=True, null=True)
-    tipo = models.IntegerField(default=1) 
+    tipo = models.IntegerField(default=1)

@@ -1,0 +1,147 @@
+<!-- {%  extends  "partials/_base.html" %}
+{% block content %}
+{% load static %} -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Administrador | ReservEasy</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins';
+        }
+        .form-register-admsector{
+            margin: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+            
+        }
+        .identification-section{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .identification-section button, .services-btns a{
+        background-color: #022376;
+        border: none;
+        color: #fff;
+        padding: 5px 12px;
+        font-size: 12px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    .identification-section button:hover{
+        text-decoration: none;
+        background-color: #010C29;
+    }
+    .title-service{
+    font-size:20px;  
+    }
+    .subtitle-service{
+    font-size: 15px;
+    font-weight: 500;
+    }
+    form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    }
+    form .input-recurso{
+    margin-left: 15px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    column-gap: 40px;
+    align-items: center;
+    justify-content: center;
+    }
+    form .input-recurso > p > #id_descricao{
+    width: 840px;
+    }
+    form .button-container {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    }
+    .btn.submit:hover {
+    background-color: #45a049;
+    }
+    .input-recurso p{
+        display: flex;
+        flex-direction: column;
+        width: 70%;
+        align-items: center;
+    }
+
+    .input-recurso p label {
+        font-size:14px;
+        color: #333333;
+        font-weight: 400;
+    }
+
+    input[type="text"]{
+    border: 0.1px solid #666666;
+    border-radius: 5px;
+    padding: 5px 5px;
+    width: 80%;
+    margin-top: 5px;
+    }
+    #btnCadastrar{
+        background-color: #022376;
+        border: none;
+        color: #fff;
+        padding: 5px 12px;
+        font-size: 12px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    #btnCadastrar:hover{
+        text-decoration: none;
+        background-color: #010C29;
+    
+    }
+
+    </style>
+    <script src="https://kit.fontawesome.com/88a7a49c60.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <section class="form-register-admsector">
+        <div class="identification-section">
+            <h1 class="title-service"> Administradores - Coordenação de Assuntos Estudantis #1</h1>
+            <button id="btnVoltar" >Voltar</button>
+        </div>
+        <h2 class="subtitle-service">Selecione os usuários que você deseja designar como administradores do setor:</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="input-recurso">
+                <!-- {% csrf_token %}
+                {{ form.as_p }} -->
+                <p>
+                    <label for=""><i class="fa-solid fa-magnifying-glass"></i> Usuário que deseja alocar?</label>
+                    <input type="text" name="" id="">
+                </p>
+            </div>
+            <div class="button-container">
+            <button type="submit" id="btnCadastrar">Cadastrar</button>
+            </div>
+        </form>
+</section>
+
+<script src="{% static 'js/inputs.js '%}"></script>
+<script src="{% static 'js/windowBack.js '%}"></script>
+<script src="{% static 'js/updateImagePreview.js '%}"></script>
+
+<!-- {% endblock content %} -->
+</body>
+</html>
+</body>
+</html>
