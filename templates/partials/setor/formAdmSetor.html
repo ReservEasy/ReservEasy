@@ -117,14 +117,14 @@
 <body>
     <section class="form-register-admsector">
         <div class="identification-section">
-            <h1 class="title-service"> Administradores - Coordenação de Assuntos Estudantis #1</h1>
+            <h1 class="title-service"> Administradores - {{ setor.nome}}</h1>
             <button id="btnVoltar" >Voltar</button>
         </div>
         <h2 class="subtitle-service">Selecione os usuários que você deseja designar como administradores do setor:</h2>
         <form action="" method="post" enctype="multipart/form-data">
             <div class="input-recurso">
-                <!-- {% csrf_token %}
-                {{ form.as_p }} -->
+                {% csrf_token %}
+                {{ form.as_p }}
                 <p>
                     <label for=""><i class="fa-solid fa-magnifying-glass"></i> Usuário que deseja alocar?</label>
                     <input type="text" name="" id="">

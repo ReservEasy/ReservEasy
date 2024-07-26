@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from setor.models import Setor
 
 class Usuario(User):
     matricula = models.CharField(max_length=15, unique=True)
@@ -9,3 +10,4 @@ class Usuario(User):
     cargo = models.CharField(max_length=100, blank=True, null=True)  
     status = models.CharField(max_length=50, default='Ativo', blank=True, null=True)
     tipo = models.IntegerField(default=1)
+    setor = models.ForeignKey(Setor, on_delete=models.PROTECT, related_name="usuarios", null=True)

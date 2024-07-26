@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transferir Administrador | ReservEasy</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Transferir Administrador</h1>
+        <p>Você está transferindo o administrador <strong>{{ usuario.first_name }} {{ usuario.last_name }}</strong>, de id <strong> {{usuario.id}} </strong>, para um novo setor.</p>
+
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="setor">Selecione o Novo Setor:</label>
+                <select id="setor" name="setor" class="form-control" required>
+                    {% for setor in setores %}
+                        <option value="{{ setor.id }}">{{ setor.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Transferir</button>
+            <a href="/setor/" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>

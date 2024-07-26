@@ -280,7 +280,7 @@
             <div class="search-recursos">
                 <div class="title-search-recursos">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <p>Digite o nome do usuário:</p>
+                    <p>Digite o nome do setor:</p>
                 </div>
                 <form action="{% url 'listar' %}" method="get">
                     {% csrf_token %}
@@ -308,7 +308,7 @@
                             <td class="sector-view"><a href="">{{ setor.id }}</a></td>
                             <td class="recurso-view">{{ setor.nome }}</td>
                             <td class="actions">
-                                <a href="" class="btn btn-acessar"><i class="fa-solid fa-arrow-pointer"></i></a>
+                                <a href="/setor/detalhar/{{ setor.id }}" class="btn btn-acessar"><i class="fa-solid fa-arrow-pointer"></i></a>
                                 <a href="/setor/editar/{{ setor.id }}" class="btn btn-editar"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <a href="/setor/deletar/confirmar/{{ setor.id }}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
                             </td>

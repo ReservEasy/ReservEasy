@@ -13,7 +13,10 @@ def register(request):
     if request.method == 'POST':
         form = UsuarioForm(request.POST)
         if form.is_valid ():
-            form.save()
+            usuario = form.save() #salva o usuario e guarda as informações dele
+            solicitante_group, created = Group.objects.get_or_create(name='solicitante') #pega o grupo solicitante
+            usuario.groups.add(solicitante_group) #add o usuario ao grupo
+            usuario.save() #salva as alterações
             return redirect('login')
     else:
         form = UsuarioForm()

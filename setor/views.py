@@ -4,7 +4,9 @@ from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Setor
-from .forms import SetorForm
+from usuario.models import Usuario
+from recursos.models import Espaco, Equipamento
+from .forms import SetorForm, AlocarAdm
 from django.contrib.auth.models import Group
 import os
 from django.core.paginator import Paginator
@@ -43,6 +45,65 @@ def listarSetores(request):
     })
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
+def detalharSetor(request, id_setor):
+    setor = Setor.objects.get(pk=id_setor)
+
+    usuarios = setor.usuarios.all() # pega todos os usuarios que fazem parte do setor selecionado
+    total_usuarios = len(usuarios)  # total de usuarios registrados no setor
+    equipamentos = setor.equipamentos.all()  # Todos os equipamentos associados ao setor
+    espacos = setor.espacos.all()  # Todos os espaços associados ao setor
+    recursos = list(equipamentos) + list(espacos) #junta os espacos e equipamentos dentro de recursos
+    total_recursos = len(recursos)  # total de recursos registrados no setor
+    return render(request, "partials/setor/detalharSetor.html",{
+        'setor': setor,
+        'usuarios': usuarios,
+        'total_usuarios': total_usuarios,
+        'recursos': recursos,
+        'total_recursos': total_recursos
+    })
+
+@user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
+def alocarAdm(request, id_setor):
+    setor = Setor.objects.get(id=id_setor)
+
+    if request.method == 'POST': #se receber um formulario
+        form = AlocarAdm(request.POST) #armazena o que obteve pelo form
+        if form.is_valid():
+            usuarios = form.cleaned_data['usuarios'] #pega a lista dos usuarios selecionados
+            for usuario in usuarios: #for para definir o atributo setor dos usuarios selecionados com o id do setor atual
+                group, created = Group.objects.get_or_create(name='Administrador de Setor')  # Obtém ou cria o grupo
+                usuario.groups.set([group])  # Define o grupo do usuário como o grupo 'Administrador de Setor' (remove qualquer outro que tinha antes)
+                usuario.setor = setor
+                usuario.save()
+            return HttpResponseRedirect('/setor/?msg=Salvo')
+    else:
+        form = AlocarAdm() #se tiver erro as informações do formulário voltam 
+
+    return render(request, 'partials/setor/formAdmSetor.html', {'form': form, 'setor': setor})
+
+@user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
+def removerAdm(request, id_adm):
+    usuario = Usuario.objects.get(id=id_adm)
+
+    group, created = Group.objects.get_or_create(name='Solicitante')  # Obtém ou cria o grupo
+    usuario.groups.set([group])  # Define o grupo do usuário como o grupo 'Solicitante' (remove qualquer outro que tinha antes)
+    usuario.setor = None
+    usuario.save()
+    return HttpResponseRedirect('/setor/?msg=Salvo')
+
+@user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
+def transferirAdm(request, id_adm):
+    usuario = Usuario.objects.get(id=id_adm)  
+    if request.method == 'POST':
+        novo_setor_id = request.POST.get('setor')
+        novo_setor = get_object_or_404(Setor, id=novo_setor_id)  # Obtém a instância do setor com base no ID
+        usuario.setor = novo_setor  
+        usuario.save()
+        return HttpResponseRedirect('/setor/?msg=Salvo')
+    setores = Setor.objects.all()
+    return render(request, 'partials/setor/formTransferirAdm.html', {'usuario': usuario, 'setores': setores})
+
+@user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
 def editarSetor(request, id_setor):
     setor = Setor.objects.get(pk=id_setor)
     if request.method == 'POST':
@@ -52,7 +113,7 @@ def editarSetor(request, id_setor):
             return HttpResponseRedirect('/setor/?msg=Salvo')
     else:
         form = SetorForm(instance= setor)
-    return render(request, 'partials/setor/editarSetor.html', {'form':form, 'setor': setor, 'id_setor': id_setor})
+    return render(request, 'partials/setor/editarSetor.html', {'form': form, 'id_setor': id_setor})
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
 def deletar(request, id_setor):

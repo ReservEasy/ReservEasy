@@ -18,19 +18,22 @@ def criarEquipamento(request):
     if request.method == 'POST':
         form = EquipamentoForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            equipamento = form.save(commit=False)
+            equipamento.setor = request.user.usuario.setor  # Define o setor do recurso com base no setor do usuário
+            equipamento.save()
             return HttpResponseRedirect('/recursos/?msg=Salvo')
     else:
         form = EquipamentoForm()
     return render(request, 'partials/recurso/formEquipamento.html', {'form': form})
-
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def criarEspaco(request):
     if request.method == 'POST':
         form = EspacoForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            espaco = form.save(commit=False)
+            espaco.setor = request.user.usuario.setor  # Define o setor do recurso com base no setor do usuário
+            espaco.save()
             return HttpResponseRedirect('/recursos/?msg=Salvo')
     else:
         form = EspacoForm()
