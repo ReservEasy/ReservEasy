@@ -5,13 +5,49 @@ from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Equipamento, Espaco
+from usuario.models import Usuario
 from .forms import EquipamentoForm, EspacoForm
 from django.contrib.auth.models import Group
 import os
 from django.core.paginator import Paginator
 
-# def index(request):
-#     return HttpResponse("Hello, world. You're at the recurso index.")
+
+@login_required
+def listarRecursos(request):
+    user = request.user #armazena qual usuário realizou a solicitação de listagem
+    search_query = request.GET.get('searchbar', '')  # pega o parâmetro de pesquisa
+    if search_query:
+        equipamentos = Equipamento.objects.filter(nome__icontains=search_query)
+        espacos = Espaco.objects.filter(nome__icontains=search_query)
+    else:
+        equipamentos = Equipamento.objects.all()
+        espacos = Espaco.objects.all()
+    
+    recursos = list(equipamentos) + list(espacos)
+    total_recursos = len(recursos)
+    usuario = Usuario.objects.get(pk=user.id)
+
+    tipo_adm = "Solicitante"
+    if request.user.groups.filter(name="Administrador Master").exists():
+        tipo_adm = "Adm Master"
+    elif request.user.groups.filter(name="Administrador de Setor").exists():
+        tipo_adm = "Adm Setor"
+        recursos_mesmo_setor = [recurso for recurso in recursos if recurso.setor == usuario.setor]
+        total_recursos = len(recursos_mesmo_setor)
+
+    # paginação
+    paginator = Paginator(recursos, 10)  # Mostra 10 recursos por página
+    page_number = request.GET.get('page')
+    recursos_page = paginator.get_page(page_number)
+
+    return render(request, "partials/recurso/listarRecursos.html", {
+        'recursos': recursos_page,
+        'total_recursos': total_recursos,
+        'tipo_adm': tipo_adm,
+        'usuario': usuario,
+        'search_query': search_query
+    })
+
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def criarEquipamento(request):
@@ -26,6 +62,7 @@ def criarEquipamento(request):
         form = EquipamentoForm()
     return render(request, 'partials/recurso/formEquipamento.html', {'form': form})
 
+
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def criarEspaco(request):
     if request.method == 'POST':
@@ -38,39 +75,6 @@ def criarEspaco(request):
     else:
         form = EspacoForm()
     return render(request, 'partials/recurso/formEspaco.html', {'form': form})
-
-
-#metodo que lista todos os registros
-@login_required
-def listarRecursos(request):
-    user = request.user #armazena qual usuário realizou a solicitação de listagem
-    administrador_setor = Group.objects.get(name='Administrador de Setor') #obtem o grupo administrador de setor no bd
-    is_admin_setor = administrador_setor in user.groups.all() #verifica se o grupo obtido está presente entre os grupos no qual o usuário atual pertence
-    # user.groups.set(administrador_setor)
-
-    #pesquisa de itens especificos
-    search_query = request.GET.get('searchbar', '')  # pega o parâmetro de pesquisa
-    if search_query:
-        equipamentos = Equipamento.objects.filter(nome__icontains=search_query)
-        espacos = Espaco.objects.filter(nome__icontains=search_query)
-    else:
-        equipamentos = Equipamento.objects.all()
-        espacos = Espaco.objects.all()
-    
-    recursos = list(equipamentos) + list(espacos)
-    total_recursos = len(recursos)  # total de recursos registrados no BD
-    # paginação
-    paginator = Paginator(recursos, 10)  # Mostra 10 recursos por página
-    page_number = request.GET.get('page')
-    recursos_page = paginator.get_page(page_number)
-    total_recursos = len(recursos)  # total de recursos registrados no bd
-    
-    return render(request, "partials/recurso/listarRecursos.html", {
-        'recursos': recursos_page,
-        'total_recursos': total_recursos,
-        'is_admin_setor': is_admin_setor,
-        'search_query': search_query
-    })
 
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
@@ -136,4 +140,13 @@ def deletarEspaco(request, id_recurso):
     
     return HttpResponseRedirect("/recursos/?msg=Excluído")
 
+# @login_required
+# def tipoAdm(request):
+#     adm = "Solicitante"
+#     if request.user.is_authenticated:
+#         if request.user.groups.filter(name="Administrador Master").exists():
+#             adm = "Adm Master"
+#         elif request.user.groups.filter(name="Administrador de Setor").exists():
+#             adm = "Adm Setor"
+#     return render(request, '_sidebar.html', {'adm': adm})
     

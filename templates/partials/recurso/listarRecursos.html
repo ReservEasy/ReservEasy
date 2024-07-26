@@ -239,11 +239,10 @@
         border-radius: 5px;
     }
 </style>
-<body>
-    
 
+<body>
 <div class="identification-section">
-    <h1 class="title-service">Estoque - Coordenação de Assuntos Estudantis #1</h1>
+    <h1 class="title-service">Estoque</h1>
     <button id="btnVoltar" >Voltar</button>
 </div>
 <div class="search-tools">
@@ -259,7 +258,7 @@
             </form>
         </div>
     <div class="services-btns">
-        {% if is_admin_setor %}
+        {% if tipo_adm == "Adm Setor" %}
         <a href="/recursos/createEquipamento/" class="btn">Cadastrar Equipamento</a>
         <a href="/recursos/createEspaco/" class="btn">Cadastrar Espaço</a>
         {% endif %}
@@ -270,41 +269,54 @@
         <i class="fa-solid fa-boxes-stacked"></i>
         <p>Inventário ({{ total_recursos }})</p>
     </div>
+
 <table class="table table-striped table-bordered mt-3">
     <thead>
         <tr class="tr-row">
             <th class="th-column">Recurso</th>
             <th class="th-column">Nome</th>
             <th class="th-column">Quant Total</th>
-            <th class="th-column">Quant Disponível</th>
+            {% comment %} <th class="th-column">Quant Disponível</th> {% endcomment %}
             <th class="th-column">Descrição</th>
-            {% if is_admin_setor %}
+            {% if tipo_adm == "Adm Setor" %}
                 <th class="th-column">Ações</th>
             {% endif %}
         </tr>
     </thead>
     <tbody id="resource-list">
         {% if recursos %}
-        {% for recurso in recursos %}
-        <tr class="tr-row">
-            <td><img src="{{ recurso.imagem.url }}" alt="{{ recurso.nome }}"></td>
-            <td class="recurso-view">{{ recurso.nome }}</td>
-            <td>{{ recurso.quantTotal|default:"1" }}</td>
-            {% comment %} <td>{{ recurso.quantDisponivel }}</td> {% endcomment %}
-            <td>(Em construção)</td>
-            <td>{{ recurso.descricao }}</td>
-            {% if is_admin_setor %}
-                <td class="actions">
-                        <a href="/recursos/editar/{{ recurso.id }}" class="btn btn-editar"><i class="fa-solid fa-pen-to-square"></i></a>
-                    {% if recurso.get_tipo == "Equipamento" %}
-                        <a href="/recursos/deletarEquipamento/confirmar/{{ recurso.id }}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
-                    {% elif recurso.get_tipo == "Espaco" %}
-                        <a href="/recursos/deletarEspaco/confirmar/{{ recurso.id }}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+            {% for recurso in recursos %}
+            {% if tipo_adm == "Adm Setor" and recurso.setor == usuario.setor or tipo_adm == "Adm Master" %}
+            <!-- entra se ele for adm setor e os recuros forem do mesmo setor (pq ele só pode ver o que é do seu setor) -->
+                    <tr class="tr-row">
+                        <td><img src="{{ recurso.imagem.url }}" alt="{{ recurso.nome }}"></td>
+                        <td class="recurso-view">{{ recurso.nome }}</td>
+                        <td>{{ recurso.quantTotal|default:"1" }}</td>
+                        {% comment %} <td>{{ recurso.quantDisponivel }}</td> {% endcomment %}
+                        {% comment %} <td>(Em construção)</td> {% endcomment %}
+                        <td>{{ recurso.descricao }}</td>
+                        {% if tipo_adm == "Adm Setor" %}
+                            <td class="actions">
+                                    <a href="/recursos/editar/{{ recurso.id }}" class="btn btn-editar"><i class="fa-solid fa-pen-to-square"></i></a>
+                                {% if recurso.get_tipo == "Equipamento" %}
+                                    <a href="/recursos/deletarEquipamento/confirmar/{{ recurso.id }}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+                                {% elif recurso.get_tipo == "Espaco" %}
+                                    <a href="/recursos/deletarEspaco/confirmar/{{ recurso.id }}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+                                {% endif %}
+                            </td>   
+                        {% endif %}
+                    </tr>
+                {% elif tipo_adm == "Solicitante" %}
+                    <tr class="tr-row">
+                        <td><img src="{{ recurso.imagem.url }}" alt="{{ recurso.nome }}"></td>
+                        <td class="recurso-view">{{ recurso.nome }}</td>
+                        <td>{{ recurso.quantTotal|default:"1" }}</td>
+                        {% comment %} <td>{{ recurso.quantDisponivel }}</td> {% endcomment %}
+                        {% comment %} <td>(Em construção)</td> {% endcomment %}
+                        <td>{{ recurso.descricao }}</td>
+                    </tr>    
                 {% endif %}
-            {% endif %}     
-    </td>
-        </tr>
-        {% endfor %}
+            {% endfor %}
         {% else %}
         <tr class="tr-row">
             <td colspan="7">Não há registros :/</td>

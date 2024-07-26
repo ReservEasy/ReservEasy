@@ -30,6 +30,7 @@ def register(request):
 
     return render(request, 'registration/register.html', {'form': form, 'tipo': tipo})
 
+
 def usuario_ou_admin_master(u):
     return u.groups.filter(name__in=['Administrador de Setor', 'Administrador Master']).exists()
 
