@@ -306,7 +306,7 @@
                     <th class="th-column">ID</th>
                     <th class="th-column">Nome</th>
                     <th class="th-column">Descrição</th>
-                    <th class="th-column actions">Ações</th>
+                    {% comment %} <th class="th-column actions">Ações</th> {% endcomment %}
                 </tr>
             </thead>
             <tbody id="resource-list">
@@ -316,10 +316,10 @@
                             <td class="adm-view"><a href="">{{ recurso.id }}</a></td>
                             <td class="sector-view">{{ recurso.nome }}</td>
                             <td class="sector-view">{{ recurso.descricao}}</td>
-                            <td class="actions">
-                                {% comment %} <a href="" class="btn btn-editar">Editar</a> {% endcomment %}
+                            {% comment %} <td class="actions">
+                                <a href="" class="btn btn-editar">Editar</a>
                                 <a href="" class="btn btn-danger">Remover</a>
-                            </td>
+                            </td> {% endcomment %}
                         </tr>
                     {% endfor %}
                 {% endif %}

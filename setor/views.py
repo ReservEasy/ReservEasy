@@ -30,7 +30,6 @@ def listarSetores(request):
         setores_list = setores_list.filter(
             nome__icontains=search_query
         )
-    
     # paginação
     paginator = Paginator(setores_list, 10)  # mostra apenas 10 setores por página
     page_number = request.GET.get('page')
