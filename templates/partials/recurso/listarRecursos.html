@@ -86,12 +86,9 @@
         color: #fff;
     }
 
-    td:nth-child(5){
-        width: 40%;
-    }
 
     td img {
-        max-width: 100px;
+        max-width: 80px;
         max-height: 50px;
         height: auto;
     }
@@ -105,6 +102,7 @@
         justify-content: center;
         align-items: center;
         height: 70px;
+        width: 100%;
     }
 
     .th-column {
@@ -327,8 +325,8 @@
 <div class="pagination">
     <span class="step-links">
         {% if recursos.has_previous %}
-            <a href="?page=1&searchbar={{ search_query }}">&laquo; primeira</a>
-            <a href="?page={{ recursos.previous_page_number }}&searchbar={{ search_query }}">anterior</a>
+            <a href="?page=1{% if search_query %}&searchbar={{ search_query }}{% endif %}">&laquo; Primeiro</a>
+            <a href="?page={{ recursos.previous_page_number }}{% if search_query %}&searchbar={{ search_query }}{% endif %}">Anterior</a>
         {% endif %}
 
         <span class="current">
@@ -336,8 +334,8 @@
         </span>
 
         {% if recursos.has_next %}
-            <a href="?page={{ recursos.next_page_number }}&searchbar={{ search_query }}">próxima</a>
-            <a href="?page={{ recursos.paginator.num_pages }}&searchbar={{ search_query }}">última &raquo;</a>
+            <a href="?page={{ recursos.next_page_number }}{% if search_query %}&searchbar={{ search_query }}{% endif %}">Próxima</a>
+            <a href="?page={{ recursos.paginator.num_pages }}{% if search_query %}&searchbar={{ search_query }}{% endif %}">Último &raquo;</a>
         {% endif %}
     </span>
 </div>

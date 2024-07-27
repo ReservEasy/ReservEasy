@@ -24,7 +24,6 @@ def listarRecursos(request):
         espacos = Espaco.objects.all()
     
     recursos = list(equipamentos) + list(espacos)
-    total_recursos = len(recursos)
     usuario = Usuario.objects.get(pk=user.id)
 
     tipo_adm = "Solicitante"
@@ -36,9 +35,10 @@ def listarRecursos(request):
         total_recursos = len(recursos_mesmo_setor)
 
     # paginação
-    paginator = Paginator(recursos, 10)  # Mostra 10 recursos por página
+    paginator = Paginator(recursos_mesmo_setor, 5) # Mostra 7 recursos por página
     page_number = request.GET.get('page')
     recursos_page = paginator.get_page(page_number)
+    
 
     return render(request, "partials/recurso/listarRecursos.html", {
         'recursos': recursos_page,

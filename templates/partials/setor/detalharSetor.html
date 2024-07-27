@@ -94,7 +94,7 @@
             display: flex;
             gap: 5px;
             align-items: flex-start;
-            margin-left: 15px;
+            margin-left: 25px;
         }
         .adm-list {
             /* height: 100vh; */
@@ -254,13 +254,7 @@
             </div>
         </div>
         <div class="search-adm">
-            <div class="search-recursos">
-                <div class="title-search-recursos">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <p>Digite o nome do administrador:</p>
-                </div>
-                <input type="text" name="searchbar" id="searchbar" placeholder="Pesquisar" onkeyup="search()">
-            </div>
+            
             <div class="data-service">
                 <p class="count-data-service" id="resource-count">{{ total_usuarios }}</p>
                 <p class="data-service-title">Administradores alocados</p>
@@ -326,28 +320,23 @@
             </tbody>
         </table>
     </section>
-
+    <script src="{% static 'js/windowBack.js '%}"></script>
     <script>
-        function search() {
-    let input = normalizeText(document.getElementById("searchbar").value);
-    let rows = document.querySelectorAll('.tr-row');
-    let count = 0;
-
-    rows.forEach(row => {
-        let nameCell = row.querySelector('.sector-view');
-        if (nameCell) {
-            let normalizedText = normalizeText(nameCell.textContent);
-            if (normalizedText.includes(input)) {
-                row.style.display = "";
-                count++;
-            } else {
-                row.style.display = "none";
+        {% comment %} conta a qauntidade de adms alocados {% endcomment %}
+        rows.forEach(row => {
+            let nameCell = row.querySelector('.sector-view');
+            if (nameCell) {
+                let normalizedText = normalizeText(nameCell.textContent);
+                if (normalizedText.includes(input)) {
+                    row.style.display = "";
+                    count++;
+                } else {
+                    row.style.display = "none";
+                }
             }
-        }
-    });
+        });
 
-    document.getElementById("resource-count").textContent = count;
-}
+        document.getElementById("resource-count").textContent = count;
 
     </script>
 </body>

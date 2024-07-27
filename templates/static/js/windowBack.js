@@ -1,33 +1,18 @@
-// document.getElementById("btnVoltar").onclick = function() {
-//     window.history.back();
-// };
-
 document.getElementById("btnVoltar").onclick = function() {
-    // Verifica se há uma página anterior ou se o document.referrer está vazio
-    if (document.referrer === "" || window.history.length === 1) {
-        // Redireciona para a página padrão
-        window.location.pathname = "/recursos/";
+    // Obtém a lista de páginas visitadas
+    let visitedPages = JSON.parse(sessionStorage.getItem('visitedPages')) || [];
+
+    // Encontra a página anterior na lista
+    let currentPageIndex = visitedPages.indexOf(window.location.href);
+    if (currentPageIndex > 0) {
+        // Se houver uma página anterior na lista de páginas visitadas, redireciona para ela
+        let previousPage = visitedPages[currentPageIndex - 1];
+        window.location.href = previousPage;
+    } else if (window.history.length > 1) {
+        // Caso contrário, tenta usar o histórico do navegador
+        window.history.go(-1);
     } else {
-        // Obter o caminho da URL da página anterior (após o domínio)
-        var previousPath = new URL(document.referrer).pathname;
-
-        // Define os caminhos das páginas permitidas para navegação
-        var allowedPaths = [
-            "/setor/listar",     // Caminho da página de listar setores
-            "/usuario/listar",   // Caminho da página de listar usuários
-            "/recurso/listar"    // Caminho da página de listar recursos
-        ];
-
-        // Define um caminho padrão para redirecionar se a anterior não for permitida
-        var defaultPath = "/recursos/";
-
-        // Verifica se o caminho da página anterior está na lista de caminhos permitidos
-        if (allowedPaths.includes(previousPath)) {
-            // Volta para a página anterior
-            window.history.back();
-        } else {
-            // Redireciona para o caminho padrão
-            window.location.pathname = defaultPath;
-        }
+        // Caso contrário, redireciona para uma URL padrão
+        window.location.href = '/recurso/';
     }
 };

@@ -1,17 +1,11 @@
-<!-- {%  extends  "partials/_base.html" %}
+{%  extends  "partials/_base.html" %}
 {% block content %}
-{% load static %} -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Inclua o CSS do Select2 -->
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
-
-<!-- Inclua o JS do Select2 -->
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
-
     <title>Cadastrar Administrador | ReservEasy</title>
     <style>
         *{
@@ -32,7 +26,7 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
-    }
+        }
     .identification-section button, .services-btns a{
         background-color: #022376;
         border: none;
@@ -113,9 +107,89 @@
     #btnCadastrar:hover{
         text-decoration: none;
         background-color: #010C29;
-    
     }
-    
+    .th-column {
+        background-color: #E4E4E4 !important;
+        color: #252525 !important;
+        vertical-align: middle !important;
+    }
+    table {
+        border-collapse: collapse;
+        width: 50%;
+        margin: 20px auto;
+        text-align: center;
+    }
+    th, td {
+        padding: 8px;
+        font-size: 12px;
+        text-align: center;
+        vertical-align: middle !important;
+    }
+    th {
+        background-color: #E4E4E4;
+        color: black;
+        font-size: 12px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    td {
+        background-color: transparent !important;
+        border: 0px solid #ccc !important;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+    tr{
+        display: flex;
+    }
+    .th-column {
+        background-color: #E4E4E4 !important;
+        color: #252525 !important;
+        vertical-align: middle !important;
+    }
+    table, thead, tr, th, tbody, td {
+        border: 0 !important;
+        text-align: start;
+    }
+    td, .th-column {
+        padding: 5px !important;
+    }
+    th {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+    table, thead, tr, th, tbody, td {
+        border: 0 !important;
+        text-align: start;
+    }
+    td, .th-column {
+        padding: 5px !important;
+    }
+    th {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+    .tr-row, tr {
+        border-bottom: 1px solid #ccc !important;
+        
+    }
+    .th-column{
+        background-color: transparent !important;
+        border: 0px solid #ccc;
+    }
+     .search-container {
+            margin-bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .search-container input {
+            width: 80%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
     </style>
     <script src="https://kit.fontawesome.com/88a7a49c60.js" crossorigin="anonymous"></script>
 
@@ -130,33 +204,62 @@
         <form action="" method="post" enctype="multipart/form-data">
             <div class="input-recurso">
                 {% csrf_token %}
-                {{ form.as_p }}
-                {% comment %} <p>
-                    <label for=""><i class="fa-solid fa-magnifying-glass"></i> Usuário que deseja alocar?</label>
-                    <input type="text" name="" id="">
-                </p> {% endcomment %}
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Buscar usuários...">
+                </div>
+
+                <table id="userTable">
+                    <thead>
+                        <tr>
+                            <th>Selecionar</th>
+                            <th>Usuário</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for widget in form.usuarios %}
+                            <tr>
+                                <td>{{ widget.tag }}</td>
+                                <td>{{ widget.choice_label }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="2">Nenhum usuário encontrado.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- Limitar exibição a 5 itens -->
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        document.getElementById('searchInput').addEventListener('input', function() {
+                            const searchText = this.value.toLowerCase();
+                            const rows = document.querySelectorAll('#userTable tbody tr');
+
+                            rows.forEach((row) => {
+                                const cells = row.querySelectorAll('td');
+                                const match = Array.from(cells).some(cell => cell.textContent.toLowerCase().includes(searchText));
+
+                                if (match) {
+                                    row.style.display = '';
+                                } else {
+                                    row.style.display = 'none';
+                                }
+                            });
+                        });
+                    });
+                </script>
             </div>
             <div class="button-container">
-            <button type="submit" id="btnCadastrar">Cadastrar</button>
+                <button type="submit" id="btnCadastrar">Cadastrar</button>
             </div>
         </form>
-</section>
+    </section>
 
-<script src="{% static 'js/inputs.js '%}"></script>
-<script src="{% static 'js/windowBack.js '%}"></script>
-<script src="{% static 'js/updateImagePreview.js '%}"></script>
-<script>
-    $(document).ready(function() {
-        $('.select2').select2({
-            placeholder: 'Selecione os usuários',
-            allowClear: true,
-            width: '100%'  // Para ajustar a largura ao container do formulário
-        });
-    });
-</script>
+    <script src="{% static 'js/inputs.js '%}"></script>
+    <script src="{% static 'js/windowBack.js '%}"></script>
+    <script src="{% static 'js/updateImagePreview.js '%}"></script>
 
-<!-- {% endblock content %} -->
 </body>
 </html>
-</body>
-</html>
+{% endblock%}

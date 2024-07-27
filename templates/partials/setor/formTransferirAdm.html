@@ -1,3 +1,6 @@
+{%  extends  "partials/_base.html" %}
+{% block content %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -5,15 +8,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transferir Administrador | ReservEasy</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-register-admsector{
+            margin: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        .identification-section{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            }
+        .identification-section button, .services-btns a{
+            background-color: #022376;
+            border: none;
+            color: #fff;
+            padding: 5px 12px;
+            font-size: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .identification-section button:hover{
+            text-decoration: none;
+            background-color: #010C29;
+        }
+        .title-service{
+        font-size:20px;  
+        }
+        .subtitle-service{
+        font-size: 15px;
+        font-weight: 500;
+        }
+        form{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        }
+        form .input-recurso{
+        margin-left: 15px;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 30px;
+        column-gap: 40px;
+        align-items: center;
+        justify-content: center;
+        }
+        form .button-container {
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        #btnCadastrar{
+            background-color: #022376;
+            border: none;
+            color: #fff;
+            padding: 5px 12px;
+            font-size: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        #btnCadastrar:hover{
+            text-decoration: none;
+            background-color: #010C29;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-4">
-        <h1>Transferir Administrador</h1>
-        <p>Você está transferindo o administrador <strong>{{ usuario.first_name }} {{ usuario.last_name }}</strong>, de id <strong> {{usuario.id}} </strong>, para um novo setor.</p>
-
-        <form method="POST" action="">
-            {% csrf_token %}
-            <div class="form-group">
+    <section class="form-register-admsector">
+        <div class="identification-section">
+            <h1 class="title-service"> Administradores - Transferência de Setor</h1>
+            <button id="btnVoltar" >Voltar</button>
+        </div>
+        <h2 class="subtitle-service">Você está transferindo o administrador <strong>{{ usuario.first_name }} {{ usuario.last_name }}</strong>, de id <strong> {{usuario.id}} </strong>, atualmente alocado no setor <strong> {{usuario.setor}} </strong>, para um novo setor.</h2>
+        <form action="" method="post">
+            <div class="input-recurso">
+                {% csrf_token %}
                 <label for="setor">Selecione o Novo Setor:</label>
                 <select id="setor" name="setor" class="form-control" required>
                     {% for setor in setores %}
@@ -21,9 +96,12 @@
                     {% endfor %}
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Transferir</button>
-            <a href="/setor/" class="btn btn-secondary">Cancelar</a>
+            <div class="button-container">
+                <button type="submit" id="btnCadastrar">Transferir</button>
+            </div>
         </form>
-    </div>
+    </section>
+    <script src="{% static 'js/windowBack.js '%}"></script>
 </body>
 </html>
+{% endblock%}
