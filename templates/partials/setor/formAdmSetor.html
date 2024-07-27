@@ -6,6 +6,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Inclua o CSS do Select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- Inclua o JS do Select2 -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
+
     <title>Cadastrar Administrador | ReservEasy</title>
     <style>
         *{
@@ -109,7 +115,7 @@
         background-color: #010C29;
     
     }
-
+    
     </style>
     <script src="https://kit.fontawesome.com/88a7a49c60.js" crossorigin="anonymous"></script>
 
@@ -125,10 +131,10 @@
             <div class="input-recurso">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <p>
+                {% comment %} <p>
                     <label for=""><i class="fa-solid fa-magnifying-glass"></i> Usuário que deseja alocar?</label>
                     <input type="text" name="" id="">
-                </p>
+                </p> {% endcomment %}
             </div>
             <div class="button-container">
             <button type="submit" id="btnCadastrar">Cadastrar</button>
@@ -139,6 +145,15 @@
 <script src="{% static 'js/inputs.js '%}"></script>
 <script src="{% static 'js/windowBack.js '%}"></script>
 <script src="{% static 'js/updateImagePreview.js '%}"></script>
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: 'Selecione os usuários',
+            allowClear: true,
+            width: '100%'  // Para ajustar a largura ao container do formulário
+        });
+    });
+</script>
 
 <!-- {% endblock content %} -->
 </body>
