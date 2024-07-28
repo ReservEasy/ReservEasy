@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Usuario
-from .forms import UsuarioForm
+from .forms import UsuarioForm, UsuarioUpdateForm
 from django.contrib.auth.models import Group
 import os
 
@@ -60,3 +60,20 @@ def listarUsuarios(request):
         'total_usuarios': total_usuarios,
         'search_query': search_query
     })
+
+@login_required
+def perfilUser(request): #visualização do perfil do usuario
+    usuario = get_object_or_404(Usuario, username=request.user.username) #busca o objeto Usuario correspondente ao usuário atualmente autenticado
+    return render(request, 'partials/usuario/myprofile.html', {'usuario': usuario})
+
+@login_required
+def editarPerfilUser(request):
+    usuario = get_object_or_404(Usuario, username=request.user.username)
+    if request.method == 'POST':
+        form = UsuarioUpdateForm(request.POST, instance=usuario, user=usuario)
+        if form.is_valid():
+            form.save()
+            return redirect('perfil_usuario') 
+    else:
+        form = UsuarioUpdateForm(instance=usuario, user=usuario)
+    return render(request, 'partials/usuario/myprofile_update.html', {'form': form, 'usuario': usuario})
