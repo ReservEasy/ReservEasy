@@ -24,7 +24,7 @@
         </div>
         {% if user.is_authenticated %}
             <div class="btn-usuario-subst">
-                <a href="#" class="btn-subst" id="btn-subst-profile">
+                <a href="/accounts/perfil/" class="btn-subst" id="btn-subst-profile">
                     <img src="{% static 'img/user.png' %}" alt="user" class="photo-usuario">
                     <p class="name-usuario">{{user}}</p>
                 </a>

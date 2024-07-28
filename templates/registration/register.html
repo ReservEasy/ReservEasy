@@ -19,18 +19,20 @@
             overflow: auto;
             background-color: rgba(0,0,0,0.4); /* Fundo escuro translúcido */
         }
-
+        
         .modal-content {
             background-color: #fefefe;
-            margin: 15% auto; 
+            margin: 5% auto; 
             padding: 20px;
             border: 1px solid #888;
             border-radius: 20px;
-            width: 60%; /
+            width: 60%; /* Largura do modal */
             max-width: 600px; /* Largura máxima do modal */
             box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
             position: relative;
-        }
+            max-height: 90%; /* Altura máxima do modal */
+            overflow-y: auto; /* Adiciona rolagem vertical se necessário */
+        }        
 
         .close {
             color: #aaa;

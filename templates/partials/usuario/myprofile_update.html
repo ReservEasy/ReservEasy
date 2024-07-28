@@ -1,3 +1,5 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -6,6 +8,9 @@
     <script src="https://kit.fontawesome.com/88a7a49c60.js" crossorigin="anonymous"></script>
     <title>Meu Perfil | ReservEasy</title>
     <style>
+        .symbol-name p{
+            margin: 0px !important;
+        }
         *{
             margin: 0;
             padding: 0;
@@ -27,7 +32,7 @@
             display: flex;
             flex-direction: column;
             gap: 30px;
-            height: 80vh;
+            min-height: 80vh;
         }
         .symbol-name{
             display: flex;
@@ -40,7 +45,6 @@
         .content-section-myprofile{
             display: flex;
             gap: 50px;
-            height: 100%;
         }
         .name-section-myprofile{
             display: flex;
@@ -100,7 +104,7 @@
             border-radius: 5px;
             width:90%;
             padding: 6px 5px;
-            font-size:13px;
+            font-size:12px;
         }
         form {
             display: flex;
@@ -109,18 +113,18 @@
             justify-content: center;
             gap: 50px;
         }
-        form p{
+        .inputs-form-myprofile p{
             display: flex;
             flex-direction: column;
+            width: 50%;
             gap: 10px;
-            width:45%;
+        }
+        p span, ul li{
+            font-size: 12px;
         }
         .inputs-form-myprofile{
-            display: flex;
+            display:flex;
             flex-wrap: wrap;
-            gap: 10px;
-            align-items: flex-start;
-            width: 100%;
             justify-content: center;
         }
         #button-update-user,
@@ -130,9 +134,11 @@
             font-weight: 500;
             border: none;
             border-radius: 5px;
-            padding: 5px 10px;
+            padding: 5px 8px;
+            font-size: 12px;
             text-align: center;
             cursor: pointer;
+            text-decoration: none;
         }
         #button-update-user:hover{
             background-color: #0e380b;
@@ -147,9 +153,18 @@
             display: flex;
             gap: 10px ;
         }
+        .form-data-user{
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
     </style>
 </head>
 <body>
+    {%block topbar%}
+        {%include 'partials/_topbar.html'%}
+    {%endblock%}
     <section class="myprofile-user">
         <div class="layout-myprofile">
             <div class="name-section-myprofile">
@@ -164,49 +179,23 @@
                         <div class="symbol-user">
                             <i class="fa-regular fa-user"></i>
                         </div>
-                        <p>First name</p>
+                        <p>{{ usuario.first_name }}</p>
                     </div>
                 </div>
                 <div class="diviser-content"></div>
                 <div class="data-myprofile">
                     <p>Dados básicos:</p>
                     <div class="form-data-user">
-                        <form action="" method="post">
-                            <div class="inputs-form-myprofile">
-                                <p>
-                                    <label for="">Usuário:</label>
-                                    <input type="text" name="" id="">
-                                </p>
-                                <p>
-                                    <label for="">Usuário:</label>
-                                    <input type="text" name="" id="">
-                                </p>
-                                <p>
-                                    <label for="">Usuário:</label>
-                                    <input type="text" name="" id="">
-                                </p>
-                                <p>
-                                    <label for="">Usuário:</label>
-                                    <input type="text" name="" id="">
-                                </p>
-                                <p>
-                                    <label for="">Usuário:</label>
-                                    <input type="text" name="" id="">
-                                </p>
-                                <p>
-                                    <label for="">Usuário:</label>
-                                    <input type="text" name="" id="">
-                                </p>
-                                <p>
-                                    <label for="">Usuário:</label>
-                                    <input type="text" name="" id="">
-                                </p>
+                        <form method="post">
+                        <div class="inputs-form-myprofile">
+                            {% csrf_token %}
+                            {{ form.as_p }}
                         </div>
                         <div class="btns-service">
-                            <button id="button-update-user" type="submit">Editar perfil</button>
-                            <button id="button-voltar-user">Voltar</button>
+                            <button id="button-update-user" type="submit">Salvar</button>
+                            <a id="button-voltar-user" href="{% url 'perfil_usuario' %}">Voltar</a>
                         </div>
-                        </form>
+                    </form>
                     </div>
                 </div>
             </div>
