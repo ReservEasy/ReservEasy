@@ -30,6 +30,12 @@ class UsuarioForm(UserCreationForm):
         self.fields['telefone'].widget.attrs.update({'class': 'mask-telefone'})
         self.fields['data_nascimento'].widget.attrs.update({'class': 'mask-date'})
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if Usuario.objects.filter(email=email).exists():
+            raise ValidationError("Já existe um usuário com esse email.")
+        return email
+
 class UsuarioUpdateForm(forms.ModelForm):
     class Meta:
         model = Usuario
