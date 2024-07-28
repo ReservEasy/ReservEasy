@@ -25,7 +25,9 @@ def listarRecursos(request):
     
     recursos = list(equipamentos) + list(espacos)
     usuario = Usuario.objects.get(pk=user.id)
+    total_recursos = len(recursos)
 
+    recursos_mesmo_setor = recursos
     tipo_adm = "Solicitante"
     if request.user.groups.filter(name="Administrador Master").exists():
         tipo_adm = "Adm Master"

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reserva de Espaço e Equipamento</title>
+</head>
+<body>
+    <h1>Solicitação de Reserva</h1>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <label for="dataHorarioInicial">Data e Hora Inicial:</label>
+        <input type="datetime-local" id="dataHorarioInicial" name="dataHorarioInicial" required value="{{ dataHorarioInicial|default_if_none:'' }}">
+        <br>
+        <label for="dataHorarioFinal">Data e Hora Final:</label>
+        <input type="datetime-local" id="dataHorarioFinal" name="dataHorarioFinal" required value="{{ dataHorarioFinal|default_if_none:'' }}">
+        <br>
+        <button type="submit" name="buscar">Buscar</button>
+        {% if espacos_disponiveis or equipamentos_disponiveis %}
+            <h2>Espaços Disponíveis</h2>
+            {% for espaco in espacos_disponiveis %}
+                <input type="checkbox" name="espacos" value="{{ espaco.id }}">
+                {% if espaco.imagem %}
+                    <img src="{{ espaco.imagem.url }}" alt="{{ espaco.nome }}" style="width: 100px; height: 100px;">
+                {% endif %}
+                {{ espaco.nome }}<br>
+            {% endfor %}
+            <h2>Equipamentos Disponíveis</h2>
+            {% for equipamento in equipamentos_disponiveis %}
+                <input type="checkbox" name="equipamentos" value="{{ equipamento.id }}">
+                {% if equipamento.imagem %}
+                    <img src="{{ equipamento.imagem.url }}" alt="{{ equipamento.nome }}" style="width: 100px; height: 100px;">
+                {% endif %}
+                {{ equipamento.nome }}<br>
+            {% endfor %}
+            <label for="justificativa">Justificativa:</label>
+            <textarea id="justificativa" name="justificativa"></textarea>
+            <br>
+            <button type="submit" name="enviar_solicitacao">Enviar Solicitação</button>
+        {% endif %}
+    </form>
+</body>
+</html>
