@@ -242,9 +242,9 @@
                 <tbody id="resource-list">
                     {% for reserva in reservas %}
                         <tr class="tr-row">
-                            <td class="recurso-view sector-view"><a href="/reserva/detalharSolicitacao/{{ reserva.id }}/">{{ reserva.id }}</a></td>
+                            <td class="recurso-view sector-view"><a href="/reserva/detalhar/{{ reserva.id }}">{{ reserva.id }}</a></td>
                             <td class="recurso-view">{{ reserva.dataHorarioSolicitacao|date:"d/m/Y" }}</td>
-                            <td class="recurso-view">{{ reserva.dataHorarioInicial|date:"H:i" }} - {{ reserva.dataHorarioFinal|date:"H:i" }}</td>
+                            <td class="recurso-view">{{ reserva.dataHorarioInicial|date:"d/m/Y H:i" }} até {{ reserva.dataHorarioFinal|date:"d/m/Y - H:i"  }}</td>
                             <td class="recurso-view status">
                                 {% if reserva.andamento == 'em_analise' %}
                                     <div class="status-request status-analise">

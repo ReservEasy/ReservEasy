@@ -28,7 +28,7 @@ def listarRecursos(request):
     total_recursos = len(recursos)
 
     recursos_mesmo_setor = recursos
-    tipo_adm = "Solicitante"
+    tipo_adm = "Adm Master"
     if request.user.groups.filter(name="Administrador Master").exists():
         tipo_adm = "Adm Master"
     elif request.user.groups.filter(name="Administrador de Setor").exists():
