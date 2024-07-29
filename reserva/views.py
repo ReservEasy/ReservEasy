@@ -3,6 +3,7 @@ from django.utils.dateparse import parse_datetime
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import HttpResponseForbidden
 from django.db.models import Q
 from .forms import ReservaForm
 from .models import Reserva, ReservaEspaco, ReservaEquipamento
@@ -94,6 +95,43 @@ def listar_reservas(request):
     reservas = Reserva.objects.all()
     return render(request, 'partials/reserva/lista_reserva.html', {'reservas': reservas})
 
+@login_required
+def listar_reservas_usuario(request):
+    user = request.user.id
+    usuario = Usuario.objects.get(pk=user)
+    reservas = usuario.reservas.all()  # Corrigido para usar o related_name correto
+    quant_reservas = len(reservas)
+    return render(request, 'partials/reserva/user/listarSolicitacoesUser.html',{
+        'reservas': reservas,
+        'quant_reservas': quant_reservas
+    })
+
+@login_required
+def detalharReserva(request, id_reserva):
+    reserva = Reserva.objects.get(pk=id_reserva)
+    id_user = reserva.usuario
+    usuario = Usuario.objects.get(pk=id_user)
+    return render(request, "partials/reserva/user/detalharSolicitacao.html",{
+        'reserva': reserva,
+        'usuario': usuario
+    })
+
+@login_required
+def deletarReserva(request, id_reserva):
+    user = request.user.id
+    usuario = Usuario.objects.get(pk=user)
+    reservaa = Reserva.objects.get(pk=id_reserva)
+    reservas = usuario.reservas.all() 
+    liberado = 'nao'
+    if reservas:
+        for reserva in reservas:
+            if reserva.id == reservaa.id:
+                liberado = 'sim'
+    if liberado == 'nao':
+        return HttpResponseForbidden("Você não tem permissão para deletar esta reserva.")
+    else:
+        reservaa.delete()
+        return redirect('/reserva/')
 
 @login_required
 def historicoSolicitacao(request):
@@ -108,7 +146,7 @@ def historicoSolicitacao(request):
     total_reservas = reservas_list.count()  # Total de reservas
 
     # Paginação
-    paginator = Paginator(reservas_list, 8)  # Mostra 10 reservas por página
+    paginator = Paginator(reservas_list, 8)  # Mostra 8 reservas por página
     page_number = request.GET.get('page')
     reservas = paginator.get_page(page_number)
 
