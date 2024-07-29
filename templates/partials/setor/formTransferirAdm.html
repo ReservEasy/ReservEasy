@@ -22,7 +22,7 @@
             justify-content: space-between;
             width: 100%;
             }
-        .identification-section button, .services-btns a{
+        .identification-section #btnVoltar, .services-btns a{
             background-color: #022376;
             border: none;
             color: #fff;
@@ -31,7 +31,7 @@
             border-radius: 5px;
             text-decoration: none;
         }
-        .identification-section button:hover{
+        .identification-section #btnVoltar:hover{
             text-decoration: none;
             background-color: #010C29;
         }
@@ -83,7 +83,7 @@
     <section class="form-register-admsector">
         <div class="identification-section">
             <h1 class="title-service"> Administradores - Transferência de Setor</h1>
-            <button id="btnVoltar" >Voltar</button>
+            <a href="/setor/detalhar/{{ idsetor }}" id="btnVoltar" >Voltar</a>
         </div>
         <h2 class="subtitle-service">Você está transferindo o administrador <strong>{{ usuario.first_name }} {{ usuario.last_name }}</strong>, de id <strong> {{usuario.id}} </strong>, atualmente alocado no setor <strong> {{usuario.setor}} </strong>, para um novo setor.</h2>
         <form action="" method="post">

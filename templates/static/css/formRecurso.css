@@ -117,7 +117,7 @@ hr {
     width: 95%;
     margin-left: 15px;
 }
-.identification-section button, .services-btns a{
+.identification-section #btnVoltar, .services-btns a{
     background-color: #022376;
     border: none;
     color: #fff;
@@ -126,7 +126,7 @@ hr {
     border-radius: 5px;
     text-decoration: none;
 }
-.identification-section button:hover{
+.identification-section #btnVoltar:hover{
     text-decoration: none;
     background-color: #010C29;
 }

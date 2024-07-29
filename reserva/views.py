@@ -11,6 +11,7 @@ from recursos.models import Equipamento, Espaco
 from usuario.models import Usuario
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
+from datetime import datetime, date
 
 @login_required
 def criar_reserva(request):
@@ -156,3 +157,29 @@ def historicoSolicitacao(request):
         'search_query': search_query,
         'page_obj': reservas
     })
+
+def acessarDashboard(request):
+    hoje = date.today()
+    agora = datetime.now()
+    
+    # Contando as reservas em análise, pendentes e para hoje
+    solicitacoes_analisar = Reserva.objects.filter(andamento='em_analise').count()
+    reservas_pendentes = Reserva.objects.filter(andamento='aprovada', dataHorarioFinal__gte=agora, dataHorarioInicial__lt=agora).count()
+    reservas_hoje = Reserva.objects.filter(dataHorarioInicial__date=hoje).count()
+
+    # Detalhes das reservas para hoje
+    reservas_hoje_detalhes = Reserva.objects.filter(dataHorarioInicial__date=hoje)
+
+    # Verificar disponibilidade de espaços e equipamentos (não é necessário para o dashboard principal, mas incluído se necessário)
+    espacos_disponiveis, equipamentos_disponiveis = Reserva.verificar_disponibilidade(agora, agora)
+
+    context = {
+        'solicitacoes_analisar': solicitacoes_analisar,
+        'reservas_pendentes': reservas_pendentes,
+        'reservas_hoje': reservas_hoje,
+        'reservas_hoje_detalhes': reservas_hoje_detalhes,
+        'espacos_disponiveis': espacos_disponiveis,
+        'equipamentos_disponiveis': equipamentos_disponiveis,
+    }
+
+    return render(request, 'partials/dashboard.html', context)

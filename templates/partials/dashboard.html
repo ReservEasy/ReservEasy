@@ -1,0 +1,182 @@
+{% extends 'partials/_base.html' %}
+
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins';
+        }
+        .data-service-title,
+        .count-data-service {
+            margin: 0;
+        }
+        .count-data-service {
+            font-size: 45px;
+            font-weight: bold;
+        }
+        .widget-service-home-page{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .data-service-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        .btn-service{
+            text-transform: none;
+            text-decoration: none;
+            color:#fff;
+            background-color: #A0BE3D;
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+        .btn-service:hover{
+            color: #fff;
+        }
+        .data-service {
+            min-width: 220px;
+            width: 33%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+            border: 0.5px solid #ccc;
+            padding: 10px;
+            border-radius: 10px;
+            border-bottom: 5px solid #022376;
+            margin-right: 40px;
+            background-color: #fff;
+        }
+        .green{
+            border-bottom: 5px solid #A0BE3D;
+        }
+        .yellow{
+            border-bottom: 5px solid #BD9505;
+        }
+        .btn-service.yellowbtn{
+            background-color: #BD9505;
+        }
+        .btn-service.blue{
+            background-color: #022376;
+        }
+        .blue{
+            
+        }
+        .dashboard-home-page{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+            margin: 0 50px;
+            gap: 20px;
+        }
+        .widget-requests-today-home-page{
+            border: 0.5px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 20px;
+            min-width: 350px;
+            width: 350px;
+        }
+        .title-widget{
+            font-size: 20px;
+        }
+        .subtitle-widget{
+            font-size: 15px;
+            margin: 10px 0;
+        }
+        .requests-today{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-width: 300px;
+        }
+        .request-user{
+            border-left: 10px solid #BD9505;
+            border-radius: 8px;
+            background-color: #FFEBA6;
+            padding: 5px;
+            min-width: 300px;
+        }
+        .data-user-request-today{
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+
+        }
+        .data-user-request-today strong a{
+            color: #BD9505;
+        }
+        p{
+            margin:0;
+        }
+    </style>
+</head>
+<body>
+    <section class="dashboard-home-page">
+        <div class="widget-service-home-page">
+            <div class="data-service special-widget">
+                <p class="count-data-service" id="resource-count">{{ solicitacoes_analisar }}</p>
+                <p class="data-service-title">Solicitações a serem analisadas
+                    <a class="btn-service blue" href="/reservas/solicitacoes">Acesse</a>
+                </p>
+            </div>
+            <div class="data-service green">
+                <p class="count-data-service" id="resource-count">{{ reservas_pendentes }}</p>
+                <p class="data-service-title">Reservas com pendência
+                    <a class="btn-service" href="">Acesse</a>
+                </p>
+            </div>
+            <div class="data-service yellow">
+                <p class="count-data-service" id="resource-count">{{ reservas_hoje }}</p>
+                <p class="data-service-title">Reservas para hoje
+                    <a class="btn-service yellowbtn" href="">Acesse</a>
+                </p>
+            </div>
+        </div>
+    
+        <div class="widget-requests-today-home-page">
+            <div class="title-widget-requests-today">
+                <h2 class="title-widget">Próximas reservas</h2>
+            </div>
+            <div class="content-widget-requests-today">
+                <div class="subtitle-widget-requests-today">
+                    <h4 class="subtitle-widget">Hoje</h4>
+                </div>
+                <div class="requests-today">
+                    {% for reserva in reservas_hoje_detalhes %}
+                    <div class="request-user">
+                        <div class="data-user-request-today">
+                            <p class="data-user"><strong><a href="">Reserva #{{ reserva.id }}</a></strong></p>
+                            <p class="data-user"><strong>Solicitante: </strong>{{ reserva.usuario.get_full_name }}</p>
+                            <p class="data-user">{{ reserva.dataHorarioInicial|time }} - {{ reserva.dataHorarioFinal|time }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+</body>
+</html>
+{% endblock %}

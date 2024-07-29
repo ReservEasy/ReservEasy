@@ -81,7 +81,7 @@ h3 {
     margin-left: 15px;
 }
 
-.identification-section button,
+.identification-section #btnVoltar,
 .services-btns a {
     background-color: #022376;
     border: none;
@@ -92,7 +92,7 @@ h3 {
     text-decoration: none;
 }
 
-.identification-section button:hover {
+.identification-section #btnVoltar:hover {
     text-decoration: none;
     background-color: #010c29;
 }

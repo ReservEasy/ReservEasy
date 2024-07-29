@@ -101,7 +101,8 @@ def removerAdm(request, id_adm):
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
 def transferirAdm(request, id_adm):
-    usuario = Usuario.objects.get(id=id_adm)  
+    usuario = Usuario.objects.get(id=id_adm) 
+    idsetor= usuario.setor_id
     if request.method == 'POST':
         novo_setor_id = request.POST.get('setor')
         novo_setor = get_object_or_404(Setor, id=novo_setor_id)  # Obtém a instância do setor com base no ID
@@ -109,7 +110,7 @@ def transferirAdm(request, id_adm):
         usuario.save()
         return HttpResponseRedirect('/setor/?msg=Salvo')
     setores = Setor.objects.all()
-    return render(request, 'partials/setor/formTransferirAdm.html', {'usuario': usuario, 'setores': setores})
+    return render(request, 'partials/setor/formTransferirAdm.html', {'usuario': usuario, 'setores': setores, 'idsetor': idsetor})
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
 def editarSetor(request, id_setor):

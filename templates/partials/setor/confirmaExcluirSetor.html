@@ -78,7 +78,7 @@
             margin-left: 15px;
         }
 
-        .identification-section button,
+        .identification-section #btnVoltar,
         .services-btns a {
             background-color: #022376;
             border: none;
@@ -89,7 +89,7 @@
             text-decoration: none;
         }
 
-        .identification-section button:hover {
+        .identification-section #btnVoltar:hover {
             text-decoration: none;
             background-color: #010c29;
         }
@@ -111,7 +111,7 @@
 
     <div class="identification-section">
         <h1 class="title-service">Setores - {{setor.nome}} #{{ setor.id }}</h1>
-        <button id="btnVoltar">Voltar</button>
+        <a href="/setor/" id="btnVoltar">Voltar</a>
     </div>
 
     <div class="container">

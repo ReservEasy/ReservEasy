@@ -16,7 +16,7 @@
         margin-left: 15px;
     }
 
-    .identification-section button,
+    .identification-section #btnVoltar,
     .services-btns a {
         background-color: #022376;
         border: none;
@@ -27,7 +27,7 @@
         text-decoration: none;
     }
 
-    .identification-section button:hover {
+    .identification-section #btnVoltar:hover {
         background-color: #010C29;
     }
 
@@ -120,7 +120,7 @@
 <section class="section-form-sector">
     <div class="identification-section">
         <h1 class="title-service">Setores - {{setor.nome}} #{{ setor.id }}</h1>
-        <button id="btnVoltar">Voltar</button>
+        <a href="/setor/" id="btnVoltar">Voltar</a>
     </div>
 
     <h2 class="subtitle-service">Dados gerais do recurso:</h2>
