@@ -1,12 +1,17 @@
+{% extends 'partials/_base.html' %}
+
+{% block content %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/88a7a49c60.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuários | ReservEasy</title>
     <style>
         *{
-            margin: 0;
+            margin: 0 ;
             padding: 0;
             font-family: 'Poppins';
         }
@@ -22,7 +27,7 @@
             background-color: #E3E3E3;
         }
         thead th, td{
-            border: none;
+            border: none !important;
             padding: 10px;
             text-align: center;
         }
@@ -45,9 +50,9 @@
             border-radius: 100%;
             padding: 20px;
         }
-        .icon-user img{
-            width: 80px;
-            height: auto;
+        .icon-user i{
+            font-size: 20px;
+            color: #000;
         }
         .name-user{
             display: flex;
@@ -100,9 +105,10 @@
         background-color: #FFEBA6 !important;
     }
     .status-request{
-        min-width: 80px;
+        min-width: 100px;
         justify-content: center;
         gap: 5px;
+        margin-bottom: 0px !important;
         display: flex;
         background-color: #E2EBC3; 
         padding: 4px 8px;
@@ -133,6 +139,38 @@
             color: #A0BE3D;
             margin: 0px;
     }
+    P{
+        margin: 0px;
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+        font-size:12px;
+    }
+    .pagination .step-links {
+        display: flex;
+        gap: 5px;
+        font-size:12px;
+    }
+    .pagination .step-links a, .pagination .step-links span {
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #333;
+        font-size:12px;
+    }
+    .pagination .step-links a:hover {
+        background-color: #f0f0f0;
+        border-color: #999;
+    }
+    .pagination .step-links .current {
+        background-color: #022376;
+        color: #fff;
+        border-color: #022376;
+        font-size:12px;
+    }
     </style>
 </head>
 <body>
@@ -142,9 +180,9 @@
         <div class="detail-user-name">
             <div class="name-user">
                 <div class="icon-user">
-                    <img src="user_empty.png" alt="">
+                    <i class="fa-solid fa-user"></i>
                 </div>
-                <p class="text-name-user">Agnes Rocha Pereira</p>
+                <p class="text-name-user">{{ usuario.first_name }} {{ usuario.last_name }}</p>
             </div>
             <div class="btns-path">
                 <button id="btnVoltar">Voltar</button>
@@ -158,8 +196,11 @@
                         <th class="th-column">Telefone</th>
                         <th class="th-column">Matrícula/SIAPE</th>
                         <th class="th-column">E-mail</th>
+                        {% if usuario.tipo == 1 %}
                         <th class="th-column">Turma</th>
-                        <th class="th-column">Cargo</th> <!-- exemplo -->
+                        {% elif usuario.tipo == 2 %}
+                        <th class="th-column">Cargo</th>
+                        {% endif %}
                         <th class="th-column">Tipo de Usuário</th>
                         <th class="th-column">Status</th>
                     </tr>
@@ -167,14 +208,23 @@
                 
                 <tbody id="resource-list">
                     <tr class="tr-row">
-                        <td class="recurso-view">4</td>
-                        <td class="recurso-view">(77)99917-9401</td>
-                        <td class="recurso-view">20211GBI23I0032</td>
-                        <td class="recurso-view">agnes@gmail.com</td>
-                        <td class="recurso-view">3AII</td>
-                        <td class="recurso-view">Assistente de aluno</td> <!-- exemplo -->
-                        <td class="recurso-view">Discente</td>
-                        <td class="recurso-view">Ativo</td>
+                        <td class="recurso-view">{{ usuario.id }}</td>
+                        <td class="recurso-view">{{ usuario.telefone }}</td>
+                        <td class="recurso-view">{{ usuario.matricula }}</td>
+                        <td class="recurso-view">{{usuario.email}}</td>
+                        {% if usuario.tipo == 1 %}
+                        <td class="recurso-view">{{ usuario.turma }}</td>
+                        {% elif usuario.tipo == 2 %}
+                        <td class="recurso-view">{{ usuario.cargo }}</td>
+                        {% endif %}
+                        <td class="recurso-view">
+                            {% if usuario.tipo == 1 %}
+                                Discente
+                            {% elif usuario.tipo == 2 %}
+                                Servidor
+                            {% endif %}
+                        </td>
+                        <td class="recurso-view">{{ usuario.status }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -190,55 +240,58 @@
                     </tr>
                 </thead>
                 <tbody id="resource-list">
-                    <tr class="tr-row">
-                        <p class="title-table">Solicitações do Usuário:</p>
-                        <td class="recurso-view sector-view"><a href="">25</a></td>
-                        <td class="recurso-view">25/02/2024</td>
-                        <td class="recurso-view">15:00 - 23:00</td>
-                        <td class="recurso-view status">
-                            <div class="status-request status-analise">
-                                <div class="situation-request circle-analise"></div>
-                                <p class="status-request-text">Em análise</p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="tr-row">
-                        <td class="recurso-view sector-view"><a href="">25</a></td>
-                        <td class="recurso-view">25/02/2024</td>
-                        <td class="recurso-view">15:00 - 23:00</td>
-                        <td class="recurso-view status">
-                            <div class="status-request status-analise">
-                                <div class=" situation-request circle-analise"></div>
-                                <p class="status-request-text">Em análise</p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="tr-row">
-                        <td class="recurso-view sector-view"><a href="">26</a></td>
-                        <td class="recurso-view">26/02/2024</td>
-                        <td class="recurso-view">08:00 - 12:00</td>
-                        <td class="recurso-view status">
-                            <div class="status-request status-aprovado">
-                                <div class=" situation-request"></div>
-                                <p class="status-request-text">Aprovado</p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="tr-row">
-                        <td class="recurso-view sector-view"><a href="">27</a></td>
-                        <td class="recurso-view">27/02/2024</td>
-                        <td class="recurso-view">14:00 - 18:00</td>
-                        <td class="recurso-view status">
-                            <div class="status-request status-reprovado">
-                                <div class=" situation-request circle-reprovado"></div>
-                                <p class="status-request-text">Reprovado</p>
-                            </div>
-                        </td>
-                    </tr>
+                    {% for reserva in reservas %}
+                        <tr class="tr-row">
+                            <td class="recurso-view sector-view"><a href="/reserva/detalharSolicitacao/{{ reserva.id }}/">{{ reserva.id }}</a></td>
+                            <td class="recurso-view">{{ reserva.dataHorarioSolicitacao|date:"d/m/Y" }}</td>
+                            <td class="recurso-view">{{ reserva.dataHorarioInicial|date:"H:i" }} - {{ reserva.dataHorarioFinal|date:"H:i" }}</td>
+                            <td class="recurso-view status">
+                                {% if reserva.andamento == 'em_analise' %}
+                                    <div class="status-request status-analise">
+                                        <div class="situation-request circle-analise"></div>
+                                        <p class="status-request-text">Em análise</p>
+                                    </div>
+                                {% elif reserva.andamento == 'aprovada' %}
+                                    <div class="status-request status-aprovado">
+                                        <div class="situation-request"></div>
+                                        <p class="status-request-text">Aprovado</p>
+                                    </div>
+                                {% elif reserva.andamento == 'negada' %}
+                                    <div class="status-request status-reprovado">
+                                        <div class="situation-request circle-reprovado"></div>
+                                        <p class="status-request-text">Reprovado</p>
+                                    </div>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">Nenhuma reserva encontrada.</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if reservas.has_previous %}
+                        <a href="?page=1">&laquo; primeira</a>
+                        <a href="?page={{ reservas.previous_page_number }}">anterior</a>
+                    {% endif %}
+        
+                    <span class="current">
+                        Página {{ reservas.number }} de {{ reservas.paginator.num_pages }}.
+                    </span>
+        
+                    {% if reservas.has_next %}
+                        <a href="?page={{ reservas.next_page_number }}">próxima</a>
+                        <a href="?page={{ reservas.paginator.num_pages }}">última &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
         </div>
     </section>
 </div>
+<script src="{% static 'js/windowBack.js' %}"></script>
 </body>
 </html>
+{%endblock%}
