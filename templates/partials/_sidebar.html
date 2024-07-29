@@ -89,7 +89,18 @@
             <li class="servicos">
                 <a href="#" class="link-service">
                     <i class="fa-solid fa-clock-rotate-left"></i>
-                    <p>Histórico</p>
+                    {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
+                {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
+                    {% if group.name == "Administrador Master" or group.name == "Administrador de Setor" %}
+                        <li class="servicos">
+                            <a href="/historico/" class="link-service">
+                                <i class="fa-solid fa-users"></i>
+                                <p>Histórico</p>
+                            </a> 
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
                 </a>
             </li>
             <li class="servicos">
