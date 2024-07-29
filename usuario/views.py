@@ -77,3 +77,21 @@ def editarPerfilUser(request):
     else:
         form = UsuarioUpdateForm(instance=usuario, user=usuario)
     return render(request, 'partials/usuario/myprofile_update.html', {'form': form, 'usuario': usuario})
+
+
+@login_required
+@user_passes_test(usuario_ou_admin_master)
+def detalharUsuario(request, matricula):
+    
+    usuario = get_object_or_404(Usuario, matricula=matricula)
+    reservas = usuario.reservas.all()   
+    
+    paginator = Paginator(reservas, 5)  # Mostra 5 reservas por página
+    page_number = request.GET.get('page')  # obtém o número da página da URL
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'partials/usuario/detalharUsuario.html', {
+        'usuario': usuario,
+        'reservas': page_obj,
+    })    
+    

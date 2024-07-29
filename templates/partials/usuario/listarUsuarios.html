@@ -303,7 +303,7 @@
                 {% if usuarios %}
                     {% for usuario in usuarios %}
                         <tr class="tr-row">
-                            <td class="user-view"><a href="">{{ usuario.matricula }}</a></td>
+                            <td class="user-view"><a href="/accounts/detalharUsuario/{{ usuario.matricula }}">{{ usuario.matricula }}</a></td>
                             <td class="recurso-view">{{ usuario.first_name }} {{ usuario.last_name }}</td>
                             <td class="recurso-view">
                                 {% if usuario.tipo == 1 %}

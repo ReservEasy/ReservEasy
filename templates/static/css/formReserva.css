@@ -481,6 +481,10 @@ textarea{
     padding: 30px;
     border-radius: 20px;
 }
+.text-important h1{
+    font-size: 30px !important;
+    font-weight: bold !important;
+}
 #btnRetorno {
         background-color: #022376;
         color: #fff;
@@ -495,3 +499,5 @@ textarea{
     text-decoration: none;
     background-color: #010C29;
 }
+
+

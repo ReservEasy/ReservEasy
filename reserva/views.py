@@ -4,10 +4,13 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseForbidden
+from django.db.models import Q
 from .forms import ReservaForm
 from .models import Reserva, ReservaEspaco, ReservaEquipamento
 from recursos.models import Equipamento, Espaco
 from usuario.models import Usuario
+from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator
 
 @login_required
 def criar_reserva(request):
@@ -24,15 +27,15 @@ def criar_reserva(request):
         # Verificação de datas
         if data_horario_inicial_dt < timezone.now():
             messages.error(request, 'A data e hora inicial não pode ser no passado.')
-            return render(request, 'partials/reserva/testandoReserva.html', {'form': ReservaForm()})
+            return render(request, 'partials/reserva/formReserva.html', {'form': ReservaForm()})
 
         if data_horario_inicial_dt >= data_horario_final_dt:
             messages.error(request, 'A data e hora final deve ser posterior à data e hora inicial.')
-            return render(request, 'partials/reserva/testandoReserva.html', {'form': ReservaForm()})
+            return render(request, 'partials/reserva/formReserva.html', {'form': ReservaForm()})
 
         if 'buscar' in request.POST:
             espacos_disponiveis, equipamentos_disponiveis = Reserva.verificar_disponibilidade(data_horario_inicial_dt, data_horario_final_dt)
-            return render(request, 'partials/reserva/testandoReserva.html', {
+            return render(request, 'partials/reserva/formReserva.html', {
                 'espacos_disponiveis': espacos_disponiveis,
                 'equipamentos_disponiveis': equipamentos_disponiveis,
                 'dataHorarioInicial': dataHorarioInicial,
@@ -46,7 +49,7 @@ def criar_reserva(request):
             if not espacos_selecionados and not equipamentos_selecionados or not justificativa:
                 messages.error(request, 'Lembre-se que você deve selecionar pelo menos um espaço ou equipamento e preencher a justificativa.')
                 espacos_disponiveis, equipamentos_disponiveis = Reserva.verificar_disponibilidade(data_horario_inicial_dt, data_horario_final_dt)
-                return render(request, 'partials/reserva/testandoReserva.html', {
+                return render(request, 'partials/reserva/formReserva.html', {
                     'espacos_disponiveis': espacos_disponiveis,
                     'equipamentos_disponiveis': equipamentos_disponiveis,
                     'dataHorarioInicial': dataHorarioInicial,
@@ -65,10 +68,27 @@ def criar_reserva(request):
             for equipamento_id in equipamentos_selecionados:
                 equipamento = Equipamento.objects.get(pk=equipamento_id)
                 ReservaEquipamento.objects.create(reserva=reserva, recurso=equipamento)
-            return redirect('listar_reservas')
+            return redirect('solicitacao_enviada', reserva_id=reserva.id)
     else:
         form = ReservaForm()
-    return render(request, 'partials/reserva/testandoReserva.html', {'form': form})
+    return render(request, 'partials/reserva/formReserva.html', {'form': form})
+
+@login_required
+def solicitacaoEnviada(request, reserva_id):
+    reserva = get_object_or_404(Reserva, pk=reserva_id)
+
+    if request.user.groups.filter(name="Administrador Master").exists():
+        tipo_adm = "Adm Master"
+    elif request.user.groups.filter(name="Administrador de Setor").exists():
+        tipo_adm = "Adm Setor"
+    else:
+        tipo_adm = "Solicitante"
+    return render(request, 'partials/reserva/formReserva_done.html', {
+        'dataHorarioInicial': reserva.dataHorarioInicial,
+        'dataHorarioFinal': reserva.dataHorarioFinal,
+        'codigo_solicitacao': reserva_id,
+        'tipo_adm': tipo_adm,
+    })
 
 @login_required
 def listar_reservas(request):
@@ -112,3 +132,27 @@ def deletarReserva(request, id_reserva):
     else:
         reservaa.delete()
         return redirect('/reserva/')
+
+@login_required
+def historicoSolicitacao(request):
+    search_query = request.GET.get('searchbar', '') 
+    if search_query:
+        reservas_list = Reserva.objects.filter(
+            Q(usuario__username__icontains=search_query)
+        )
+    else:
+        reservas_list = Reserva.objects.all()
+
+    total_reservas = reservas_list.count()  # Total de reservas
+
+    # Paginação
+    paginator = Paginator(reservas_list, 8)  # Mostra 8 reservas por página
+    page_number = request.GET.get('page')
+    reservas = paginator.get_page(page_number)
+
+    return render(request, "partials/reserva/historico/historicoSolicitacoes.html", {
+        'reservas': reservas,
+        'total_reservas': total_reservas,
+        'search_query': search_query,
+        'page_obj': reservas
+    })

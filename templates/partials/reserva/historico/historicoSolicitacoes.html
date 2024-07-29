@@ -1,3 +1,8 @@
+{% extends 'partials/_base.html' %}
+
+{% block content %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -190,14 +195,13 @@
             margin-left: 15px;
         }
         .request-list {
-            /* height: 100vh; */
-            margin: 50px;
+
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
         .data-service {
-            max-width: 220px;
+            max-width: 240px;
             display: flex;
             gap: 10px;
             align-items: center;
@@ -214,7 +218,7 @@
         .data-service-title {
             font-size: 12px;
             text-transform: uppercase;
-            font-weight: 600;
+            font-weight: 800;
         }
         .count-data-service {
             font-size: 30px;
@@ -322,6 +326,7 @@
         .th-column {
             background-color: transparent !important;
             border: 0px solid #ccc;
+            
         }
         .request-view > a {
             text-decoration: underline;
@@ -330,8 +335,45 @@
         }
         .status{
         display: flex;
-        align-items: center;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    #buscarUsuario{
+        background-color: #022376;
+        font-size: 12px;
+        color: #fff;
+        border: 0px;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+    .pagination {
+        display: flex;
         justify-content: center;
+        margin: 20px 0;
+        font-size:12px;
+    }
+    .pagination .step-links {
+        display: flex;
+        gap: 5px;
+        font-size:12px;
+    }
+    .pagination .step-links a, .pagination .step-links span {
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #333;
+        font-size:12px;
+    }
+    .pagination .step-links a:hover {
+        background-color: #f0f0f0;
+        border-color: #999;
+    }
+    .pagination .step-links .current {
+        background-color: #022376;
+        color: #fff;
+        border-color: #022376;
+        font-size:12px;
     }
     </style>
 </head>
@@ -349,10 +391,14 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <p>Digite o nome do usuário:</p>
                 </div>
-                <input type="text" name="searchbar" id="searchbar" placeholder="Pesquisar" onkeyup="search()">
+                <form action="{% url 'historico_solicitacoes' %}" method="get">
+                    {% csrf_token %}
+                    <input type="text" name="searchbar" id="searchbar" placeholder="Pesquisar" value="{{ search_query }}">
+                    <button type="submit" id="buscarUsuario">Buscar</button>
+                </form>
             </div>
             <div class="data-service">
-                <p class="count-data-service" id="resource-count">4</p>
+                <p class="count-data-service" id="resource-count">{{ total_reservas }}</p>
                 <p class="data-service-title">Solicitações registradas</p>
             </div>
         </div>
@@ -361,96 +407,53 @@
                 <tr class="tr-row">
                     <th class="th-column">ID</th>
                     <th class="th-column">Usuário</th>
-                    <th class="th-column">Data</th>
+                    <th class="th-column">Data(Solicitação)</th>
                     <th class="th-column">Horário Inicial e Final</th>
-                    <th class="th-column">Situação</th>
+                    <th class="th-column status">Situação</th>
                 </tr>
             </thead>
             <tbody id="resource-list">
+                {% for reserva in reservas %}
                 <tr class="tr-row">
-                    <td class="request-view"><a href="">25</a></td>
-                    <td class="recurso-view">Gustavo Santos Pinto</td>
-                    <td class="recurso-view">25/02/2024</td>
-                    <td class="recurso-view">15:00 - 23:00</td>
+                    <td class="request-view"><a href="/reserva/detalharSolicitacao/{{ reserva.id }}/">{{ reserva.id }}</a></td>
+                    <td class="recurso-view">{{ reserva.usuario }}</td>
+                    <td class="recurso-view">{{ reserva.dataHorarioSolicitacao|date:"d/m/Y - H:i" }} </td>
+                    <td class="recurso-view">{{ reserva.dataHorarioInicial|date:"d/m/Y - H:i" }} - {{ reserva.dataHorarioFinal|date:"d/m/Y - H:i" }}</td>
                     <td class="recurso-view status">
-                        <div class="status-request status-analise">
-                            <div class="situation-request circle-analise"></div>
-                            <p class="status-request-text">Em análise</p>
+                        <div class="status-request {% if reserva.andamento == 'em_analise' %}status-analise{% elif reserva.andamento == 'aprovada' %}status-aprovado{% else %}status-reprovado{% endif %}">
+                            <div class="situation-request {% if reserva.andamento == 'em_analise' %}circle-analise{% elif reserva.andamento == 'aprovada' %}circle-aprovado{% else %}circle-reprovado{% endif %}"></div>
+                            <p class="status-request-text">{{ reserva.get_andamento_display }}</p>
                         </div>
                     </td>
                 </tr>
-                <tr class="tr-row">
-                    <td class="request-view"><a href="">26</a></td>
-                    <td class="recurso-view">Mariana Silva Costa</td>
-                    <td class="recurso-view">26/02/2024</td>
-                    <td class="recurso-view">10:00 - 12:00</td>
-                    <td class="recurso-view status">
-                        <div class="status-request status-analise">
-                            <div class=" situation-request circle-analise"></div>
-                            <p class="status-request-text">Em análise</p>
-                        </div>
-                    </td>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">Nenhuma solicitação encontrada.</td>
                 </tr>
-                <tr class="tr-row">
-                    <td class="request-view"><a href="">27</a></td>
-                    <td class="recurso-view">Pedro Lima</td>
-                    <td class="recurso-view">27/02/2024</td>
-                    <td class="recurso-view">08:00 - 10:00</td>
-                    <td class="recurso-view status">
-                        <div class="status-request status-aprovado">
-                            <div class=" situation-request"></div>
-                            <p class="status-request-text">Aprovado</p>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="tr-row">
-                    <td class="request-view"><a href="">28</a></td>
-                    <td class="recurso-view">Ana Paula Souza</td>
-                    <td class="recurso-view">28/02/2024</td>
-                    <td class="recurso-view">14:00 - 16:00</td>
-                    <td class="recurso-view status">
-                        <div class="status-request status-reprovado">
-                            <div class=" situation-request circle-reprovado"></div>
-                            <p class="status-request-text">Reprovado</p>
-                        </div>
-                    </td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?searchbar={{ search_query }}&page=1">&laquo; primeira</a>
+                    <a href="?searchbar={{ search_query }}&page={{ page_obj.previous_page_number }}">anterior</a>
+                {% endif %}
+
+                <span class="current">
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?searchbar={{ search_query }}&page={{ page_obj.next_page_number }}">próxima</a>
+                    <a href="?searchbar={{ search_query }}&page={{ page_obj.paginator.num_pages }}">última &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+
     </section>
 
-    <script>
-        // função para normalizar texto removendo acentos
-        function normalizeText(text) {
-            return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-        }
 
-        // função para filtrar linhas da tabela baseado na pesquisa
-        function search() {
-            let input = normalizeText(document.getElementById("searchbar").value);
-            let rows = document.querySelectorAll('.tr-row');
-            let count = 0;
-
-            rows.forEach(row => {
-                let nameCell = row.querySelector('.recurso-view');
-                if (nameCell) {
-                    let normalizedText = normalizeText(nameCell.textContent);
-                    if (normalizedText.includes(input)) {
-                        row.style.display = "";
-                        count++;
-                    } else {
-                        row.style.display = "none";
-                    }
-                }
-            });
-
-            document.getElementById("resource-count").textContent = count;
-        }
-
-        // evento quando o conteúdo é carregado para contar linhas
-        document.addEventListener('DOMContentLoaded', () => {
-            search(); // Atualiza a contagem ao carregar a página
-        });
-    </script>
 </body>
 </html>
+{% endblock%}
