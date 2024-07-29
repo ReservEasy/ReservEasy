@@ -413,6 +413,7 @@
                 </tr>
             </thead>
             <tbody id="resource-list">
+            {% if reservas %}
                 {% for reserva in reservas %}
                 <tr class="tr-row">
                     <td class="request-view"><a href="/reserva/detalharSolicitacao/{{ reserva.id }}/">{{ reserva.id }}</a></td>
@@ -426,11 +427,12 @@
                         </div>
                     </td>
                 </tr>
-                {% empty %}
+                {% endfor %}
+            {% else %}
                 <tr>
                     <td colspan="5" class="text-center">Nenhuma solicitação encontrada.</td>
                 </tr>
-                {% endfor %}
+            {% endif %}    
             </tbody>
         </table>
         <div class="pagination">

@@ -91,10 +91,10 @@ def solicitacaoEnviada(request, reserva_id):
         'tipo_adm': tipo_adm,
     })
 
-@login_required
-def listar_reservas(request):
-    reservas = Reserva.objects.all()
-    return render(request, 'partials/reserva/lista_reserva.html', {'reservas': reservas})
+# @login_required
+# def listar_reservas(request):
+#     reservas = Reserva.objects.all()
+#     return render(request, 'partials/reserva/lista_reserva.html', {'reservas': reservas})
 
 @login_required
 def listar_reservas_usuario(request):

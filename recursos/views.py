@@ -11,8 +11,11 @@ from django.contrib.auth.models import Group
 import os
 from django.core.paginator import Paginator
 
+def usuario_ou_admin_master(u):
+    return u.groups.filter(name__in=['Administrador de Setor', 'Administrador Master']).exists()
 
-@login_required
+
+@user_passes_test(usuario_ou_admin_master)
 def listarRecursos(request):
     user = request.user #armazena qual usuário realizou a solicitação de listagem
     search_query = request.GET.get('searchbar', '')  # pega o parâmetro de pesquisa
@@ -28,7 +31,7 @@ def listarRecursos(request):
     total_recursos = len(recursos)
 
     recursos_mesmo_setor = recursos
-    tipo_adm = "Solicitante"
+    tipo_adm = "Adm Master"
     if request.user.groups.filter(name="Administrador Master").exists():
         tipo_adm = "Adm Master"
     elif request.user.groups.filter(name="Administrador de Setor").exists():

@@ -351,10 +351,9 @@
                     
                     <tr class="tr-row">
                         <td class="recurso-view"> <div class="progress-request aprovado"> 
-                            <a href="/reserva/deletar/{{reserva.id}}" > Cancelar solicitação </a>
-                        {% comment %} {% for group in usuario.groups.all %}
+                        {% for group in usuario.groups.all %}
                             {{ group.name }}
-                        {% endfor %} {% endcomment %}
+                        {% endfor %}
                     </div></td>
                     </tr>
                     

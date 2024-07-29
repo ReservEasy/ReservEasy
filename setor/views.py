@@ -14,17 +14,6 @@ from django.urls import reverse
 from urllib.parse import urlencode
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
-def criarSetor(request):
-    if request.method == 'POST':
-        form = SetorForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/setor/?msg=Salvo')
-    else:
-        form = SetorForm() #se tiver erro as informações do formulário voltam 
-    return render(request, 'partials/setor/formSetor.html', {'form': form})
-
-@user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
 def listarSetores(request):
     search_query = request.GET.get('searchbar', '') # pega o parâmetro de pesquisa
     setores_list = Setor.objects.all()
@@ -44,6 +33,17 @@ def listarSetores(request):
         'total_setores': total_setores,
         'search_query': search_query
     })
+
+@user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
+def criarSetor(request):
+    if request.method == 'POST':
+        form = SetorForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/setor/?msg=Salvo')
+    else:
+        form = SetorForm() #se tiver erro as informações do formulário voltam 
+    return render(request, 'partials/setor/formSetor.html', {'form': form})
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
 def detalharSetor(request, id_setor):
@@ -124,14 +124,14 @@ def editarSetor(request, id_setor):
         form = SetorForm(instance= setor)
     return render(request, 'partials/setor/editarSetor.html', {'form': form, 'id_setor': id_setor, 'setor': setor})
 
-@user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
-def deletar(request, id_setor):
-    Setor.objects.get(pk=id_setor).delete()
-
-    return HttpResponseRedirect("/setor/?msg=Exclui")
-
 @user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm masterb
 def confirmarDelete(request, id_setor):
     setor = Setor.objects.get(pk=id_setor)
 
     return render (request, 'partials/setor/confirmaExcluirSetor.html', {'setor':setor})
+
+@user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
+def deletar(request, id_setor):
+    Setor.objects.get(pk=id_setor).delete()
+
+    return HttpResponseRedirect("/setor/?msg=Exclui")

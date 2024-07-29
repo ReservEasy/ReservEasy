@@ -21,13 +21,20 @@
         <ul class="sidebar-dashboard">
             <img id="logo-dashboard" src="{% static 'img/logo2.png' %}">
             <ul class="dahboard-acessorapido">
-            <li class="acesso-rapido">
-                <a href="/recursos/" class="link-service">
-                    <i class="fa-solid fa-square-check"></i>
-                    <p>Visão Geral</p>
-                </a>
-            </li>
-            <li class="acesso-rapido">
+            {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
+                {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
+                    {% if group.name == "Administrador de Setor" %}
+                        <li class="acesso-rapido">
+                            <a href="/reserva/painel" class="link-service">
+                                <i class="fa-solid fa-square-check"></i>
+                                <p>Visão Geral</p>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            {% comment %} <li class="acesso-rapido">
                 <a href="#" class="link-service">
                     <i class="fa-solid fa-gear"></i>
                     <p>Configurações</p>
@@ -38,22 +45,16 @@
                     <i class="fa-solid fa-circle-info"></i>
                     <p>Ajuda</p>
                 </a>
-            </li>
+            </li> {% endcomment %}
         </ul>
         <ul class="dashboard-servicos">
             <p class="title-dashboard-servicos">Serviços</p>
-            {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
-                {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
-                    {% if group.name == "Administrador Master" or group.name == "Administrador de Setor" %}
                         <li class="servicos">
                             <a href="/accounts/listar" class="link-service">
                                 <i class="fa-solid fa-users"></i>
                                 <p>Usuários</p>
                             </a> 
                         </li>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
 
             {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
                 {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
@@ -68,57 +69,53 @@
                 {% endfor %}
             {% endif %}
 
-            <li class="servicos">
+            {% comment %} <li class="servicos">
                 <a href="#" class="link-service">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <p>Pendências</p>
                 </a>
-            </li>
-            <li class="servicos">
-                <a href="#" class="link-service">
-                    <i class="fa-solid fa-inbox"></i>
-                    <p>Solicitações</p>
-                </a>
-            </li>
-            <li class="servicos">
-                <a href="#" class="link-service">
-                    <i class="fa-solid fa-boxes-stacked"></i>
-                    <p>Estoque</p>
-                </a>
-            </li>
+            </li> {% endcomment %}
+
             {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
                 {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
-                    {% if group.name == "Administrador Master" or group.name == "Administrador de Setor" %}
+                    {% if group.name == "Administrador de Setor" %}
                         <li class="servicos">
-                            <a href="/accounts/listar" class="link-service">
-                                <i class="fa-solid fa-users"></i>
-                                <p>Usuários</p>
-                            </a> 
+                            <a href="/reserva/solicitacoes" class="link-service">
+                                <i class="fa-solid fa-inbox"></i>
+                                <p>Solicitações</p>
+                            </a>
                         </li>
                     {% endif %}
                 {% endfor %}
             {% endif %}
 
-                    {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
+            <li class="servicos">
+                <a href="/recursos/" class="link-service">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                    <p>Estoque</p>
+                </a>
+            </li>
+
+            <li class="servicos">
+                <a href="/reserva/historico" class="link-service">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <p>Histórico</p>
+                </a> 
+            </li>
+
+            {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
                 {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
-                    {% if group.name == "Administrador Master" or group.name == "Administrador de Setor" %}
+                    {% if group.name == "Administrador de Setor" %}
                         <li class="servicos">
-                            <a href="/historico/" class="link-service">
-                                <i class="fa-solid fa-clock-rotate-left"></i>
-                                <p>Histórico</p>
-                            </a> 
+                            <a href="/reserva/reservar" class="link-service">
+                                <i class="fa-solid fa-clipboard-check"></i>
+                                <p>Reservar</p>
+                            </a>
                         </li>
                     {% endif %}
                 {% endfor %}
             {% endif %}
-                </a>
-            </li>
-            <li class="servicos">
-                <a href="/reserva/reservar/" class="link-service">
-                    <i class="fa-solid fa-clipboard-check"></i>
-                    <p>Reservar</p>
-                </a>
-            </li>
+
         </ul>
         </ul>
         <div class="sidebar-useractive">
