@@ -54,6 +54,7 @@
         color: #022376;
     }
     #newRequest{
+        text-decoration:none;
         background-color: #fff;
         border: 0.5px solid #022376;
         color: #022376;
