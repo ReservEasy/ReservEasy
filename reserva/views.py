@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.http import HttpResponseForbidden
 from django.db.models import Q
 from .forms import ReservaForm
+from django.contrib.auth.models import Group
 from .models import Reserva, ReservaEspaco, ReservaEquipamento
 from recursos.models import Equipamento, Espaco
 from usuario.models import Usuario
@@ -56,12 +57,17 @@ def criar_reserva(request):
                     'dataHorarioInicial': dataHorarioInicial,
                     'dataHorarioFinal': dataHorarioFinal
                 })
+            usuario = Usuario.objects.get(pk=request.user.pk)
+            andamento = 'em_analise'
+            if usuario.groups.filter(name__in=['Administrador de Setor', 'Administrador Master']).exists():
+                andamento = 'aprovada'
 
             reserva = Reserva.objects.create(
                 usuario=Usuario.objects.get(pk=request.user.pk),
                 dataHorarioInicial=data_horario_inicial_dt,
                 dataHorarioFinal=data_horario_final_dt,
-                justificativa=justificativa
+                justificativa=justificativa,
+                andamento=andamento
             )
             for espaco_id in espacos_selecionados:
                 espaco = Espaco.objects.get(pk=espaco_id)
