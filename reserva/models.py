@@ -4,7 +4,7 @@ from recursos.models import Espaco, Equipamento
 from usuario.models import Usuario
 
 class Reserva(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="reservas", default=1)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="reservas")
     dataHorarioSolicitacao = models.DateTimeField(auto_now_add=True)
     dataHorarioInicial = models.DateTimeField()
     dataHorarioFinal = models.DateTimeField()
