@@ -140,16 +140,16 @@
                     <a class="btn-service blue" href="/reservas/solicitacoes">Acesse</a>
                 </p>
             </div>
-            <div class="data-service green">
+            {% comment %} <div class="data-service green">
                 <p class="count-data-service" id="resource-count">{{ reservas_pendentes }}</p>
                 <p class="data-service-title">Reservas com pendência
-                    <a class="btn-service" href="">Acesse</a>
+                    <a class="btn-service" href="">Acesse</a> 
                 </p>
-            </div>
+            </div> {% endcomment %}
             <div class="data-service yellow">
                 <p class="count-data-service" id="resource-count">{{ reservas_hoje }}</p>
                 <p class="data-service-title">Reservas para hoje
-                    <a class="btn-service yellowbtn" href="">Acesse</a>
+                    {% comment %} <a class="btn-service yellowbtn" href="">Acesse</a> {% endcomment %}
                 </p>
             </div>
         </div>
@@ -166,7 +166,7 @@
                     {% for reserva in reservas_hoje_detalhes %}
                     <div class="request-user">
                         <div class="data-user-request-today">
-                            <p class="data-user"><strong><a href="">Reserva #{{ reserva.id }}</a></strong></p>
+                            <p class="data-user"><strong><a href="/reserva/detalhar/{{ reserva.id }}">Reserva #{{ reserva.id }}</a></strong></p>
                             <p class="data-user"><strong>Solicitante: </strong>{{ reserva.usuario.get_full_name }}</p>
                             <p class="data-user">{{ reserva.dataHorarioInicial|time }} - {{ reserva.dataHorarioFinal|time }}</p>
                         </div>

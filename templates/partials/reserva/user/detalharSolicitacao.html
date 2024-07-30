@@ -185,6 +185,21 @@
             text-decoration: none;
             background-color: #010C29;
         }
+        #btnCancelar {
+            background-color: #Ff0000;
+            color: #fff;
+            border: none;
+            padding: 5px 12px;
+            margin: 20px;
+            font-size: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        #btnCancelar:hover {
+            text-decoration: none;
+            background-color: #D30000;
+        }
         .progress-request{
             background-color: #A0BE3D;
             color: #fff;
@@ -213,7 +228,10 @@
             <div class="identification-section">
                 <h1 class="title-service">Solicitação #{{ reserva.id }}</h1>
                 <div class="btns-path">
-                    <a href="/reserva/" id="btnVoltar">Voltar</a>
+                    {% if usuario.id == usuarioatual.id %}
+                        <a href="/reserva/deletar/{{reserva.id}}" id="btnCancelar" >Cancelar Solicitação</a>
+                    {% endif %}
+                    <a href="/reserva/listar" id="btnVoltar">Voltar</a>
                 </div>
             </div>
         <div class="data-detail-user">
