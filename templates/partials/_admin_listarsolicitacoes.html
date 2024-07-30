@@ -50,7 +50,7 @@
                         <div class="item-part-request">
                             {% if reserva.andamento == 'aprovada' %}
                                 <div class="situation-request circle-aprovado"></div>
-                            {% elif reserva.andamento == 'reprovada' %}
+                            {% elif reserva.andamento == 'negada' %}
                                 <div class="situation-request circle-reprovado"></div>
                             {% elif reserva.andamento == 'em_analise' %}
                                 <div class="situation-request circle-analise"></div>
@@ -69,8 +69,8 @@
                             </div>
                         </div>
                         <div class="detail-situation">
-                            <div class="status-request {% if reserva.andamento == 'reprovada' %}status-reprovado{% elif reserva.andamento == 'em_analise' %}status-analise{% else %}status-aprovado{% endif %}">
-                                <div class="situation-request {% if reserva.andamento == 'reprovada' %}circle-reprovado{% elif reserva.andamento == 'em_analise' %}circle-analise{% else %}circle-aprovado{% endif %}"></div>
+                            <div class="status-request {% if reserva.andamento == 'negada' %}status-reprovado{% elif reserva.andamento == 'em_analise' %}status-analise{% else %}status-aprovado{% endif %}">
+                                <div class="situation-request {% if reserva.andamento == 'negada' %}circle-reprovado{% elif reserva.andamento == 'em_analise' %}circle-analise{% else %}circle-aprovado{% endif %}"></div>
                                 <p class="status-request-text" style="margin:0;">
                                     {% if reserva.andamento == 'em_analise' %}
                                         Em Análise
