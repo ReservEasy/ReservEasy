@@ -69,12 +69,12 @@
                 {% endfor %}
             {% endif %}
 
-            {% comment %} <li class="servicos">
-                <a href="#" class="link-service">
+            <li class="servicos">
+                <a href="/accounts/perfil/" class="link-service">
                     <i class="fa-solid fa-circle-exclamation"></i>
-                    <p>Pendências</p>
+                    <p>Perfil</p>
                 </a>
-            </li> {% endcomment %}
+            </li> 
 
             {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
                 {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
@@ -90,7 +90,7 @@
             {% endif %}
 
             <li class="servicos">
-                <a href="/recursos/" class="link-service">
+                <a href="/recursos/estoque" class="link-service">
                     <i class="fa-solid fa-boxes-stacked"></i>
                     <p>Estoque</p>
                 </a>
