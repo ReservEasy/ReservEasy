@@ -16,8 +16,9 @@ class Reserva(models.Model):
     espacos = models.ManyToManyField(Espaco, related_name='reservasespaco', through='ReservaEspaco', blank=True)
     equipamentos = models.ManyToManyField(Equipamento, related_name='reservasequipamento', through='ReservaEquipamento', blank=True)
 
-    @staticmethod
+    @staticmethod # staticmethod = método que não altera nada na classe e não precisa acessar instâncias
     def verificar_disponibilidade(dataHorarioInicial, dataHorarioFinal):
+        # __lte = anterior __gte = posterior
         conflitos = (
             Q(dataHorarioInicial__lte=dataHorarioFinal, dataHorarioFinal__gte=dataHorarioInicial) &
             (
