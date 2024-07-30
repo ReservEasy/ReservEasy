@@ -205,13 +205,26 @@ def acessarDashboard(request):
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def solicitacoes(request):
-    usuarios = Usuario.objects.all()
-    solicitacoes_em_analise = Reserva.objects.filter(andamento='em_analise')
-    return render(request, "partials/reserva/acoes/listarSolicitacoes.html", {
-        'reservas': solicitacoes_em_analise,
-        'usuarios': usuarios
-    })
+    search_query = request.GET.get('searchbar', '')
+    if search_query:
+        usuarios_list = Usuario.objects.filter(
+            first_name__icontains=search_query
+        ) | Usuario.objects.filter(
+            last_name__icontains=search_query
+        )
+    else:
+        usuarios_list = Usuario.objects.all()
 
+    solicitacoes_em_analise = Reserva.objects.filter(andamento='em_analise')
+    paginator = Paginator(solicitacoes_em_analise, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    return render(request, "partials/reserva/acoes/listarSolicitacoes.html", {
+        'page_obj': page_obj,
+        'usuarios': usuarios_list,  
+        'search_query': search_query 
+    })
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def atualizar_status_reserva(request, reserva_id, status):

@@ -1,3 +1,7 @@
+{% extends 'partials/_base.html' %}
+
+{% block content %}
+{% load static %} 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -84,8 +88,6 @@
             margin-left: 15px;
         }
         .request-list {
-            /* height: 100vh; */
-            margin: 50px;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -222,6 +224,43 @@
             color: #A0BE3D;
             margin: 0px;
         }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            font-size:12px;
+        }
+        .pagination .step-links {
+            display: flex;
+            gap: 5px;
+            font-size:12px;
+        }
+        .pagination .step-links a, .pagination .step-links span {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            font-size:12px;
+        }
+        .pagination .step-links a:hover {
+            background-color: #f0f0f0;
+            border-color: #999;
+        }
+        .pagination .step-links .current {
+            background-color: #022376;
+            color: #fff;
+            border-color: #022376;
+            font-size:12px;
+        }
+        #buscarUsuario{
+            background-color: #022376;
+            font-size: 12px;
+            color: #fff;
+            border: 0px;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -238,7 +277,11 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <p>Digite o nome do usuário:</p>
                 </div>
-                <input type="text" name="searchbar" id="searchbar" placeholder="Pesquisar" onkeyup="search()">
+                <form action="{% url 'solicitacoes' %}" method="get">
+                    {% csrf_token %}
+                    <input type="text" name="searchbar" id="searchbar" placeholder="Pesquisar" value="{{ search_query }}">
+                    <button type="submit" id="buscarUsuario">Buscar</button>
+                </form>
             </div>
             <div class="data-service">
                 <p class="count-data-service" id="resource-count">4</p>
@@ -278,6 +321,23 @@
                 {% endif %}
             </tbody>
         </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; primeira</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">anterior</a>
+                {% endif %}
+
+                <span class="current">
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">próxima</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">última &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
     </section>
 
     <script>
@@ -315,3 +375,4 @@
     </script>
 </body>
 </html>
+{%endblock%}
