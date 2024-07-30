@@ -11,9 +11,12 @@ from django.contrib.auth.models import Group
 import os
 from django.core.paginator import Paginator
 
+@login_required
+def index(request):
+    oi = "oi"
+
 def usuario_ou_admin_master(u):
     return u.groups.filter(name__in=['Administrador de Setor', 'Administrador Master']).exists()
-
 
 @user_passes_test(usuario_ou_admin_master)
 def listarRecursos(request):
