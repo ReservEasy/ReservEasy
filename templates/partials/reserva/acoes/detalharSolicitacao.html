@@ -243,7 +243,7 @@
                     {% if usuario.id == usuarioatual.id %}
                         <a href="/reserva/deletar/{{reserva.id}}" id="btnCancelar" >Cancelar Solicitação</a>
                     {% endif %}
-                    <a href="/reserva/listar" id="btnVoltar">Voltar</a>
+                    <button id="btnVoltar">Voltar</button>
                 </div>
             </div>
         <div class="data-detail-user">
@@ -394,6 +394,11 @@
         </div>
     </section>
 </div>
+<script>
+    document.getElementById('btnVoltar').addEventListener('click', function() {
+        window.history.back();
+    });
+</script>
 </body>
 </html>
 
