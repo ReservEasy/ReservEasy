@@ -15,12 +15,29 @@
         width: 100%;
         height: 100%;
     }
+    .messages-error{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #010C29;
+        padding: 10px 0px;
+        color: white;
+    }
+    .title-espaco-reserva, .title-widget{
+        font-size:24px;
+        font-weight:bold;
+    }
+    p{ 
+        margin: 0px;
+    }
+    
     </style>
 </head>
 <body>
-  {% comment %} {%block topbar%}
+    {%block topbar%}
         {%include 'partials/_topbar.html'%}
-    {%endblock%} {% endcomment %}
+    {%endblock%}
     <section class="form-reserva-user">
     <!-- buscador -->
     <div class="reserva-analise-disponibilidade-usuario">
@@ -34,7 +51,7 @@
                 <div class="input-data">
                     <i class="fa-regular fa-calendar"></i>
                     <div class="fields-data-reserva">
-                        <p>
+                        <p style="margin: 0;">
                             <label for="dataHorarioInicial">Data e Horário Inicial</label>
                             <input type="datetime-local" id="dataHorarioInicial" name="dataHorarioInicial" required value="{{ dataHorarioInicial|default_if_none:'' }}">
                         </p>
@@ -45,7 +62,7 @@
                 <div class="input-data">
                     <i class="fa-regular fa-calendar"></i>
                     <div class="fields-data-reserva">
-                        <p>
+                        <p  style="margin: 0;">
                             <label for="dataHorarioFinal">Data e Horário final</label>
                             <input type="datetime-local" id="dataHorarioFinal" name="dataHorarioFinal" required value="{{ dataHorarioFinal|default_if_none:'' }}">
                         </p>
@@ -60,11 +77,13 @@
     
         {% comment %} mensagens {% endcomment %}
         {% if messages %}
+        <div class="messages-error">
                 <ul>
                     {% for message in messages %}
                         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                     {% endfor %}
                 </ul>
+            </div>
             {% endif %}
 
         <!-- tutorial da reserva -->
@@ -108,14 +127,14 @@
                         {% endif %}
                     </div>
                     <div class="informacao-item-reserva">
-                        <div class="informacoes-item-reserva">
-                        <h1 class="title-item-reserva">{{ espaco.nome }}</h1>
-                        <p class="descricao-item-reserva">{{ espaco.descricao }}</p>
-                        <p class="descricao-item-reserva">Setor: {{ espaco.setor }}</p>
+                        <div class="informacoes-item-reserva" style="margin: 0;">
+                        <h1 class="title-item-reserva"style="margin: 0;">{{ espaco.nome }}</h1>
+                        <p class="descricao-item-reserva"style="margin: 0;">{{ espaco.descricao }}</p>
+                        <p class="descricao-item-reserva"style="margin: 0;">Setor: {{ espaco.setor }}</p>
                         </div>
                         <div class="btn-item-reserva">
                         <input type="checkbox" name="espacos" value="{{ espaco.id }}" />
-                        <p>Reservar</p>
+                        <p style="margin: 0;">Reservar</p>
                         </div>
                     </div>
                 </div>
@@ -152,13 +171,13 @@
                   </div>
                   <div class="informacao-item-reserva">
                       <div class="informacoes-item-reserva">
-                          <h1 class="title-item-reserva">{{ equipamento.nome }}</h1>
-                          <p class="descricao-item-reserva">{{ equipamento.descricao }}</p>
-                          <p class="descricao-item-reserva">Setor: {{ equipamento.setor.nome }}</p>
+                          <h1 class="title-item-reserva" style="margin: 0;">{{ equipamento.nome }}</h1>
+                          <p class="descricao-item-reserva" style="margin: 0;">{{ equipamento.descricao }}</p>
+                          <p class="descricao-item-reserva" style="margin: 0;" >Setor: {{ equipamento.setor.nome }}</p>
                       </div>
                       <div class="btn-item-reserva">
                           <input type="checkbox" name="equipamentos" value="{{ equipamento.id }}">
-                          <p>Reservar</p>
+                          <p style="margin: 0;" >Reservar</p>
                       </div>
                   </div>
               </div>
@@ -181,5 +200,8 @@
             {% endif %}
     </form>
 </section>
+{%block footer%}
+        {%include 'partials/_footer.html'%}
+    {%endblock%}
 </body>
 </html>
