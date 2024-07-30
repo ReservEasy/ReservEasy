@@ -314,7 +314,7 @@
                             <td class="recurso-view">{{reserva.dataHorarioFinal}}</td>
                             <td class="actions">
                                 <a href="{% url 'atualizar_status_reserva' reserva.id 'aprovada' %}" class="btn btn-editar" value="aprovada">Aprovar</a>
-                                <a href="{% url 'atualizar_status_reserva' reserva.id 'negada' %}" class="btn btn-editar" value="negada">Negar</a>
+                                <a href="{% url 'atualizar_status_reserva' reserva.id 'negada' %}" class="btn btn-editar" value="negada" style= "background-color: red;">Negar</a>
                             </td>
                         </tr>
                     {% endfor %}
