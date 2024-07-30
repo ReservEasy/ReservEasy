@@ -87,6 +87,7 @@ def criarEspaco(request):
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def editarRecurso(request, id_recurso):
+    
     try:
         recurso = Equipamento.objects.get(pk=id_recurso)
         form_class = EquipamentoForm
