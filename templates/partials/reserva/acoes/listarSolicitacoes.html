@@ -306,7 +306,7 @@
                             <td class="request-view"><a href="/reserva/detalhar/{{ reserva.id }}">{{reserva.id}}</a></td>
                             <td class="recurso-view">
                                 {% for usuario in usuarios %}
-                                    {% if reserva.usuario == usuario.id %}
+                                    {% if reserva.usuario_id == usuario.id %}
                                         {{usuario.first_name}} {{usuario.last_name}}
                                     {% endif %}
                                 {% endfor %}

@@ -221,7 +221,7 @@ def solicitacoes(request):
     page_obj = paginator.get_page(page_number)
     
     return render(request, "partials/reserva/acoes/listarSolicitacoes.html", {
-        'reservas': solicitacoes_em_analise,
+        'reservas': page_obj.object_list,
         'page_obj': page_obj,
         'usuarios': usuarios_list,  
         'search_query': search_query 
