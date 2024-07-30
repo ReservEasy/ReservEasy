@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/88a7a49c60.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="{% static 'favicon.icon' %}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/listarSolicitacao.css" %}">
+
+    <title>Solicitações | ReservEasy</title>
+    <style>
+        
+        p.request-user {
+            margin: 0px;
+        }
+        .request-user-title-filter h1{
+            font-weight: bold;
+            font-size: 30px;
+        }
+        .identification p{
+            margin: 0px !important;
+        }
+    </style>
+</head>
+<body>
+    {%block topbar%}
+    {%include 'partials/_topbar.html'%}
+{%endblock%}
+    <section class="request-user">
+        <div class="request-user-title-filter">
+            <h1>Solicitações</h1>
+            <div class="request-filter-service">
+                <div class="request-filter">
+                    {% comment %} <button id="btnFilter">
+                        <i class="fa-solid fa-filter"></i>
+                        <p>Filtro</p>
+                    </button> {% endcomment %}
+                    <p class="request-count">{{quant_reservas}} Solicitações</p>
+                </div>
+                <a href="/reserva/reservar/" id="newRequest">Solicitar reserva</a>
+            </div>
+        </div>
+        {% if reservas %}
+        <div class="request-list">
+            <ul class="list-solicitation">
+                {% for reserva in reservas %}
+                    <li class="item-solicitation">
+                        <div class="item-part-request">
+                            {% if reserva.andamento == 'aprovada' %}
+                                <div class="situation-request circle-aprovado"></div>
+                            {% elif reserva.andamento == 'reprovada' %}
+                                <div class="situation-request circle-reprovado"></div>
+                            {% elif reserva.andamento == 'em_analise' %}
+                                <div class="situation-request circle-analise"></div>
+                            {% else %}
+                                <div class="situation-request"></div>
+                            {% endif %}
+                            <div class="identification-request">
+                                <a href="/reserva/detalhar/{{ reserva.id }}" class="request-link">
+                                    <p class="identification" style="margin:0;">Solicitação #{{ reserva.id }}</p>
+                                    {% if reserva.status == 'aguardando_retirada' %}
+                                        <p class="status-finaly">Status: Aguardando retirada</p>
+                                    {% elif reserva.status == 'aguardando_devolucao' %}
+                                        <p class="status-finaly">Status: Aguardando devolução</p>
+                                    {% endif %}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="detail-situation">
+                            <div class="status-request {% if reserva.andamento == 'reprovada' %}status-reprovado{% elif reserva.andamento == 'em_analise' %}status-analise{% else %}status-aprovado{% endif %}">
+                                <div class="situation-request {% if reserva.andamento == 'reprovada' %}circle-reprovado{% elif reserva.andamento == 'em_analise' %}circle-analise{% else %}circle-aprovado{% endif %}"></div>
+                                <p class="status-request-text" style="margin:0;">
+                                    {% if reserva.andamento == 'em_analise' %}
+                                        Em Análise
+                                    {% elif reserva.andamento == 'aprovada' %}
+                                        Aprovada
+                                    {% else %}
+                                        Reprovada
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div class="date-request">
+                                <p class="date-request-text" style="margin:0;">
+                                    {{ reserva.dataHorarioSolicitacao|date:"d \d\e F \d\e Y" }}
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </section>
+</body>
+</html>
