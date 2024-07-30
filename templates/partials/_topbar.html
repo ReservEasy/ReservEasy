@@ -20,7 +20,10 @@
                 <a href="{% url 'index'%}" class="btn-header">Início</a>
                 {% if user.is_authenticated %}
                     {% for group in user.groups.all %}
-                        {% if group.name == "Administrador Master" or group.name == "Administrador de Setor" %}                           <a href="{% url 'acessar_paineldecontrol' %}" class="btn-header">Painel de Controle</a>
+                        {% if group.name == "Administrador de Setor" %}                           
+                            <a href="{% url 'acessar_paineldecontrol' %}" class="btn-header">Painel de Controle</a>
+                        {% elif group.name == "Administrador Master" %}
+                            <a href="{% url 'listarsetores' %}" class="btn-header">Administrar Setores</a>
                         {% endif %}
                     {% endfor %}
                 {% endif %}

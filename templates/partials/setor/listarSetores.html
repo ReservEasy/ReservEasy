@@ -281,7 +281,7 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <p>Digite o nome do setor:</p>
                 </div>
-                <form action="{% url 'listar' %}" method="get">
+                <form action="{% url 'listarsetores' %}" method="get">
                     {% csrf_token %}
                     <input type="text" name="searchbar" id="searchbar" placeholder="Pesquisar" value="{{ search_query }}">
                     <button type="submit" id="buscarSetor">Buscar</button>

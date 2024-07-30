@@ -65,7 +65,7 @@ def criarEquipamento(request):
             equipamento = form.save(commit=False)
             equipamento.setor = request.user.usuario.setor  # Define o setor do recurso com base no setor do usuário
             equipamento.save()
-            return HttpResponseRedirect('/recursos/?msg=Salvo')
+            return HttpResponseRedirect('/recursos/estoque?msg=Salvo')
     else:
         form = EquipamentoForm()
     return render(request, 'partials/recurso/formEquipamento.html', {'form': form})
@@ -79,7 +79,7 @@ def criarEspaco(request):
             espaco = form.save(commit=False)
             espaco.setor = request.user.usuario.setor  # Define o setor do recurso com base no setor do usuário
             espaco.save()
-            return HttpResponseRedirect('/recursos/?msg=Salvo')
+            return HttpResponseRedirect('/recursos/estoque?msg=Salvo')
     else:
         form = EspacoForm()
     return render(request, 'partials/recurso/formEspaco.html', {'form': form})
@@ -98,7 +98,7 @@ def editarRecurso(request, id_recurso):
         form = form_class(request.POST, request.FILES, instance=recurso)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/recursos/?msg=Salvo')
+            return HttpResponseRedirect('/recursos/estoque?msg=Salvo')
     else:
         form = form_class(instance=recurso)
     
@@ -124,7 +124,7 @@ def deletarEquipamento(request, id_recurso):
     # Exclui o espaço do banco de dados
     equipamento.delete()
     
-    return HttpResponseRedirect("/recursos/?msg=Excluído")
+    return HttpResponseRedirect("/recursos/estoque?msg=Excluído")
 
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
@@ -146,7 +146,7 @@ def deletarEspaco(request, id_recurso):
     # Exclui o espaço do banco de dados
     espaco.delete()
     
-    return HttpResponseRedirect("/recursos/?msg=Excluído")
+    return HttpResponseRedirect("/recursos/estoque?msg=Excluído")
 
 # @login_required
 # def tipoAdm(request):

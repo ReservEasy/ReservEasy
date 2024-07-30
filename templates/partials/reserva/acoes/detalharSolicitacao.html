@@ -241,7 +241,9 @@
                 <h1 class="title-service">Solicitação #{{ reserva.id }}</h1>
                 <div class="btns-path">
                     {% if usuario.id == usuarioatual.id %}
-                        <a href="/reserva/deletar/{{reserva.id}}" id="btnCancelar" >Cancelar Solicitação</a>
+                        {% if reserva.andamento == 'em_analise' %}
+                            <a href="/reserva/deletar/{{reserva.id}}" id="btnCancelar" >Cancelar Solicitação</a>
+                        {% endif %}
                     {% endif %}
                     <button id="btnVoltar">Voltar</button>
                 </div>
