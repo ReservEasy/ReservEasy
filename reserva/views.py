@@ -119,7 +119,7 @@ def detalharReserva(request, id_reserva):
     usuario = Usuario.objects.get(pk=id_user)
     user = request.user.id
     usuarioatual = Usuario.objects.get(pk=user)
-    return render(request, "partials/reserva/user/detalharSolicitacao.html",{
+    return render(request, "partials/reserva/acoes/detalharSolicitacao.html",{
         'reserva': reserva,
         'usuario': usuario,
         'usuarioatual': usuarioatual
