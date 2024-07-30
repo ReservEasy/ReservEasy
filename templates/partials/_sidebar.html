@@ -163,31 +163,6 @@
         </div>
     </div>
     {% comment %} indica mostra a pagina ativa  {% endcomment %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var links = document.querySelectorAll('.link-service');
-            var currentPath = window.location.pathname;
-            
-            links.forEach(function(link) {
-                var linkPath = new URL(link.href).pathname;
-    
-                if (linkPath === currentPath) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
-    
-            links.forEach(function(link) {
-                link.addEventListener('click', function() {
-                    links.forEach(function(l) {
-                        l.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                });
-            });
-        });
-    </script>
     
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

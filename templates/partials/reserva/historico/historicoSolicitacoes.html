@@ -416,7 +416,7 @@
             {% if reservas %}
                 {% for reserva in reservas %}
                 <tr class="tr-row">
-                    <td class="request-view"><a href="/reserva/detalharSolicitacao/{{ reserva.id }}/">{{ reserva.id }}</a></td>
+                    <td class="request-view"><a href="/reserva/detalhar/{{ reserva.id }}">{{ reserva.id }}</a></td>
                     <td class="recurso-view">{{ reserva.usuario }}</td>
                     <td class="recurso-view">{{ reserva.dataHorarioSolicitacao|date:"d/m/Y - H:i" }} </td>
                     <td class="recurso-view">{{ reserva.dataHorarioInicial|date:"d/m/Y - H:i" }} - {{ reserva.dataHorarioFinal|date:"d/m/Y - H:i" }}</td>

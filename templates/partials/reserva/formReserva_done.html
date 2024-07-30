@@ -21,7 +21,7 @@
         <p>Por favor, aguarde o recebimento do e-mail de aprovação para verificar as devidas informações para o uso do itens solicitados.</p>
         <p><strong>Código da solicitação:</strong> {{ codigo_solicitacao }}</p>
         <div class="btnsReserva">
-            <a href="{% url 'listar_reservas'%}" id="btnRetorno">Voltar para o início</a>
+            <a href="{% url 'registrar_reserva'%}" id="btnRetorno">Voltar para o início</a>
         </div>
     </div>
             {% else %}
@@ -30,7 +30,7 @@
                     <p>Por favor, aguarde o recebimento do e-mail de aprovação da sua solicitação ou acesse o sistema e selecione a opção "Acompanhar solicitação" para verificar se a mesma foi aceita.</p>
                     <p><strong>Código da solicitação:</strong> {{ codigo_solicitacao }}</p>
                     <div class="btnsReserva">
-                        <a href="{% url 'listar_reservas'%}" id="btnRetorno">Voltar para o início</a>
+                        <a href="{% url 'registrar_reserva'%}" id="btnRetorno">Voltar para o início</a>
                     </div>
                 </div>
             {% endif %}

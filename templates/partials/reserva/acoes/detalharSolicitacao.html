@@ -1,3 +1,8 @@
+{% extends 'partials/_base.html' %}
+
+{% block content %}
+{% load static %} 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,8 +85,7 @@
         border-radius: 50%;
     }
         .detail-user{
-            width: 80%;
-            margin: 20px;
+            width: 95%;
             display: flex;
             flex-direction: column;
             gap: 30px;
@@ -140,6 +144,7 @@
     }
     .title-table{
         margin: 0;
+        text-weight:bold;
     }
     .table-recursos{
         width: 20%;
@@ -205,6 +210,13 @@
         .tables-requests-detail-user-special table:nth-of-type(2) {
             width: 20%;
         }
+        .title-service{
+            font-size:24px;
+            font-weight: bold;
+        }
+        p{
+            margin: 0;
+        }
     </style>
 </head>
 <body>
@@ -213,7 +225,7 @@
             <div class="identification-section">
                 <h1 class="title-service">Solicitação #{{ reserva.id }}</h1>
                 <div class="btns-path">
-                    <a href="/reserva/" id="btnVoltar">Voltar</a>
+                    <a href="{% url 'detalhar-usuario' usuario.matricula %}" id="btnVoltar">Voltar</a>
                 </div>
             </div>
         <div class="data-detail-user">
@@ -366,3 +378,5 @@
 </div>
 </body>
 </html>
+
+{%endblock%}

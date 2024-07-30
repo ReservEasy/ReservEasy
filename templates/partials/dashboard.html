@@ -20,7 +20,7 @@
             margin: 0;
         }
         .count-data-service {
-            font-size: 45px;
+            font-size: 50pxpx;
             font-weight: bold;
         }
         .widget-service-home-page{
@@ -38,6 +38,7 @@
             flex-direction: column;
             align-items: center;
             gap: 5px;
+            text-align: center;
         }
         .btn-service{
             text-transform: none;
@@ -82,8 +83,8 @@
         .dashboard-home-page{
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            height: 100vh;
+            justify-content: space-evenly;
+            height: 80vh;
             margin: 0 50px;
             gap: 20px;
         }
@@ -141,7 +142,7 @@
                 </p>
             </div>
             <div class="data-service green">
-                <p class="count-data-service" id="resource-count">{{ reservas_pendentes }}</p>
+                <p class="count-data-service" id="resource-count">0</p>
                 <p class="data-service-title">Reservas com pendência
                     <a class="btn-service" href="">Acesse</a>
                 </p>

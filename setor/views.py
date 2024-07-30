@@ -78,6 +78,7 @@ def alocarAdm(request, id_setor):
                 usuario.save()
             return redirect(reverse('detalharSetor', args=[id_setor])) # retorna para a pagina de detalhar o setor
     else:
+        usuarios = Usuario.objects.filter(tipo=2) #filtra para usuarios do tipo 2
         form = AlocarAdm() #se tiver erro as informações do formulário voltam 
 
     return render(request, 'partials/setor/formAdmSetor.html', {'form': form, 'setor': setor})
