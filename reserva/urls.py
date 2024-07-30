@@ -9,5 +9,6 @@ urlpatterns = [
     path("deletar/<int:id_reserva>", views.deletarReserva, name="deletarReserva"),
     path('historico/', views.historicoSolicitacao, name='historico_solicitacoes'),
     path('reservar/enviada/<int:reserva_id>', views.solicitacaoEnviada, name='solicitacao_enviada'),
-    # path('solicitacoes', view.solicitacoespendentes, name='solicitacoespendentes'),
+    path('solicitacoes/analise/', views.solicitacoes, name='solicitacoes'),
+    path('solicitacoes/<int:reserva_id>/atualizar_status/<str:status>/', views.atualizar_status_reserva, name='atualizar_status_reserva'),
 ]

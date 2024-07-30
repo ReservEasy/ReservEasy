@@ -229,7 +229,7 @@
         <div class="identification-section">
             <h1 class="title-service">Solicitações</h1>
             <div class="btns-path">
-                <button id="btnVoltar">Voltar</button>
+                <a id="btnVoltar" href="/recursos/">Voltar</a>
             </div>
         </div>
         <div class="search-request">
@@ -250,48 +250,32 @@
                 <tr class="tr-row">
                     <th class="th-column">ID</th>
                     <th class="th-column">Usuário</th>
-                    <th class="th-column">Data</th>
-                    <th class="th-column">Horário Inicial e Final</th>
+                    <th class="th-column">Data e horario iniciais</th>
+                    <th class="th-column">Data e horario finais</th>
                     <th class="th-column actions">Ações</th>
                 </tr>
             </thead>
             <tbody id="resource-list">
-                <tr class="tr-row">
-                    <td class="request-view"><a href="">25</a></td>
-                    <td class="recurso-view">Gustavo Santos Pinto</td>
-                    <td class="recurso-view">25/02/2024</td>
-                    <td class="recurso-view">15:00 - 23:00</td>
-                    <td class="actions">
-                        <a href="" class="btn btn-editar">ANALISAR</a>
-                    </td>
-                </tr>
-                <tr class="tr-row">
-                    <td class="request-view"><a href="">26</a></td>
-                    <td class="recurso-view">Mariana Silva Costa</td>
-                    <td class="recurso-view">26/02/2024</td>
-                    <td class="recurso-view">10:00 - 12:00</td>
-                    <td class="actions">
-                        <a href="" class="btn btn-editar">ANALISAR</a>
-                    </td>
-                </tr>
-                <tr class="tr-row">
-                    <td class="request-view"><a href="">27</a></td>
-                    <td class="recurso-view">Pedro Lima</td>
-                    <td class="recurso-view">27/02/2024</td>
-                    <td class="recurso-view">08:00 - 10:00</td>
-                    <td class="actions">
-                        <a href="" class="btn btn-editar">ANALISAR</a>
-                    </td>
-                </tr>
-                <tr class="tr-row">
-                    <td class="request-view"><a href="">28</a></td>
-                    <td class="recurso-view">Ana Paula Souza</td>
-                    <td class="recurso-view">28/02/2024</td>
-                    <td class="recurso-view">14:00 - 16:00</td>
-                    <td class="actions">
-                        <a href="" class="btn btn-editar">ANALISAR</a>
-                    </td>
-                </tr>
+                {% if reservas %}
+                    {% for reserva in reservas %}
+                        <tr class="tr-row">
+                            <td class="request-view"><a href="/reserva/detalhar/{{ reserva.id }}">{{reserva.id}}</a></td>
+                            <td class="recurso-view">
+                                {% for usuario in usuarios %}
+                                    {% if reserva.usuario == usuario.id %}
+                                        {{usuario.first_name}} {{usuario.last_name}}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td class="recurso-view">{{reserva.dataHorarioInicial}}</td>
+                            <td class="recurso-view">{{reserva.dataHorarioFinal}}</td>
+                            <td class="actions">
+                                <a href="{% url 'atualizar_status_reserva' reserva.id 'aprovada' %}" class="btn btn-editar" value="aprovada">Aprovar</a>
+                                <a href="{% url 'atualizar_status_reserva' reserva.id 'negada' %}" class="btn btn-editar" value="negada">Negar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
             </tbody>
         </table>
     </section>
