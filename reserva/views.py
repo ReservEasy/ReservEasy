@@ -202,3 +202,43 @@ def acessarDashboard(request):
     }
 
     return render(request, 'partials/dashboard.html', context)
+
+@user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
+def solicitacoes(request):
+    usuarios = Usuario.objects.all()
+    solicitacoes_em_analise = Reserva.objects.filter(andamento='em_analise')
+    return render(request, "partials/reserva/acoes/listarSolicitacoes.html", {
+        'reservas': solicitacoes_em_analise,
+        'usuarios': usuarios
+    })
+
+
+@user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
+def atualizar_status_reserva(request, reserva_id, status):
+    reserva = get_object_or_404(Reserva, id=reserva_id)
+    
+    # Verificação de conflito
+    conflito = False
+    reservas_conflitantes = Reserva.objects.filter(
+        Q(espacos__in=reserva.espacos.all()) | Q(equipamentos__in=reserva.equipamentos.all()),
+        andamento='aprovada'
+    ).filter(
+        Q(dataHorarioInicial__lte=reserva.dataHorarioFinal, dataHorarioFinal__gte=reserva.dataHorarioInicial) & 
+        (
+            Q(dataHorarioInicial__gte=reserva.dataHorarioInicial, dataHorarioInicial__lte=reserva.dataHorarioFinal) |
+            Q(dataHorarioFinal__gte=reserva.dataHorarioInicial, dataHorarioFinal__lte=reserva.dataHorarioFinal) |
+            Q(dataHorarioInicial__lte=reserva.dataHorarioInicial, dataHorarioFinal__gte=reserva.dataHorarioInicial) |
+            Q(dataHorarioInicial__lte=reserva.dataHorarioFinal, dataHorarioFinal__gte=reserva.dataHorarioFinal)
+        )
+    ).distinct()
+
+    if reservas_conflitantes.exists():
+        conflito = True
+        status = 'negada'
+
+    # Atualiza o status da reserva
+    if status in ['aprovada', 'negada']:
+        reserva.andamento = status
+        reserva.save()
+
+    return redirect('/reserva/solicitacoes/analise/')
