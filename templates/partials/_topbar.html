@@ -15,12 +15,21 @@
     <header class="header-usuario">
         <div class="header-part-right">
             <img src="{% static 'img/logo.png' %}" alt="Logotipo do sistema" id="logo-header">
-            {% comment %} <div class="btns-usuario">
-                <a href="#" class="btn-header">Início</a>
-                <a href="#" class="btn-header">Eventos</a>
-                <a href="#" class="btn-header">Painel de Controle</a>
-                <a href="#" class="btn-header">Meu perfil</a>
-            </div> {% endcomment %}
+            <div class="btns-usuario">
+                {% if user.is_authenticated %}
+                <a href="{% url 'index'%}" class="btn-header">Início</a>
+                {% if user.is_authenticated %}
+                    {% for group in user.groups.all %}
+                        {% if group.name == "Administrador Master" or group.name == "Administrador de Setor" %}                           <a href="{% url 'acessar_paineldecontrol' %}" class="btn-header">Painel de Controle</a>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                <a href="{% url 'listar_reservas_usuario'%}" class="btn-header">Acompanhar solicitação</a>
+                <a href="{% url 'registrar_reserva'%}" class="btn-header">Reservar</a>
+                <a href="{% url 'perfil_usuario'%}" class="btn-header">Meu perfil</a>
+                {% endif %}
+            </div> 
+        </div>
         </div>
         {% if user.is_authenticated %}
             <div class="btn-usuario-subst">

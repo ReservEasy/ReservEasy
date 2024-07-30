@@ -31,6 +31,7 @@
     p{ 
         margin: 0px;
     }
+
     
     </style>
 </head>
@@ -78,7 +79,7 @@
         {% comment %} mensagens {% endcomment %}
         {% if messages %}
         <div class="messages-error">
-                <ul>
+                <ul style="margin: 0;">
                     {% for message in messages %}
                         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                     {% endfor %}
@@ -92,23 +93,23 @@
                 <p class="subtitle-descricao text-special">PASSO A PASSO</p>
                 <p class="title-reservas">FÁCIL E RÁPIDO PARA RESERVAR</p>
             </div>
-            <!-- <div class="image-widget-tutorial">
+            <div class="image-widget-tutorial">
                 <div class="image-tutorial">
-                    <img src="" alt="">
+                    <img src="{% static 'img/2.png'%}" alt="">
                 </div>
                 <div class="image-tutorial">
-                    <img src="" alt="">
+                    <img src="{% static 'img/3.png'%}" alt="">
                 </div>
                 <div class="image-tutorial">
-                    <img src="" alt="">
+                    <img src="{% static 'img/4.png'%}" alt="">
                 </div>
                 <div class="image-tutorial">
-                    <img src="" alt="">
+                    <img src="{% static 'img/5.png'%}" alt="">
                 </div>
                 <div class="image-tutorial">
-                    <img src="" alt="">
+                    <img src="{% static 'img/6.png'%}" alt="">
                 </div>
-            </div> -->
+            </div> 
             <a href="http://">Veja o exemplo prático</a>
         </div>
 
