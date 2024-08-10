@@ -1,0 +1,185 @@
+{% extends 'partials/_base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/formReserva.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/88a7a49c60.js" crossorigin="anonymous"></script>
+    <title>Solicitar | ReservEasy</title>
+    <style>
+        .container-fluid{
+            padding: 0px;
+        }
+      .imagem-item-reserva img {
+        border-radius: 10px 10px 0 0;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+    .messages-error{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #010C29;
+        padding: 10px 0px;
+        color: white;
+    }
+    .title-espaco-reserva, .title-widget{
+        font-size:24px;
+        font-weight:bold;
+    }
+    p{ 
+        margin: 0px;
+    }
+
+    
+    </style>
+</head>
+<body>
+    <section class="form-reserva-user">
+    <!-- buscador -->
+    <div class="reserva-analise-disponibilidade-usuario">
+        <div class="busca-disponibilidade">
+            <div class="text-disponibilidade">
+                <h1 id="title-reservas">Reservas</h1>
+                <h4 id="subtitle-descricao">Vamos verificar se não está reservado?</h4>
+            </div>
+            <form class="busca-dataHorario" method="post">
+                {% csrf_token %}
+                <div class="input-data">
+                    <i class="fa-regular fa-calendar"></i>
+                    <div class="fields-data-reserva">
+                        <p style="margin: 0;">
+                            <label for="dataHorarioInicial">Data e Horário Inicial</label>
+                            <input type="datetime-local" id="dataHorarioInicial" name="dataHorarioInicial" required value="{{ dataHorarioInicial|default_if_none:'' }}">
+                        </p>
+                        
+                        <span class="placeholder-field">Selecione a data e o horário de início para sua reserva </span>
+                    </div>
+                </div>
+                <div class="input-data">
+                    <i class="fa-regular fa-calendar"></i>
+                    <div class="fields-data-reserva">
+                        <p  style="margin: 0;">
+                            <label for="dataHorarioFinal">Data e Horário final</label>
+                            <input type="datetime-local" id="dataHorarioFinal" name="dataHorarioFinal" required value="{{ dataHorarioFinal|default_if_none:'' }}">
+                        </p>
+                        <span class="placeholder-field"> Escolha a data e o horário de término</span>
+                    </div>
+                </div>
+                <div class="btn-verificarDisponibilidade">
+                    <button type="submit" name="buscar"> <i class="fa-regular fa-circle-check"></i>Verificar</button>
+                </div>
+        </div>
+    </div>
+    
+        {% comment %} mensagens {% endcomment %}
+        {% if messages %}
+        <div class="messages-error">
+                <ul style="margin: 0;">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+
+        {% if espacos_disponiveis or equipamentos_disponiveis %}
+        <div class="recursos-disponiveis">
+
+            <!-- espaços disponiveis -->
+            <h1 class="title-espaco-reserva">Espaços disponíveis:</h1>
+            <div class="itens-reserva">
+                    {% for espaco in espacos_disponiveis %}
+                    <div class="item-reserva">
+                    <div class="imagem-item-reserva">
+                        {% if espaco.imagem %}
+                        <img src="{{ espaco.imagem.url }}" alt="{{ espaco.nome }}">
+                        {% endif %}
+                    </div>
+                    <div class="informacao-item-reserva">
+                        <div class="informacoes-item-reserva" style="margin: 0;">
+                        <h1 class="title-item-reserva"style="margin: 0;">{{ espaco.nome }}</h1>
+                        <p class="descricao-item-reserva"style="margin: 0;">{{ espaco.descricao }}</p>
+                        <p class="descricao-item-reserva"style="margin: 0;">Setor: {{ espaco.setor }}</p>
+                        </div>
+                        <div class="btn-item-reserva">
+                        <input type="checkbox" name="espacos" value="{{ espaco.id }}" />
+                        <p style="margin: 0;">Reservar</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+             {% comment %} SE NAO TIVER DISPONIVEL {% endcomment %}
+              {% comment %} <div class="item-reserva">
+                <div class="imagem-item-reserva">
+                  <img class="imgcomfiltro" src="img/quadrabasquete.jpg" alt="" />
+                </div>
+                <div class="informacao-item-reserva">
+                  <div class="informacoes-item-reserva">
+                    <h1 class="title-item-reserva">Quadra II</h1>
+                    <p class="descricao-item-reserva">Basquete</p>
+                    <p class="descricao-item-reserva">Setor:</p>
+                  </div>
+                  <div class="btn-item-reserva">
+                    <button>Em manutenção</button>
+                  </div>
+                </div>
+              </div> {% endcomment %}
+          
+      
+            <!-- equipamentos disponiveis -->
+            <h1 class="title-espaco-reserva">Equipamentos disponíveis:</h1>
+            <div class="itens-reserva">
+              {% for equipamento in equipamentos_disponiveis %}
+              <div class="item-reserva">
+                  <div class="imagem-item-reserva">
+                      {% if equipamento.imagem %}
+                      <img src="{{ equipamento.imagem.url }}" alt="{{ equipamento.nome }}">
+                      {% endif %}
+                  </div>
+                  <div class="informacao-item-reserva">
+                      <div class="informacoes-item-reserva">
+                          <h1 class="title-item-reserva" style="margin: 0;">{{ equipamento.nome }}</h1>
+                          <p class="descricao-item-reserva" style="margin: 0;">{{ equipamento.descricao }}</p>
+                          <p class="descricao-item-reserva" style="margin: 0;" >Setor: {{ equipamento.setor.nome }}</p>
+                      </div>
+                      <div class="btn-item-reserva">
+                          <input type="checkbox" name="equipamentos" value="{{ equipamento.id }}">
+                          <p style="margin: 0;" >Reservar</p>
+                      </div>
+                  </div>
+              </div>
+              {% endfor %}
+          </div>
+
+            <div class="justificativa-solicitacao">
+                  <h1 class="title-widget">Justificativa</h1>
+                  <div class="justificativa">
+                    {% comment %} <label for="justificativa">Justificativa:</label> {% endcomment %}
+                    <textarea id="justificativa" rows="5" cols="130" maxlength="5000" name="justificativa"></textarea>
+                  </div>
+                <div class="btnsReserva">
+                  <a id="btnCancelar">Cancelar</a>
+                  <button id="btnReservar"type="submit" name="enviar_solicitacao">
+                    <i class="fa-regular fa-circle-check" ></i> Enviar Solicitação
+                  </button>
+                </div>
+            </div>
+            {% endif %}
+    </form>
+</section>
+</body>
+</html>
+
+{%endblock%}

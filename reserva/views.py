@@ -105,10 +105,17 @@ def solicitacaoEnviada(request, reserva_id):
 def listar_reservas_usuario(request):
     user = request.user.id
     usuario = Usuario.objects.get(pk=user)
-    reservas = usuario.reservas.all()  # Corrigido para usar o related_name correto
+    reservas = usuario.reservas.all().order_by('-id')  # Corrigido para usar o related_name correto
     quant_reservas = len(reservas)
+    for reserva in reservas:
+        print(reserva.id)
+    paginator = Paginator(reservas, 6)  
+    page_number = request.GET.get('page') 
+    page_obj = paginator.get_page(page_number)
+
     return render(request, 'partials/reserva/user/listarSolicitacoesUser.html',{
-        'reservas': reservas,
+        'reservas': page_obj,
+        'page_obj': page_obj,
         'quant_reservas': quant_reservas
     })
 
@@ -151,9 +158,9 @@ def historicoSolicitacao(request):
     if search_query:
         reservas_list = Reserva.objects.filter(
             Q(usuario__username__icontains=search_query)
-        )
+        ).order_by('-id')
     else:
-        reservas_list = Reserva.objects.all()
+        reservas_list = Reserva.objects.all().order_by('-id')
 
     total_reservas = reservas_list.count()  # Total de reservas
 
@@ -215,7 +222,7 @@ def solicitacoes(request):
     else:
         usuarios_list = Usuario.objects.all()
 
-    solicitacoes_em_analise = Reserva.objects.filter(andamento='em_analise')
+    solicitacoes_em_analise = Reserva.objects.filter(andamento='em_analise').order_by('-id')
     paginator = Paginator(solicitacoes_em_analise, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)

@@ -34,6 +34,7 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+    width:80%;
 }
 .text-disponibilidade{
     display: flex;
@@ -94,6 +95,7 @@ margin-left: 2px;
     display: flex;
     gap: 30px;
     align-items: center;
+    justify-content:space-between;
 }
 .btn-verificarDisponibilidade button{
     background-color: #011035;
@@ -276,10 +278,10 @@ border-radius: 10px;
     border: none;
 }
 .itens-reserva {
-width: 90%;
+width: 80%;
 display: flex;
 align-items: center;
-justify-content: space-around;
+justify-content: space-between;
 flex-wrap: wrap;
 align-content: center;
 gap: 10px;
@@ -467,10 +469,15 @@ td.actions{
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    width:80%;
+}
+input[type="checkbox"]:checked ~ .btn-item-reserva {
+    background-color: #d4edda; /* Cor de fundo quando marcado */
 }
 textarea{
     padding: 10px;
     border-radius: 10px;
+    width:100%;
 }
 .justificativa{
     display: flex;

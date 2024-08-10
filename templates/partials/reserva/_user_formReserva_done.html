@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/formReserva.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/88a7a49c60.js" crossorigin="anonymous"></script>
+    <title>Reservas | ReservEasy</title>
+</head>
+<body>
+    {%block topbar%}
+        {%include 'partials/_topbar.html'%}
+    {%endblock%}
+    <section class="form-reserva-user confirmacao">
+            <div class="reserva-analise-disponibilidade-usuario">
+            </div>
+            {% if tipo_adm == "Adm Setor" or tipo_adm == "Adm Master" %}
+    <div class="text-important">
+        <h1>Reserva feita!</h1>
+        <p>Por favor, aguarde o recebimento do e-mail de aprovação para verificar as devidas informações para o uso do itens solicitados.</p>
+        <p><strong>Código da solicitação:</strong> {{ codigo_solicitacao }}</p>
+        <div class="btnsReserva">
+            <a href="/reserva/listar" id="btnRetorno">Acompanhar solicitação</a>
+        </div>
+    </div>
+            {% else %}
+                <div class="text-important">
+                    <h1>Solicitação enviada!</h1>
+                    <p>Por favor, aguarde o recebimento do e-mail de aprovação da sua solicitação ou acesse o sistema e selecione a opção "Acompanhar solicitação" para verificar se a mesma foi aceita.</p>
+                    <p><strong>Código da solicitação:</strong> {{ codigo_solicitacao }}</p>
+                    <div class="btnsReserva">
+                        <a href="/reserva/listar" id="btnRetorno">Acompanhar solicitação</a>
+                    </div>
+                </div>
+            {% endif %}
+                
+    </section>
+</body>
+
+</html>

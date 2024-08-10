@@ -1,0 +1,249 @@
+{% extends 'partials/_base.html' %}
+
+{% block content %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'favicon.icon' %}" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/88a7a49c60.js" crossorigin="anonymous"></script>
+    <title>Meu Perfil | ReservEasy</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        .symbol-name p{
+            margin: 0px !important;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins';
+        }
+        .myprofile-user{
+            background-color: #F2F3F7;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .layout-myprofile{
+            padding: 20px 30px;
+            border-radius: 10px;
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            min-height: 80vh;
+        }
+        .symbol-name{
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            gap: 10px;
+            padding: 5px 10px;
+            border-bottom: 2px solid #A3C23E;
+        }
+        .content-section-myprofile{
+            display: flex;
+            gap: 50px;
+        }
+        .name-section-myprofile{
+            display: flex;
+            font-weight: 600;
+        }
+        .diviser-content{
+            border: 0.2px solid #dfdfdf;
+            min-height: 100%;
+        }
+        .symbol-user{
+            background-color: #D9D9D9;
+            min-width: 150px;
+            min-height: 150px;
+            text-align: center;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+        .symbol-user i{
+            color: #575757;
+        }
+        .symbol-name i{
+            color: #575757;
+        }
+        .symbol-user i,
+        .symbol-name i
+        {
+            font-weight: 800;
+        }
+        .symbol-user-myprofile{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .symbol-user-myprofile{
+            font-weight: 600;
+        }
+        .data-myprofile{
+            display: flex;
+            gap: 30px;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        p label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333333;
+        }       
+        p input {
+            border: 0.1px solid #9e9b9b;
+            border-radius: 5px;
+            width:90%;
+            padding: 6px 5px;
+            font-size:12px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+        }
+        .inputs-form-myprofile p{
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            gap: 10px;
+        }
+        p span, ul li{
+            font-size: 12px;
+        }
+        .inputs-form-myprofile{
+            display:flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        #button-update-user,
+        #btnVoltar {
+            color: #ffffff;
+            background-color: #A0BE3D;
+            font-weight: 500;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 8px;
+            font-size: 12px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        #btnVoltar:hover{
+            background-color: #0e380b;
+        }
+        #btnVoltar:hover{
+            background-color: #011035;
+        }
+        #btnVoltar{
+            background-color: #022376;
+        }
+        .btns-service{
+            display: flex;
+            gap: 10px ;
+        }
+        .form-data-user{
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <section class="myprofile-user">
+        <div class="layout-myprofile">
+            <div class="name-section-myprofile">
+                <div class="symbol-name">
+                    <i class="fa-regular fa-user"></i>
+                    <p>Perfil</p>
+                </div>
+            </div>
+            <div class="content-section-myprofile">
+                <div class="identification-myprofile">
+                    <div class="symbol-user-myprofile">
+                        <div class="symbol-user">
+                            <i class="fa-regular fa-user"></i>
+                        </div>
+                        <p>{{ usuario.first_name }}</p>
+                    </div>
+                </div>
+                <div class="diviser-content"></div>
+                <div class="data-myprofile">
+                    <p>Dados básicos:</p>
+                    <div class="form-data-user">
+                        <div class="inputs-form-myprofile">
+                            <p>
+                                <label for="username">Username:</label>
+                                <input type="text" id="username" value="{{ usuario.username }}" readonly>
+                            </p>
+                            <p>
+                                <label for="first_name">Primeiro nome:</label>
+                                <input type="text" id="first_name" value="{{ usuario.first_name }}" readonly>
+                            </p>
+                            <p>
+                                <label for="last_name">Último nome:</label>
+                                <input type="text" id="last_name" value="{{ usuario.last_name }}" readonly>
+                            </p>
+                            <p>
+                                <label for="email">Endereço de email:</label>
+                                <input type="email" id="email" value="{{ usuario.email }}" readonly>
+                            </p>
+                            <p>
+                                <label for="matricula">Matricula:</label>
+                                <input type="text" id="matricula" value="{{ usuario.matricula }}" readonly>
+                            </p>
+                            <p>
+                                <label for="telefone">Telefone:</label>
+                                <input type="text" id="telefone" value="{{ usuario.telefone }}" readonly>
+                            </p>
+                            <p>
+                                <label for="data_nascimento">Data de Nascimento:</label>
+                                <input type="date" id="data_nascimento" value="{{ usuario.data_nascimento|date:'Y-m-d' }}" readonly>
+                            </p>
+                            
+                            {% if usuario.tipo == 2 %}
+                            <p>
+                                <label for="cargo">Cargo:</label>
+                                <input type="text" id="cargo" value="{{ usuario.cargo }}" readonly>
+                            </p>
+                            {% elif usuario.tipo == 1 %}
+                            <p>
+                                <label for="turma">Turma:</label>
+                                <input type="text" id="turma" value="{{ usuario.turma }}" readonly>
+                            </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                        <div class="btns-service">
+                            <button id="btnVoltar"> Voltar</button>
+                            <a id="button-update-user" href="{% url 'editar_perfil_usuario' %}">Editar perfil</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        document.getElementById('btnVoltar').addEventListener('click', function() {
+            window.history.back();
+        });
+    </script>
+</body>
+</html>
+
+{%endblock%}

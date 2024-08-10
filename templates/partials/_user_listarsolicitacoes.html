@@ -43,7 +43,7 @@
         </div>
         {% if reservas %}
         <div class="request-list">
-            <ul class="list-solicitation">
+            <ul class="list-solicitation" style="margin: 0px; padding: 0px;">
                 {% for reserva in reservas %}
                     <li class="item-solicitation">
                         <div class="item-part-request">
@@ -92,5 +92,22 @@
         </div>
         {% endif %}
     </section>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; primeira</a>
+                <a href="?page={{ page_obj.previous_page_number }}">anterior</a>
+            {% endif %}
+    
+            <span class="current">
+                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">próxima</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 </body>
 </html>

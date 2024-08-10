@@ -163,3 +163,33 @@
     .status-request.status-analise{
         background-color: #FFEBA6 !important;
     }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+        font-size:12px;
+    }
+    .pagination .step-links {
+        display: flex;
+        gap: 5px;
+        font-size:12px;
+    }
+    .pagination .step-links a, .pagination .step-links span {
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #333;
+        font-size:12px;
+    }
+    .pagination .step-links a:hover {
+        background-color: #f0f0f0;
+        border-color: #999;
+    }
+    .pagination .step-links .current {
+        background-color: #022376;
+        color: #fff;
+        border-color: #022376;
+        font-size:12px;
+    }
