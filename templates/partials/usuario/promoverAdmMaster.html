@@ -1,0 +1,311 @@
+{% extends 'partials/_base.html' %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setores | ReservEasy</title>
+    <script src="https://kit.fontawesome.com/88a7a49c60.js" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: 'Poppins';
+            
+        }
+        .identification-section {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 95%;
+            margin-left: 15px;
+        }
+        #btnAlocarAdm, #btnVoltar, #btnEstoque {
+            background-color: #022376;
+            color: #fff;
+            border: none;
+            padding: 5px 12px;
+            font-size: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        #btnAlocarAdm:hover,
+        #btnVoltar:hover,
+        #btnEstoque:hover {
+            text-decoration: none;
+            background-color: #010C29;
+        }
+
+        #btnEstoque{
+            background-color: #A0BE3D;
+            text-transform: uppercase;
+        }
+        #btnEstoque:hover{
+            background-color: #48551B;
+        }
+        .title-service {
+            font-size: 25px; 
+            font-weight: bold;
+            margin: 0px;
+        }
+        .search-recursos {
+            display: flex;
+            flex-direction: column;
+        }
+        .search-tools {
+            margin-top: 20px;
+            width: 96%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .title-search-recursos {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .title-search-recursos p {
+            margin: 0;
+        }
+        .title-search-recursos i {
+            font-size: 12px;
+        }
+        .search-recursos {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin-left: 15px;
+        }
+        .search-recursos input {
+            border-radius: 4px;
+            border: 0.5px #ccc solid;
+            font-size: 14px;
+            background-color: white;
+            padding: 3px 8px;
+        }
+        .search-adm {
+            display: flex;
+            justify-content: space-between;
+            display: flex;
+            gap: 5px;
+            align-items: flex-start;
+            margin-left: 25px;
+        }
+        .adm-list {
+            /* height: 100vh; */
+            margin: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .data-service {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            border: 0.5px solid #ccc;
+            padding: 10px;
+            border-radius: 10px;
+            border-bottom: 5px solid #022376;
+            margin-right: 40px;
+            background-color: #fff;
+        }
+        .data-service-title, .count-data-service {
+            margin: 0;
+        }
+        .data-service-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .count-data-service {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .th-column {
+            background-color: #E4E4E4 !important;
+            color: #252525 !important;
+            vertical-align: middle !important;
+        }
+        .table {
+            border-collapse: collapse;
+            width: 95%;
+            margin: 20px auto;
+            text-align: center;
+        }
+        th, td {
+            padding: 8px;
+            font-size: 12px;
+            text-align: center;
+            vertical-align: middle !important;
+        }
+        th {
+            background-color: #E4E4E4;
+            color: black;
+            font-size: 12px;
+        }
+        td a {
+            display: inline-block;
+            margin: 2px;
+            border-radius: 3px;
+        }
+        td a.edit {
+            color: #fff;
+            background-color: #27ae60;
+            border: 1px solid #27ae60;
+        }
+        td a.delete {
+            color: #fff;
+            background-color: #BE3D3D;
+            border: 1px solid #e74c3c;
+            font-size: 15px;
+        }
+        td.colspan-text {
+            text-align: center;
+            font-style: italic;
+            color: #7f8c8d;
+        }
+        .btn-editar {
+            color: #fff;
+            background-color: #A0BE3D;
+        }
+        .btn-editar:hover {
+            background-color: #48551B;
+            color: #fff;
+        }
+        td:nth-child(5) {
+            width: 40%;
+        }
+        td {
+            background-color: #fff !important;
+            border: 0px solid #ccc !important;
+        }
+        .actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+        .th-column {
+            background-color: #E4E4E4 !important;
+            color: #252525 !important;
+            vertical-align: middle !important;
+        }
+        .btn, #btnEstoque {
+            padding: 5px 10px;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+        .tr-row, .th-column {
+            border-bottom: 0px solid #ccc;
+        }
+        table, thead, tr, th, tbody, td {
+            border: 0 !important;
+            text-align: start;
+        }
+        td, .th-column {
+            padding: 5px !important;
+        }
+        th {
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+        }
+        .tr-row, tr {
+            border-bottom: 1px solid #ccc !important;
+            
+        }
+        .th-column{
+            background-color: transparent !important;
+            border: 0px solid #ccc;
+        }
+        .adm-view > a {
+            text-decoration: underline;
+            color: #A0BE3D;
+            margin: 0px;
+        }
+        .data-services-list{
+            width: 100%;
+            display: flex;
+            margin-left: 25px;
+        }
+        .data-services-item{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .special{
+            margin: 0px;
+            padding: 10px 40px;
+        }
+    </style>
+</head>
+<body>
+    <section class="adm-list">
+        <div class="identification-section">
+            <h1 class="title-service">Administradores Master</h1>
+            <div class="btns-path">
+                <a href="/accounts/promover/idusuario/" id="btnAlocarAdm">Promover administrador master</a>
+                <a  href="/reserva/painel" id="btnVoltar">Voltar</a>
+            </div>
+        </div>
+        <div class="search-adm">
+            
+            <div class="data-service">
+                <p class="count-data-service" id="resource-count">{{ total_usuarios }}</p>
+                <p class="data-service-title">Administradores Master</p>
+            </div>
+        </div>
+        <table class="table table-striped table-bordered mt-3">
+            <thead>
+                <tr class="tr-row">
+                    <th class="th-column">ID</th>
+                    <th class="th-column">Nome</th>
+                    <th class="th-column">E-mail</th>
+                    <th class="th-column actions">Ações</th>
+                </tr>
+            </thead>
+            <tbody id="resource-list">
+                {% if usuarios %}
+                    {% for usuario in usuarios %}
+                        <tr class="tr-row">
+                            <td class="adm-view"><a href="{% url 'detalhar-usuario' usuario.matricula %}">{{ usuario.id }}</a></td>
+                            <td class="sector-view">{{ usuario.first_name }} {{ usuario.last_name }}</td>
+                            <td class="sector-view">{{ usuario.email}}</td>
+                            <td class="actions">
+                                <a href="/setor/transferirAdm/{{usuario.id}}" class="btn btn-editar">Transferir</a>
+                                <a href="/setor/removerAdm/{{usuario.id}}" class="btn btn-danger">Remover</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+        
+    </section>
+    <script src="{% static 'js/windowBack.js '%}"></script>
+    <script>
+        {% comment %} conta a qauntidade de adms alocados {% endcomment %}
+        rows.forEach(row => {
+            let nameCell = row.querySelector('.sector-view');
+            if (nameCell) {
+                let normalizedText = normalizeText(nameCell.textContent);
+                if (normalizedText.includes(input)) {
+                    row.style.display = "";
+                    count++;
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        });
+
+        document.getElementById("resource-count").textContent = count;
+
+    </script>
+</body>
+</html>
+{% endblock %}

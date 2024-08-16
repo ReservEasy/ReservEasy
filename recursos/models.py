@@ -3,9 +3,9 @@ from setor.models import Setor
 # Create your models here.
 
 class Recurso(models.Model):
-    nome = models.CharField(max_length=100, blank = 'False', null = 'False')
-    imagem = models.ImageField(blank = 'False', null = 'False', upload_to='pictures/%Y/%m/')
-    descricao = models.CharField(max_length=100, blank = 'True', null = 'True')
+    nome = models.CharField(max_length=100, blank = False, null = False)
+    imagem = models.ImageField(blank = False, null = False, upload_to='pictures/%Y/%m/')
+    descricao = models.CharField(max_length=100, blank = True, null = True)
 
     class Meta: #a classe Recurso é abstrata e nao vai ter uma tabela para ela, apenas um modelo
         abstract = True

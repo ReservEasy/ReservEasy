@@ -1,0 +1,243 @@
+{%  extends  "partials/_base.html" %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Administrador | ReservEasy</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins';
+        }
+        .form-register-admsector{
+            margin: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+            
+        }
+        .identification-section{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        }
+    .identification-section #btnVoltar, .services-btns a{
+        background-color: #022376;
+        border: none;
+        color: #fff;
+        padding: 5px 12px;
+        font-size: 12px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    .identification-section #btnVoltar:hover{
+        text-decoration: none;
+        background-color: #010C29;
+    }
+    .title-service{
+    font-size:20px;  
+    }
+    .subtitle-service{
+    font-size: 15px;
+    font-weight: 500;
+    }
+    form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    }
+    form .input-recurso{
+    margin-left: 15px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    column-gap: 40px;
+    align-items: center;
+    justify-content: center;
+    }
+    form .input-recurso > p > #id_descricao{
+    width: 840px;
+    }
+    form .button-container {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    }
+    .btn.submit:hover {
+    background-color: #45a049;
+    }
+    .input-recurso p{
+        display: flex;
+        flex-direction: column;
+        width: 70%;
+        align-items: center;
+    }
+
+    .input-recurso p label {
+        font-size:14px;
+        color: #333333;
+        font-weight: 400;
+    }
+
+    input[type="text"]{
+    border: 0.1px solid #666666;
+    border-radius: 5px;
+    padding: 5px 5px;
+    width: 80%;
+    margin-top: 5px;
+    }
+    #btnCadastrar{
+        background-color: #022376;
+        border: none;
+        color: #fff;
+        padding: 5px 12px;
+        font-size: 12px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    #btnCadastrar:hover{
+        text-decoration: none;
+        background-color: #010C29;
+    }
+    .th-column {
+        background-color: #E4E4E4 !important;
+        color: #252525 !important;
+        vertical-align: middle !important;
+    }
+    table {
+        border-collapse: collapse;
+        width: 50%;
+        margin: 20px auto;
+        text-align: center;
+    }
+    th, td {
+        padding: 8px;
+        font-size: 12px;
+        text-align: center;
+        vertical-align: middle !important;
+    }
+    th {
+        background-color: #E4E4E4;
+        color: black;
+        font-size: 12px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    td {
+        background-color: transparent !important;
+        border: 0px solid #ccc !important;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+    tr{
+        display: flex;
+    }
+    .th-column {
+        background-color: #E4E4E4 !important;
+        color: #252525 !important;
+        vertical-align: middle !important;
+    }
+    table, thead, tr, th, tbody, td {
+        border: 0 !important;
+        text-align: start;
+    }
+    td, .th-column {
+        padding: 5px !important;
+    }
+    th {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+    table, thead, tr, th, tbody, td {
+        border: 0 !important;
+        text-align: start;
+    }
+    td, .th-column {
+        padding: 5px !important;
+    }
+    th {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+    .tr-row, tr {
+        border-bottom: 1px solid #ccc !important;
+        
+    }
+    .th-column{
+        background-color: transparent !important;
+        border: 0px solid #ccc;
+    }
+     .search-container {
+            margin-bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .search-container input {
+            width: 80%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/88a7a49c60.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <section class="form-register-admsector">
+        <div class="identification-section">
+            <h1 class="title-service"> Administradores Master</h1>
+            <a href="/accounts/promover/" id="btnVoltar" >Voltar</a>
+        </div>
+        <h2 class="subtitle-service">Selecione os usuários que você deseja designar como administradores master:</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="input-recurso">
+                {% csrf_token %}
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Buscar usuários...">
+                </div>
+
+                <table id="userTable">
+                    <thead>
+                        <tr>
+                            <th>Selecionar</th>
+                            <th>Usuário</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for widget in form.usuarios %}
+                            <tr>
+                                <td>{{ widget.tag }}</td>
+                                <td>{{ widget.choice_label }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="2">Nenhum usuário encontrado.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="button-container">
+                <button type="submit" id="btnCadastrar">Cadastrar</button>
+            </div>
+        </form>
+    </section>
+
+    <script src="{% static 'js/inputs.js '%}"></script>
+
+</body>
+</html>
+{% endblock%}

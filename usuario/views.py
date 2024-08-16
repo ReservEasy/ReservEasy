@@ -94,4 +94,12 @@ def detalharUsuario(request, matricula):
         'usuario': usuario,
         'reservas': page_obj,
     })    
+@login_required
+def promoverAdmMaster(request):
+
+    return render(request, 'partials/usuario/promoverAdmMaster.html')
+
+@login_required
+def formAdmMaster(request):
     
+    return render(request, 'partials/usuario/formAdmMaster.html')

@@ -116,6 +116,13 @@
                 </a> 
             </li>
 
+            <li class="servicos">
+                <a href="/reserva/historico" class="link-service">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <p>Promover Admin Master</p>
+                </a> 
+            </li>
+
             {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
                 {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
                     {% if group.name == "Administrador de Setor" %}
