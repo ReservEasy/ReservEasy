@@ -254,9 +254,9 @@
                 <thead>
                     <tr class="tr-row">
                         <th class="th-column">ID</th>
-                        <th class="th-column">Telefone</th>
                         <th class="th-column">Matrícula/SIAPE</th>
-                        <th class="th-column">E-mail</th>
+                        <th class="th-column">Nome</th>
+                        <th class="th-column">Telefone</th>
                         <th class="th-column">Turma/Cargo</th>
                         <th class="th-column">Tipo de Usuário</th>
                         <th class="th-column">Status</th>
@@ -266,9 +266,9 @@
                 <tbody id="resource-list">
                     <tr class="tr-row">
                         <td class="recurso-view">{{usuario.id}}</td>
-                        <td class="recurso-view">{{usuario.telefone}}</td>
                         <td class="recurso-view">{{usuario.matricula}}</td>
-                        <td class="recurso-view">{{usuario.email}}</td>
+                        <td class="recurso-view">{{usuario.first_name}} {{usuario.last_name}}</td>
+                        <td class="recurso-view">{{usuario.telefone}}</td>
                         <td class="recurso-view">
                             {% if usuario.turma %}
                                 {{usuario.turma}}

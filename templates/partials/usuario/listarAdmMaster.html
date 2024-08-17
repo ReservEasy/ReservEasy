@@ -249,7 +249,7 @@
         <div class="identification-section">
             <h1 class="title-service">Administradores Master</h1>
             <div class="btns-path">
-                <a href="/accounts/promover/idusuario/" id="btnAlocarAdm">Promover administrador master</a>
+                <a href="/accounts/promover/" id="btnAlocarAdm">Promover administrador master</a>
                 <a  href="/reserva/painel" id="btnVoltar">Voltar</a>
             </div>
         </div>
@@ -264,21 +264,22 @@
             <thead>
                 <tr class="tr-row">
                     <th class="th-column">ID</th>
+                    <th class="th-column">Matricula/Siape</th>
                     <th class="th-column">Nome</th>
                     <th class="th-column">E-mail</th>
                     <th class="th-column actions">Ações</th>
                 </tr>
             </thead>
             <tbody id="resource-list">
-                {% if usuarios %}
-                    {% for usuario in usuarios %}
+                {% if adms_master %}
+                    {% for usuario in adms_master %}
                         <tr class="tr-row">
-                            <td class="adm-view"><a href="{% url 'detalhar-usuario' usuario.matricula %}">{{ usuario.id }}</a></td>
+                            <td class="sector-view">{{ usuario.id }}</td>
+                            <td class="sector-view"><a href="/accounts/detalharUsuario/{{usuario.matricula}}"> {{usuario.matricula}}</a></td>
                             <td class="sector-view">{{ usuario.first_name }} {{ usuario.last_name }}</td>
                             <td class="sector-view">{{ usuario.email}}</td>
                             <td class="actions">
-                                <a href="/setor/transferirAdm/{{usuario.id}}" class="btn btn-editar">Transferir</a>
-                                <a href="/setor/removerAdm/{{usuario.id}}" class="btn btn-danger">Remover</a>
+                                <a href="/accounts/removerAdmMaster/{{usuario.id}}" class="btn btn-danger">Remover</a>
                             </td>
                         </tr>
                     {% endfor %}

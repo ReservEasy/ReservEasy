@@ -13,7 +13,7 @@ from usuario.models import Usuario
 from setor.models import Setor
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 
 @login_required
 def criar_reserva(request):
@@ -177,13 +177,14 @@ def historicoSolicitacao(request):
         'page_obj': reservas
     })
 
-
-@user_passes_test(usuario_ou_admin_master)
+@user_passes_test(lambda u: u.groups.filter(name__in=['Administrador de Setor', 'Administrador Master']).exists())
 def acessarDashboard(request):
+
+    data_posterior = (timezone.now() + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
     hoje = date.today()
-    
-    # contando as reservas em análise e para hoje
+    # contando as reservas em análise
     solicitacoes_analisar = Reserva.objects.filter(andamento='em_analise').count()
+
     reservas_hoje = Reserva.objects.filter(
         dataHorarioInicial__date=hoje,
         andamento='aprovada'
@@ -194,6 +195,9 @@ def acessarDashboard(request):
         dataHorarioInicial__date=hoje,
         andamento='aprovada'
     )
+    
+    contar = 5 - reservas_hoje
+    reservas_proximas = Reserva.objects.filter(dataHorarioInicial__gte=data_posterior, andamento='aprovada').order_by('dataHorarioInicial')[:contar]
 
     # determina o tipo de administrador
     if request.user.groups.filter(name='Administrador Master').exists():
@@ -223,6 +227,7 @@ def acessarDashboard(request):
         'solicitacoes_analisar': solicitacoes_analisar,
         'reservas_hoje': reservas_hoje,
         'reservas_hoje_detalhes': reservas_hoje_detalhes,
+        'reservas_proximas': reservas_proximas,
     }
 
     return render(request, 'partials/dashboard.html', context)

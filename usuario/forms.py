@@ -2,6 +2,7 @@ from typing import Any
 from django import forms
 from django.forms import ModelForm
 from .models import Usuario
+from django.contrib.auth.models import Group
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
@@ -67,3 +68,12 @@ class UsuarioUpdateForm(forms.ModelForm):
             elif user.tipo == 2:
                 # Se o usuário é do tipo 2, remova o campo 'turma'
                 self.fields.pop('turma', None)
+
+class promoverAdm(forms.Form):
+    grupo_adm_master = Group.objects.get(name="Administrador Master")
+    usuarios_ids = grupo_adm_master.user_set.values_list('id', flat=True)
+    usuarios = forms.ModelMultipleChoiceField(
+        queryset=Usuario.objects.exclude(id__in=usuarios_ids),
+        widget=forms.CheckboxSelectMultiple,
+        required=True
+    )
