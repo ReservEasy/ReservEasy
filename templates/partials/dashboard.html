@@ -163,20 +163,37 @@
                 <h2 class="title-widget">Próximas reservas</h2>
             </div>
             <div class="content-widget-requests-today">
+                {% if reservas_hoje %}
+                    <div class="subtitle-widget-requests-today">
+                        <h4 class="subtitle-widget">Hoje</h4>
+                    </div>
+                    <div class="requests-today">
+                        {% for reserva in reservas_hoje_detalhes %}
+                        <div class="request-user">
+                            <div class="data-user-request-today">
+                                <p class="data-user"><strong><a href="/reserva/detalhar/{{ reserva.id }}">Reserva #{{ reserva.id }}</a></strong></p>
+                                <p class="data-user"><strong>Solicitante: </strong>{{ reserva.usuario.get_full_name }}</p>
+                                <p class="data-user">{{ reserva.dataHorarioInicial|time }} - {{ reserva.dataHorarioFinal|time }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 <div class="subtitle-widget-requests-today">
-                    <h4 class="subtitle-widget">Hoje</h4>
+                    <h4 class="subtitle-widget">Próximos dias</h4>
                 </div>
                 <div class="requests-today">
-                    {% for reserva in reservas_hoje_detalhes %}
+                    {% for reserva in reservas_proximas %}
                     <div class="request-user">
                         <div class="data-user-request-today">
                             <p class="data-user"><strong><a href="/reserva/detalhar/{{ reserva.id }}">Reserva #{{ reserva.id }}</a></strong></p>
                             <p class="data-user"><strong>Solicitante: </strong>{{ reserva.usuario.get_full_name }}</p>
-                            <p class="data-user">{{ reserva.dataHorarioInicial|time }} - {{ reserva.dataHorarioFinal|time }}</p>
+                            <p class="data-user"> {{ reserva.dataHorarioInicial|date }} | {{ reserva.dataHorarioInicial|time }} - {{ reserva.dataHorarioFinal|time }}</p>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
+
             </div>
         </div>
     </section>

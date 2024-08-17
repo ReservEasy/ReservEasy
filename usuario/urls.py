@@ -13,7 +13,7 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name = 'password_reset_complete'), 
     path('perfil/', views.perfilUser, name='perfil_usuario'),
     path('promover/', views.promoverAdmMaster, name='promover_admmaster'),
-     path('promover/idusuario/', views.formAdmMaster, name='promover_form_admmaster'),
+    path('promover/<int:id_user>', views.formAdmMaster, name='promover_form_admmaster'),
     path('perfil/editar/', views.editarPerfilUser, name='editar_perfil_usuario'),
     path('detalharUsuario/<str:matricula>/', views.detalharUsuario, name = 'detalhar-usuario'),
     # path('', include('django.contrib.auth.urls'))

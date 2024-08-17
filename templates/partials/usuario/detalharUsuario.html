@@ -193,8 +193,9 @@
                 <thead>
                     <tr class="tr-row">
                         <th class="th-column">ID</th>
-                        <th class="th-column">Telefone</th>
                         <th class="th-column">Matrícula/SIAPE</th>
+                        <th class="th-column">Usuario</th>
+                        <th class="th-column">Telefone</th>
                         <th class="th-column">E-mail</th>
                         {% if usuario.tipo == 1 %}
                         <th class="th-column">Turma</th>
@@ -209,8 +210,9 @@
                 <tbody id="resource-list">
                     <tr class="tr-row">
                         <td class="recurso-view">{{ usuario.id }}</td>
-                        <td class="recurso-view">{{ usuario.telefone }}</td>
                         <td class="recurso-view">{{ usuario.matricula }}</td>
+                        <td class="recurso-view">{{ usuario.username}}</td>
+                        <td class="recurso-view">{{ usuario.telefone }}</td>
                         <td class="recurso-view">{{usuario.email}}</td>
                         {% if usuario.tipo == 1 %}
                         <td class="recurso-view">{{ usuario.turma }}</td>

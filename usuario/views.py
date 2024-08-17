@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Usuario
 from .forms import UsuarioForm, UsuarioUpdateForm
 from django.contrib.auth.models import Group
+from django.contrib import messages
 import os
 
 def register(request):
@@ -17,6 +18,7 @@ def register(request):
             solicitante_group, created = Group.objects.get_or_create(name='solicitante') #pega o grupo solicitante
             usuario.groups.add(solicitante_group) #add o usuario ao grupo
             usuario.save() #salva as alterações
+            # messages.success(request, "Usuário salvo com sucesso!")
             return redirect('login')
     else:
         form = UsuarioForm()
