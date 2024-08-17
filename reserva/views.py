@@ -10,6 +10,7 @@ from django.contrib.auth.models import Group
 from .models import Reserva, ReservaEspaco, ReservaEquipamento
 from recursos.models import Equipamento, Espaco
 from usuario.models import Usuario
+from setor.models import Setor
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from datetime import datetime, date
@@ -176,7 +177,8 @@ def historicoSolicitacao(request):
         'page_obj': reservas
     })
 
-@user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
+
+@user_passes_test(usuario_ou_admin_master)
 def acessarDashboard(request):
     hoje = date.today()
     
@@ -201,8 +203,23 @@ def acessarDashboard(request):
     else:
         tipo_adm = 'Solicitante'
 
+    # total de usuários registrados
+    usuarios_list = Usuario.objects.all()
+    total_usuarios = usuarios_list.count()
+
+    # total de setores registrados
+    setores_list = Setor.objects.all()
+    total_setores = setores_list.count()  
+
+    # total de solicitacoes registrados
+    reservas_list = Reserva.objects.all()
+    total_solicitacoes = reservas_list.count()  # Total de reservas
+
     context = {
         'tipo_adm': tipo_adm,
+        'total_usuarios': total_usuarios,
+        'total_solicitacoes': total_solicitacoes,
+        'total_setores': total_setores,
         'solicitacoes_analisar': solicitacoes_analisar,
         'reservas_hoje': reservas_hoje,
         'reservas_hoje_detalhes': reservas_hoje_detalhes,

@@ -21,19 +21,12 @@
         <ul class="sidebar-dashboard">
             <img id="logo-dashboard" src="{% static 'img/logo2.png' %}">
             <ul class="dahboard-acessorapido">
-            {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
-                {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
-                    {% if group.name == "Administrador de Setor" %}
                         <li class="acesso-rapido">
                             <a href="/reserva/painel" class="link-service">
                                 <i class="fa-solid fa-square-check"></i>
                                 <p>Visão Geral</p>
                             </a>
                         </li>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-
             {% comment %} <li class="acesso-rapido">
                 <a href="#" class="link-service">
                     <i class="fa-solid fa-gear"></i>

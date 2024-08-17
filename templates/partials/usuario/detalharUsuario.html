@@ -185,7 +185,7 @@
                 <p class="text-name-user">{{ usuario.first_name }} {{ usuario.last_name }}</p>
             </div>
             <div class="btns-path">
-                <a href="/accounts/listar/" id="btnVoltar">Voltar</a>
+                <a id="btnVoltar">Voltar</a>
             </div>
         </div>
         <div class="data-detail-user">
@@ -291,7 +291,11 @@
         </div>
     </section>
 </div>
-<script src="{% static 'js/windowBack.js' %}"></script>
+<script>
+    document.getElementById('btnVoltar').addEventListener('click', function() {
+        window.history.back();
+    });
+</script>
 </body>
 </html>
 {%endblock%}

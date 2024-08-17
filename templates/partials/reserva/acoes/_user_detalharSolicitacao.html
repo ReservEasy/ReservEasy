@@ -357,15 +357,15 @@
                         <td class="recurso-view">{{reserva.dataHorarioInicial}}</td>
                         <td class="recurso-view">{{reserva.dataHorarioFinal}}</td>
                         <td class="recurso-view status">
-                            <div class="status-request status-analise">
-                                <div class="situation-request circle-analise"></div>
+                            <div class="status-request {% if reserva.andamento == 'negada' %}status-reprovado{% elif reserva.andamento == 'em_analise' %}status-analise{% else %}status-aprovado{% endif %}">
+                                <div class="situation-request {% if reserva.andamento == 'negada' %}circle-reprovado{% elif reserva.andamento == 'em_analise' %}circle-analise{% else %}circle-aprovado{% endif %}"></div>
                                 <p class="status-request-text" style="margin: 0px;">
                                     {% if reserva.andamento == 'em_analise' %}
                                         Em Análise
                                     {% elif reserva.andamento == 'aprovada' %}
                                         Aprovada
                                     {% else %}
-                                        Negada
+                                        Reprovada
                                     {% endif %}
                                 </p>
                             </div>
