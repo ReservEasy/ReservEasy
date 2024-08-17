@@ -82,7 +82,7 @@
                         <li class="servicos">
                             <a href="/reserva/solicitacoes/analise/" class="link-service">
                                 <i class="fa-solid fa-inbox"></i>
-                                <p>Solicitações</p>
+                                <p>Solicitações </p>
                             </a>
                         </li>
                     {% endif %}
@@ -102,7 +102,7 @@
                         <li class="servicos">
                             <a href="/reserva/listar" class="link-service">
                                 <i class="fa-solid fa-circle-check"></i>
-                                <p>Reservas</p>
+                                <p>Minhas Reservas</p>
                             </a>
                         </li>
                     {% endif %}
@@ -112,20 +112,26 @@
             <li class="servicos">
                 <a href="/reserva/historico" class="link-service">
                     <i class="fa-solid fa-clock-rotate-left"></i>
-                    <p>Histórico</p>
-                </a> 
-            </li>
-
-            <li class="servicos">
-                <a href="/reserva/historico" class="link-service">
-                    <i class="fa-solid fa-user-tie"></i>
-                    <p>Promover Admin Master</p>
+                    <p>Histórico de solicitações</p>
                 </a> 
             </li>
 
             {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
                 {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
-                    {% if group.name == "Administrador de Setor" %}
+                    {% if group.name == "Administrador Master" %}
+                        <li class="servicos">
+                            <a href="/accounts/listarAdmMaster" class="link-service">
+                                <i class="fa-solid fa-user-tie"></i>
+                                <p>Promover Admin Master</p>
+                            </a> 
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
+                {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
+                    {% if group.name == "Administrador Master" or group.name == "Administrador de Setor" %}
                         <li class="servicos">
                             <a href="/reserva/reservar" class="link-service">
                                 <i class="fa-solid fa-calendar"></i>

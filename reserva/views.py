@@ -176,7 +176,7 @@ def historicoSolicitacao(request):
         'page_obj': reservas
     })
 
-@user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
+@user_passes_test(lambda u: u.groups.filter(name__in=['Administrador de Setor', 'Administrador Master']).exists())
 def acessarDashboard(request):
 
     data_posterior = (timezone.now() + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)

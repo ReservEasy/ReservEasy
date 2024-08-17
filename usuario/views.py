@@ -5,10 +5,11 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Usuario
-from .forms import UsuarioForm, UsuarioUpdateForm
+from .forms import UsuarioForm, UsuarioUpdateForm, promoverAdm
 from django.contrib.auth.models import Group
 from django.contrib import messages
 import os
+from django.urls import reverse
 
 def register(request):
     if request.method == 'POST':
@@ -95,13 +96,45 @@ def detalharUsuario(request, matricula):
     return render(request, 'partials/usuario/detalharUsuario.html', {
         'usuario': usuario,
         'reservas': page_obj,
-    })    
+    })  
+
+@user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
+def listarAdmMaster(request):
+    grupo_adm_master = Group.objects.get(name="Administrador Master")
+    # pega os ids dos usuarios do grupo
+    usuarios_ids = grupo_adm_master.user_set.values_list('id', flat=True)
+
+    # verifica os usuários do model Usuario que tem o id entre os selecionados acima
+    adms_master = Usuario.objects.filter(id__in=usuarios_ids)
+    return render(request, 'partials/usuario/listarAdmMaster.html', {
+        'adms_master': adms_master,
+    })
+
+@user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
+def removerAdmMaster(request, id_adm):
+    usuario = Usuario.objects.get(id=id_adm)
+    group, created = Group.objects.get_or_create(name='Solicitante')  # Obtém ou cria o grupo
+    usuario.groups.set([group])  # Define o grupo do usuário como o grupo 'Solicitante' (remove qualquer outro que tinha antes)
+    usuario.save()
+    return redirect(reverse('listarAdmMaster'))
+
+@user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
 @login_required
 def promoverAdmMaster(request):
-
-    return render(request, 'partials/usuario/promoverAdmMaster.html')
-
-@login_required
-def formAdmMaster(request):
-    
-    return render(request, 'partials/usuario/formAdmMaster.html')
+    if request.method == 'POST': #se receber um formulario
+        form = promoverAdm(request.POST) #armazena o que obteve pelo form
+        if form.is_valid():
+            usuarios = form.cleaned_data['usuarios'] #pega a lista dos usuarios selecionados
+            for usuario in usuarios: #for para definir o grupo dos usuarios como admMaster
+                group, created = Group.objects.get_or_create(name='Administrador Master')  # Obtém ou cria o grupo
+                usuario.groups.set([group])  # Define o grupo do usuário como o grupo 'Administrador Master' (remove qualquer outro que tinha antes)
+                usuario.save()
+            return redirect(reverse('listarAdmMaster'))
+    else:
+        grupo_adm_master = Group.objects.get(name="Administrador Master")
+        # pega IDs dos usuários desse grupo
+        usuarios_ids = grupo_adm_master.user_set.values_list('id', flat=True)
+        # pega todos os usuários, com exceção dos que pertencem ao grupo "Administrador Master"
+        usuarios = Usuario.objects.exclude(id__in=usuarios_ids)
+        form = promoverAdm() #se tiver erro as informações do formulário voltam 
+    return render(request, 'partials/usuario/formAdmMaster.html', {'form': form})
