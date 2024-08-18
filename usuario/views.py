@@ -16,7 +16,7 @@ def register(request):
         form = UsuarioForm(request.POST)
         if form.is_valid ():
             usuario = form.save() #salva o usuario e guarda as informações dele
-            solicitante_group, created = Group.objects.get_or_create(name='solicitante') #pega o grupo solicitante
+            solicitante_group, created = Group.objects.get_or_create(name='Solicitante') #pega o grupo solicitante
             usuario.groups.add(solicitante_group) #add o usuario ao grupo
             usuario.save() #salva as alterações
             # messages.success(request, "Usuário salvo com sucesso!")
