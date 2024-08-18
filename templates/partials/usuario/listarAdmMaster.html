@@ -177,9 +177,6 @@
             background-color: #48551B;
             color: #fff;
         }
-        td:nth-child(5) {
-            width: 40%;
-        }
         td {
             background-color: #fff !important;
             border: 0px solid #ccc !important;
@@ -242,6 +239,11 @@
             margin: 0px;
             padding: 10px 40px;
         }
+        td > a {
+            text-decoration: underline;
+            color: #A0BE3D;
+            margin: 0px;
+        }
     </style>
 </head>
 <body>
@@ -256,7 +258,7 @@
         <div class="search-adm">
             
             <div class="data-service">
-                <p class="count-data-service" id="resource-count">{{ total_usuarios }}</p>
+                <p class="count-data-service" id="resource-count">{{ total_adms_master }}</p>
                 <p class="data-service-title">Administradores Master</p>
             </div>
         </div>

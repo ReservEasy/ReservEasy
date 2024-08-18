@@ -101,13 +101,15 @@ def detalharUsuario(request, matricula):
 @user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
 def listarAdmMaster(request):
     grupo_adm_master = Group.objects.get(name="Administrador Master")
-    # pega os ids dos usuarios do grupo
+    # Pega os IDs dos usuários do grupo
     usuarios_ids = grupo_adm_master.user_set.values_list('id', flat=True)
-
-    # verifica os usuários do model Usuario que tem o id entre os selecionados acima
+    # Conta o número de usuários no grupo
+    total_adms_master = grupo_adm_master.user_set.count()
+    # Verifica os usuários do model Usuario que têm o ID entre os selecionados acima
     adms_master = Usuario.objects.filter(id__in=usuarios_ids)
     return render(request, 'partials/usuario/listarAdmMaster.html', {
         'adms_master': adms_master,
+        'total_adms_master': total_adms_master
     })
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
