@@ -10,6 +10,15 @@ from django.contrib.auth.models import Group
 from django.contrib import messages
 import os
 from django.urls import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import resolve_url  
+from django.contrib.auth.views import LoginView as BaseLoginView
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.debug import sensitive_post_parameters
+from django.views.decorators.cache import never_cache 
+from django.conf import settings
+
 
 def register(request):
     if request.method == 'POST':
@@ -145,6 +154,29 @@ def promoverAdmMaster(request):
         form = promoverAdm() #se tiver erro as informações do formulário voltam 
     return render(request, 'partials/usuario/formAdmMaster.html', {'form': form})
 
+class RedirectAuthenticatedLoginView(BaseLoginView):
+    """
+    Esta view herda de LoginView e redireciona usuários autenticados de volta para a página anterior
+    em vez de permitir que eles permaneçam na página de login.
+    """
+    # Configura para redirecionar usuários autenticados automaticamente
+    redirect_authenticated_user = True
 
+    @method_decorator(sensitive_post_parameters())
+    @method_decorator(csrf_protect)
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Sobrescreve o método dispatch para verificar se o usuário está autenticado.
+        Se estiver, redireciona o usuário para a URL de onde ele veio.
+        """
+        # Verifica se o usuário já está autenticado
+        if request.user.is_authenticated:
+            # Obtém a URL da qual o usuário veio (HTTP_REFERER) ou redireciona para a URL padrão de login
+            redirect_to = request.META.get('HTTP_REFERER', resolve_url(settings.LOGIN_REDIRECT_URL))
+            # Redireciona para a URL obtida
+            return HttpResponseRedirect(redirect_to)
+        # Caso o usuário não esteja autenticado, chama o método dispatch da classe base
+        return super().dispatch(request, *args, **kwargs)
 # def hadler404(request, exception):
 #     return render(request, 'partials/404.html', status=404)
