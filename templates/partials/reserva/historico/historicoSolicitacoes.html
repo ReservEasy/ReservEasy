@@ -423,7 +423,8 @@
                     <td class="recurso-view status">
                         <div class="status-request {% if reserva.andamento == 'em_analise' %}status-analise{% elif reserva.andamento == 'aprovada' %}status-aprovado{% else %}status-reprovado{% endif %}">
                             <div class="situation-request {% if reserva.andamento == 'em_analise' %}circle-analise{% elif reserva.andamento == 'aprovada' %}circle-aprovado{% else %}circle-reprovado{% endif %}"></div>
-                            <p class="status-request-text">{{ reserva.get_andamento_display }}</p>
+                            <p class="status-request-text">{{ reserv
+                                .get_andamento_display }}</p>
                         </div>
                     </td>
                 </tr>
@@ -454,7 +455,11 @@
         </div>
 
     </section>
-
+    <script>
+        document.getElementById('btnVoltar').addEventListener('click', function() {
+            window.history.back();
+        });
+    </script>
 
 </body>
 </html>

@@ -9,6 +9,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{% static 'favicon.icon' %}" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <title>Painel de Controle | ReservEasy</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
@@ -58,13 +60,12 @@
             width: 33%;
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 40px;
             align-items: center;
             border: 0.5px solid #ccc;
             padding: 10px;
             border-radius: 10px;
             border-bottom: 5px solid #022376;
-            margin-right: 40px;
             background-color: #fff;
         }
         .green{
@@ -86,9 +87,9 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            height: 90vh;
-            padding: 80px;
-            gap: 20px;
+            min-height: 90vh;
+            padding: 30px 80px;
+            gap: 30px;
 
         }
         .widget-requests-today-home-page{
@@ -97,8 +98,8 @@
             flex-direction: column;
             gap: 5px;
             padding: 20px;
-            min-width: 350px;
-            width: 350px;
+            min-width: 33%;
+            width: 33%;
         }
         .title-widget{
             font-size: 20px;
@@ -111,14 +112,14 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            min-width: 300px;
+            min-width: 33%;
         }
         .request-user{
             border-left: 10px solid #BD9505;
             border-radius: 8px;
             background-color: #FFEBA6;
             padding: 5px;
-            min-width: 300px;
+            min-width: 33%;
         }
         .data-user-request-today{
             font-size: 12px;
@@ -133,110 +134,192 @@
         p{
             margin:0;
         }
+        .bottom-widget{
+            display:flex;
+            justify-content: space-between;
+            align-items: stretch;
+        }
+        .welcome-adm{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            
+        }
+        .welcome-adm h1{
+            font-size: 20px;
+            font-weight: bold;
+            width: 100%;
+            font-size: 30px;
+        }
+        .icon-system{
+            width: auto;
+            height: 100px;
+        }
+
     </style>
 </head>
 <body>
     
     <section class="dashboard-home-page">
-        <div class="widget-service-home-page">
-                {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
-                    {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
-                        {% if group.name == "Administrador de Setor" %}
-                            <div class="data-service special-widget">
-                                <p class="count-data-service" id="resource-count">{{ solicitacoes_analisar }}</p>
-                                <p class="data-service-title">Solicitações a serem analisadas
-                                    <a class="btn-service blue" href="/reserva/solicitacoes/analise/">Acesse</a>
-                                </p>
-                            </div>
-                            {% comment %} <div class="data-service green">
-                                <p class="count-data-service" id="resource-count">{{ reservas_pendentes }}</p>
-                                <p class="data-service-title">Reservas com pendência
-                                    <a class="btn-service" href="">Acesse</a> 
-                                </p>
-                            </div> {% endcomment %}
-                            <div class="data-service yellow">
-                                <p class="count-data-service" id="resource-count">{{ reservas_hoje }}</p>
-                                <p class="data-service-title">Reservas para hoje
-                                    {% comment %} <a class="btn-service yellowbtn" href="">Acesse</a> {% endcomment %}
-                                </p>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-                {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
-                    {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
-                        {% if group.name == "Administrador Master" %}
-                                <div class="data-service special-widget">
-                                            <p class="count-data-service" id="resource-count">{{ total_usuarios }}</p>
-                                            <p class="data-service-title">Usuários cadastrados
-                                                <a class="btn-service blue" href="/accounts/listar">Acesse</a>
-                                            </p>
-                                            </div>
-                                            
-                                <div class="data-service special-widget">
-                                    <p class="count-data-service" id="resource-count">{{ total_setores }}</p>
-                                    <p class="data-service-title">Setores Cadastrados
-                                        <a class="btn-service blue" href="/setor/">Acesse</a>
-                                    </p>
-                                    </div>
-
-                                <div class="data-service special-widget">
-                                    <p class="count-data-service" id="resource-count">{{ total_solicitacoes }}</p>
-                                    <p class="data-service-title">Solicitações realizadas
-                                        <a class="btn-service blue" href="/reserva/historico">Acesse</a>
-                                    </p>
-                                    </div>
-                                    {% endif %}
-                        {% endfor %}
-                {% endif %}
+        <div class="welcome-adm">
+            <h1>Bem-vindo(a) ao Painel de Controle do {{ tipo_adm }}</h1>
         </div>
-        {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
-            {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
-                {% if group.name == "Administrador de Setor" %}
-                <div class="widget-requests-today-home-page">
-                    <div class="title-widget-requests-today">
-                        <h2 class="title-widget">Próximas reservas</h2>
-                    </div>
-                    <div class="content-widget-requests-today">
-                {% if reservas_hoje %}
-                            <div class="subtitle-widget-requests-today">
-                                <h4 class="subtitle-widget">Hoje</h4>
-                            </div>
-                            <div class="requests-today">
-                                {% for reserva in reservas_hoje_detalhes %}
-                                <div class="request-user">
-                                    <div class="data-user-request-today">
-                                        <p class="data-user"><strong><a href="/reserva/detalhar/{{ reserva.id }}">Reserva #{{ reserva.id }}</a></strong></p>
-                                        <p class="data-user"><strong>Solicitante: </strong>{{ reserva.usuario.get_full_name }}</p>
-                                        <p class="data-user">{{ reserva.dataHorarioInicial|time }} - {{ reserva.dataHorarioFinal|time }}</p>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                            </div>
-                {% endif %}
-                <div class="subtitle-widget-requests-today">
-                    <h4 class="subtitle-widget">Próximos dias</h4>
-                </div>
-                <div class="requests-today">
-                    {% for reserva in reservas_proximas %}
-                    <div class="request-user">
-                        <div class="data-user-request-today">
-                            <p class="data-user"><strong><a href="/reserva/detalhar/{{ reserva.id }}">Reserva #{{ reserva.id }}</a></strong></p>
-                            <p class="data-user"><strong>Solicitante: </strong>{{ reserva.usuario.get_full_name }}</p>
-                            <p class="data-user"> {{ reserva.dataHorarioInicial|date }} | {{ reserva.dataHorarioInicial|time }} - {{ reserva.dataHorarioFinal|time }}</p>
+        <div class="widget-service-home-page">
+            {% if user.is_authenticated %}
+                {% for group in user.groups.all %}
+                    {% if group.name == "Administrador de Setor" %}
+                        <div class="data-service special-widget">
+                            <p class="count-data-service" id="resource-count">{{ solicitacoes_analisar }}</p>
+                            <p class="data-service-title">Solicitações a serem analisadas
+                                <a class="btn-service blue" href="/reserva/solicitacoes/analise/">Acesse</a>
+                            </p>
                         </div>
-                    </div>
-                    {% endfor %}
-                </div>
-
-                    </div>
-                {% endif %}
+                        <div class="data-service green">
+                            <p class="count-data-service" id="resource-count">{{ total_solicitacoes }}</p>
+                            <p class="data-service-title">Solicitações realizadas
+                                <a class="btn-service" href="/reserva/historico">Acesse</a>
+                            </p>
+                        </div>
+                        <div class="data-service yellow">
+                            <p class="count-data-service" id="resource-count">{{ reservas_hoje }}</p>
+                            <p class="data-service-title">Reservas para hoje</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% if user.is_authenticated %}
+                {% for group in user.groups.all %}
+                    {% if group.name == "Administrador Master" %}
+                        <div class="data-service special-widget">
+                            <p class="count-data-service" id="resource-count">{{ total_usuarios }}</p>
+                            <p class="data-service-title">Usuários cadastrados
+                                <a class="btn-service blue" href="/accounts/listar">Acesse</a>
+                            </p>
+                        </div>
+                        <div class="data-service special-widget">
+                            <p class="count-data-service" id="resource-count">{{ total_setores }}</p>
+                            <p class="data-service-title">Setores Cadastrados
+                                <a class="btn-service blue" href="/setor/">Acesse</a>
+                            </p>
+                        </div>
+                        <div class="data-service special-widget">
+                            <p class="count-data-service" id="resource-count">{{ total_solicitacoes }}</p>
+                            <p class="data-service-title">Solicitações realizadas
+                                <a class="btn-service blue" href="/reserva/historico">Acesse</a>
+                            </p>
+                        </div>
+                    {% endif %}
                 {% endfor %}
             {% endif %}
         </div>
-        
+        <div class="bottom-widget">
+            {% if user.is_authenticated %}
+                {% for group in user.groups.all %}
+                    {% if group.name == "Administrador de Setor" %}
+                        <div class="widget-requests-today-home-page">
+                            <div class="title-widget-requests-today">
+                                <h2 class="title-widget">Próximas reservas</h2>
+                            </div>
+                            <div class="content-widget-requests-today">
+                                {% if reservas_hoje %}
+                                    <div class="subtitle-widget-requests-today">
+                                        <h4 class="subtitle-widget">Hoje</h4>
+                                    </div>
+                                    <div class="requests-today">
+                                        {% for reserva in reservas_hoje_detalhes %}
+                                            <div class="request-user">
+                                                <div class="data-user-request-today">
+                                                    <p class="data-user"><strong><a href="/reserva/detalhar/{{ reserva.id }}">Reserva #{{ reserva.id }}</a></strong></p>
+                                                    <p class="data-user"><strong>Solicitante: </strong>{{ reserva.usuario.get_full_name }}</p>
+                                                    <p class="data-user">{{ reserva.dataHorarioInicial|time }} - {{ reserva.dataHorarioFinal|time }}</p>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="subtitle-widget-requests-today">
+                                    <h4 class="subtitle-widget">Próximos dias</h4>
+                                </div>
+                                <div class="requests-today">
+                                    {% for reserva in reservas_proximas %}
+                                        <div class="request-user">
+                                            <div class="data-user-request-today">
+                                                <p class="data-user"><strong><a href="/reserva/detalhar/{{ reserva.id }}">Reserva #{{ reserva.id }}</a></strong></p>
+                                                <p class="data-user"><strong>Solicitante: </strong>{{ reserva.usuario.get_full_name }}</p>
+                                                <p class="data-user"> {{ reserva.dataHorarioInicial|date }} | {{ reserva.dataHorarioInicial|time }} - {{ reserva.dataHorarioFinal|time }}</p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            <div class="grafico" style="width: 32%;">
+                <p style="font-size: 15px;font-weight: bold; text-align: center;">Quantitativo de reservas por mês</p>
+                <canvas id="reservasChart"></canvas>
+            </div>
+        </div>
     </section>
     
+    <script>
+        // Dados do contexto Django
+        const labels = {{ meses|safe }};  // Etiquetas das semanas com intervalo
+        const data = {{ totais|safe }};     // Dados de reservas
+    
+        // Função para gerar tons de verde e azul com 30% de opacidade
+        function generateGreenBlueColor(index) {
+            const greens = [
+                'rgba(34, 193, 195, 0.3)',  // Verde claro com 30% opacidade
+                'rgba(40, 167, 69, 0.3)',   // Verde escuro com 30% opacidade
+                'rgba(173, 255, 47, 0.3)',  // Verde limão com 30% opacidade
+                'rgba(0, 128, 0, 0.3)'      // Verde floresta com 30% opacidade
+            ];
+            const blues = [
+                'rgba(0, 123, 255, 0.3)',   // Azul claro com 30% opacidade
+                'rgba(0, 0, 255, 0.3)',     // Azul escuro com 30% opacidade
+                'rgba(135, 206, 250, 0.3)', // Azul céu com 30% opacidade
+                'rgba(70, 130, 180, 0.3)'   // Azul aço com 30% opacidade
+            ];
+    
+            // Alternar entre verde e azul com base no índice
+            const colorArray = index % 2 === 0 ? greens : blues;
+            return colorArray[index % colorArray.length];
+        }
+    
+        // Gerar cores para cada segmento
+        const backgroundColors = labels.map((_, index) => generateGreenBlueColor(index));
+        const borderColors = backgroundColors.map(color => color.replace('0.3', '1'));  // Borda com 100% de opacidade
+    
+        // Configuração do gráfico
+        const ctx = document.getElementById('reservasChart').getContext('2d');
+        const reservasChart = new Chart(ctx, {
+            type: 'polarArea',  // Tipo do gráfico
+            data: {
+                labels: labels,  // Etiquetas das semanas
+                datasets: [{
+                    label: 'Número de Reservas',
+                    data: data,  // Dados de reservas
+                    backgroundColor: backgroundColors,  // Cores de fundo com 30% opacidade
+                    borderColor: borderColors,          // Cores das bordas com 100% opacidade
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        ticks: {
+                            display: false  // Esconde as marcações do eixo radial
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
-{% endblock %}
+    {% endblock %}

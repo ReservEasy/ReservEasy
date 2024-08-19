@@ -14,6 +14,8 @@ from setor.models import Setor
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from datetime import datetime, date, timedelta
+from django.db.models import Count, F
+from django.db.models.functions import TruncMonth
 
 @login_required
 def criar_reserva(request):
@@ -201,9 +203,9 @@ def acessarDashboard(request):
 
     # determina o tipo de administrador
     if request.user.groups.filter(name='Administrador Master').exists():
-        tipo_adm = 'Adm Master'
+        tipo_adm = 'Administrador Master'
     elif request.user.groups.filter(name='Administrador de Setor').exists():
-        tipo_adm = 'Adm Setor'
+        tipo_adm = 'Administrador de Setor'
     else:
         tipo_adm = 'Solicitante'
 
@@ -219,6 +221,23 @@ def acessarDashboard(request):
     reservas_list = Reserva.objects.all()
     total_solicitacoes = reservas_list.count()  # Total de reservas
 
+    
+    # Detalhes das reservas por mês
+    reservas_por_mes = (
+        Reserva.objects
+        .annotate(mes=TruncMonth('dataHorarioSolicitacao'))
+        .values('mes')
+        .annotate(total=Count('id'))
+        .order_by('mes')
+    )
+
+    # Gerar rótulos e totais dos meses
+    meses = [
+        reserva['mes'].strftime('%m-%Y')  # Formato: 'YYYY-MM'
+        for reserva in reservas_por_mes
+    ]
+    totais = [reserva['total'] for reserva in reservas_por_mes]
+
     context = {
         'tipo_adm': tipo_adm,
         'total_usuarios': total_usuarios,
@@ -227,7 +246,9 @@ def acessarDashboard(request):
         'solicitacoes_analisar': solicitacoes_analisar,
         'reservas_hoje': reservas_hoje,
         'reservas_hoje_detalhes': reservas_hoje_detalhes,
-        'reservas_proximas': reservas_proximas,
+        'reservas_proximas': reservas_proximas,  
+        'meses': meses,
+        'totais': totais
     }
 
     return render(request, 'partials/dashboard.html', context)

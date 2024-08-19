@@ -15,7 +15,6 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            gap: 30px;
         }
         .widget-tutorial{
             display: flex;
@@ -100,15 +99,12 @@
     {%block topbar%}
     {%include 'partials/_topbar.html'%}
 {%endblock%}
-<div class="login-convidativo">
-    <h1 class="title-login">Qual a reserva do dia?</h1>
-    <img src="{% static 'img/logotipo.png' %}" alt="Logotipo do sistema">
-</div>
+
 <!-- tutorial da reserva -->
 <div class="widget-tutorial">
     <div class="text-widget-tutorial">
-        <p class="subtitle-descricao text-special">PASSO A PASSO</p>
-        <p class="title-reservas">FÁCIL E RÁPIDO PARA RESERVAR</p>
+        <h1 class="title-login">Qual a reserva do dia?</h1>
+        <p class="subtitle-descricao text-special" style ="margin:0;">PASSO A PASSO: FÁCIL E RÁPIDO PARA RESERVAR</p>
     </div>
     <div class="image-widget-tutorial">
         <div class="image-tutorial">

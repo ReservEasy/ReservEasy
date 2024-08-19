@@ -32,6 +32,7 @@ def listarRecursos(request):
     recursos = list(equipamentos) + list(espacos)
     usuario = Usuario.objects.get(pk=user.id)
     total_recursos = len(recursos)
+    setor = usuario.setor
 
     recursos_mesmo_setor = recursos
     tipo_adm = "Adm Master"
@@ -53,7 +54,8 @@ def listarRecursos(request):
         'total_recursos': total_recursos,
         'tipo_adm': tipo_adm,
         'usuario': usuario,
-        'search_query': search_query
+        'search_query': search_query,
+        'setor': setor
     })
 
 

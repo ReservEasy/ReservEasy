@@ -1,0 +1,100 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/page_found.css'%}">
+    <title>Página não encontrada | ReservEasy</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins';
+        }
+        .errorpage{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap:10px;
+        }
+        .image-error{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .image-error > img{
+            width: 40%;
+            height: auto;
+        }
+        .message-error{
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .message-type-error > h1{
+            font-size: 80px;
+            color: #A3C23E;
+        }
+        .message-main-error > p{
+            font-size: 18px;
+            color: #384315;
+        }
+        #btnVoltar{
+            background-color: #022376;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-back-error{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #btnVoltar:hover{
+            text-decoration: none;
+            background-color: #010C29;
+        }
+        .image-system > img{
+            height: 50px;
+            width:  auto;
+        }
+    </style>
+</head>
+<body>
+    <section class="errorpage">
+        <div class="image-error">
+            <img src="{% static 'img/error.png' %}" alt="">
+        </div>
+        <div class="message-error">
+            <div class="message-type-error">
+                <h1>404</h1>
+            </div>
+            <div class="message-main-error">
+                <p>Não conseguimos encontrar a página que tentou acessar. : (</p>
+            </div>
+        </div>
+        <div class="btn-back-error">
+            <div class="image-system">
+                <img src="{% static 'img/logo.png'%}" alt="">
+            </div>
+            <div class="btn-back">
+                <button id="btnVoltar">Voltar ao início</button>
+            </div>
+        </div>
+    </section>
+    <script src="{% static 'js/windowBack.js' %}"></script>
+</body>
+</html>

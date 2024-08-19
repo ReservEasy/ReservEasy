@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-895zx6=z=h^n3g104h%+=94wvb)e^@+t3#8erg7_=pm8-3lc=7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [] #lista de domínios ou endereços IP que estão autorizados a acessar o aplicativo Django '127.0.0.1', 'reserveasy.com'
 
 
 # Application definition

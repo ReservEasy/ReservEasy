@@ -140,3 +140,7 @@ def promoverAdmMaster(request):
         usuarios = Usuario.objects.exclude(id__in=usuarios_ids)
         form = promoverAdm() #se tiver erro as informações do formulário voltam 
     return render(request, 'partials/usuario/formAdmMaster.html', {'form': form})
+
+
+# def hadler404(request, exception):
+#     return render(request, 'partials/404.html', status=404)
