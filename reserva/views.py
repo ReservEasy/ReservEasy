@@ -22,7 +22,6 @@ def criar_reserva(request):
         dataHorarioFinal = request.POST.get('dataHorarioFinal')
         data_horario_inicial_dt = parse_datetime(dataHorarioInicial)
         data_horario_final_dt = parse_datetime(dataHorarioFinal)
-
         # Convertendo para timezone-aware
         data_horario_inicial_dt = timezone.make_aware(data_horario_inicial_dt)
         data_horario_final_dt = timezone.make_aware(data_horario_final_dt)
