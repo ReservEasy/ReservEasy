@@ -61,13 +61,15 @@ def criar_reserva(request):
             andamento = 'em_analise'
             if usuario.groups.filter(name__in=['Administrador de Setor', 'Administrador Master']).exists():
                 andamento = 'aprovada'
+                situacao = 'ar'
 
             reserva = Reserva.objects.create(
                 usuario=Usuario.objects.get(pk=request.user.pk),
                 dataHorarioInicial=data_horario_inicial_dt,
                 dataHorarioFinal=data_horario_final_dt,
                 justificativa=justificativa,
-                andamento=andamento
+                andamento=andamento,
+                situacao = situacao
             )
             for espaco_id in espacos_selecionados:
                 espaco = Espaco.objects.get(pk=espaco_id)
@@ -258,6 +260,10 @@ def solicitacoes(request):
 @user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
 def atualizar_status_reserva(request, reserva_id, status):
     reserva = get_object_or_404(Reserva, id=reserva_id)
+
+    # Verificação se a dataHorarioInicial está no passado
+    if reserva.dataHorarioInicial < timezone.now():
+        status = 'negada'
     
     # Verificação de conflito
     conflito = False
@@ -280,7 +286,35 @@ def atualizar_status_reserva(request, reserva_id, status):
 
     # Atualiza o status da reserva
     if status in ['aprovada', 'negada']:
+        if status == 'aprovada':
+            reserva.situacao = 'ar'
         reserva.andamento = status
         reserva.save()
 
+
     return redirect('/reserva/solicitacoes/analise/')
+
+@user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
+def reservasPendentes(request):
+    reservas_pendentes = Reserva.objects.filter(Q(situacao='ar') | Q(situacao='ad')).order_by('dataHorarioInicial')
+    usuarios_list = Usuario.objects.all()
+    aguardando_retirada = Reserva.objects.filter(situacao='ar').count
+    aguardando_devolucao = Reserva.objects.filter(situacao='ad').count
+
+    return render(request, "partials/reserva/pendencias/listarPendencias.html", {
+        'reservas': reservas_pendentes,
+        'usuarios': usuarios_list,
+        'q_ar': aguardando_retirada,
+        'q_ad': aguardando_devolucao
+    })
+
+@user_passes_test(lambda u: u.groups.filter(name='Administrador de Setor').exists())
+def atualizar_situacao_reserva(request, reserva_id, situacao):
+    reserva = get_object_or_404(Reserva, id=reserva_id)
+
+    # Atualiza o status da reserva
+    if situacao in ['ad', 'd']:
+        reserva.situacao = situacao
+        reserva.save()
+
+    return redirect('/reserva/reservas/pendencias/')
