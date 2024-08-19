@@ -15,8 +15,12 @@ def register(request):
     if request.method == 'POST':
         form = UsuarioForm(request.POST)
         if form.is_valid ():
+            usuario = form.save(commit=False) #guarda as informações do usuario, mas ainda não salva (pra alterar algumas coisas antes)
+            tipo = request.POST.get('tipo') #pega o valor do campo tipo recebido e armazena na variavel tipo
+            if tipo: #se tipo existir...
+                usuario.tipo = tipo #o valor da variavel tipo é atribuido ao atributo tipo do usuario
             usuario = form.save() #salva o usuario e guarda as informações dele
-            solicitante_group, created = Group.objects.get_or_create(name='solicitante') #pega o grupo solicitante
+            solicitante_group, created = Group.objects.get_or_create(name='Solicitante') #pega o grupo solicitante
             usuario.groups.add(solicitante_group) #add o usuario ao grupo
             usuario.save() #salva as alterações
             # messages.success(request, "Usuário salvo com sucesso!")

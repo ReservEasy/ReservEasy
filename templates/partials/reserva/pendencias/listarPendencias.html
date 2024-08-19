@@ -1,3 +1,7 @@
+{% extends 'partials/_base.html' %}
+
+{% block content %}
+{% load static %} 
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -354,12 +358,12 @@
             </div>
             <div class="widgets-data-service">
                 <div class="data-service special-widget">
-                    <p class="count-data-service" id="resource-count">4</p>
-                    <p class="data-service-title">Reservas sem devolução (SD)</p>
+                    <p class="count-data-service" id="resource-count">{{q_ad}}</p>
+                    <p class="data-service-title">Aguardando Devolução</p>
                 </div>
                 <div class="data-service">
-                    <p class="count-data-service" id="resource-count">4</p>
-                    <p class="data-service-title">Reservas a serem retiradas (RET)</p>
+                    <p class="count-data-service" id="resource-count">{{q_ar}}</p>
+                    <p class="data-service-title">Aguardando Retirada</p>
                 </div>
             </div>
         </div>
@@ -368,53 +372,42 @@
                 <tr class="tr-row">
                     <th class="th-column">ID</th>
                     <th class="th-column">Usuário</th>
-                    <th class="th-column">Data</th>
-                    <th class="th-column">Horário Inicial e Final</th>
-                    <th class="th-column">Andamento</th>
-                    <th class="th-column actions">Ações</th>
+                    <th class="th-column">Data e Horário Iniciais</th>
+                    <th class="th-column">Data e Horário Finais</th>
+                    <th class="th-column">Situação</th>
+                    <th class="th-column actions">Ação</th>
                 </tr>
             </thead>
             <tbody id="resource-list">
-                <tr class="tr-row">
-                    <td class="request-view"><a href="">25</a></td>
-                    <td class="recurso-view">Gustavo Santos Pinto</td>
-                    <td class="recurso-view">25/02/2024</td>
-                    <td class="recurso-view">15:00 - 23:00</td>
-                    <td class="recurso-view">SD</td>
-                    <td class="actions">
-                        <a href="" class="btn btn-editar">ANALISAR</a>
-                    </td>
-                </tr>
-                <tr class="tr-row">
-                    <td class="request-view"><a href="">26</a></td>
-                    <td class="recurso-view">Mariana Silva Costa</td>
-                    <td class="recurso-view">26/02/2024</td>
-                    <td class="recurso-view">10:00 - 12:00</td>
-                    <td class="recurso-view">SD</td>
-                    <td class="actions">
-                        <a href="" class="btn btn-editar">ANALISAR</a>
-                    </td>
-                </tr>
-                <tr class="tr-row">
-                    <td class="request-view"><a href="">27</a></td>
-                    <td class="recurso-view">Pedro Lima</td>
-                    <td class="recurso-view">27/02/2024</td>
-                    <td class="recurso-view">08:00 - 10:00</td>
-                    <td class="recurso-view">RET</td>
-                    <td class="actions">
-                        <a href="" class="btn btn-editar">ANALISAR</a>
-                    </td>
-                </tr>
-                <tr class="tr-row">
-                    <td class="request-view"><a href="">28</a></td>
-                    <td class="recurso-view">Ana Paula Souza</td>
-                    <td class="recurso-view">28/02/2024</td>
-                    <td class="recurso-view">14:00 - 16:00</td>
-                    <td class="recurso-view">RET</td>
-                    <td class="actions">
-                        <a href="" class="btn btn-editar">ANALISAR</a>
-                    </td>
-                </tr>
+            {% if reservas %}
+                {% for reserva in reservas %}
+                    <tr class="tr-row">
+                        <td class="request-view"><a href="/reserva/detalhar/{{ reserva.id }}">{{reserva.id}}</a></td>
+                        <td class="recurso-view">
+                            {% for usuario in usuarios %}
+                                {% if reserva.usuario_id == usuario.id %}
+                                    {{usuario.first_name}} {{usuario.last_name}}
+                                {% endif %}
+                            {% endfor %}
+                        <td class="recurso-view">{{reserva.dataHorarioInicial}}</td>
+                        <td class="recurso-view">{{reserva.dataHorarioFinal}}</td>
+                        <td class="recurso-view">
+                            {% if reserva.situacao == 'ar' %}
+                                Aguardando Retirada
+                            {% else %}
+                                Aguardando Devolução
+                            {% endif %}
+                        </td>
+                        <td class="actions">
+                            {% if reserva.situacao == 'ar' %}
+                                <a href="{% url 'atualizar_situacao_reserva' reserva.id 'ad' %}" class="btn btn-editar" value="ad">Retirado</a>
+                            {% else %}
+                                <a href="{% url 'atualizar_situacao_reserva' reserva.id 'd' %}" class="btn btn-editar" value="d">Devolvido</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
             </tbody>
         </table>
     </section>
@@ -455,3 +448,4 @@
 </body>
 
 </html>
+{%endblock%}

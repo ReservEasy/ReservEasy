@@ -15,6 +15,7 @@ class Reserva(models.Model):
         ('aprovada', 'Aprovada')], default='em_analise')
     espacos = models.ManyToManyField(Espaco, related_name='reservasespaco', through='ReservaEspaco', blank=True)
     equipamentos = models.ManyToManyField(Equipamento, related_name='reservasequipamento', through='ReservaEquipamento', blank=True)
+    situacao = models.CharField(max_length=2, blank=True, null=True)
 
     @staticmethod # staticmethod = método que não altera nada na classe e não precisa acessar instâncias
     def verificar_disponibilidade(dataHorarioInicial, dataHorarioFinal):

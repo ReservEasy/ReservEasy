@@ -11,4 +11,6 @@ urlpatterns = [
     path('reservar/enviada/<int:reserva_id>', views.solicitacaoEnviada, name='solicitacao_enviada'),
     path('solicitacoes/analise/', views.solicitacoes, name='solicitacoes'),
     path('solicitacoes/<int:reserva_id>/atualizar_status/<str:status>/', views.atualizar_status_reserva, name='atualizar_status_reserva'),
+    path('reservas/pendencias/', views.reservasPendentes, name='reservasPendentes'),
+    path('reservas/<int:reserva_id>/atualizar_situacao/<str:situacao>/', views.atualizar_situacao_reserva, name='atualizar_situacao_reserva' )
 ]
