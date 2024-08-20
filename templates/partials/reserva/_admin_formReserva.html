@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/formReserva.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'favicon.icon' %}" type="image/x-icon">
     <script src="https://kit.fontawesome.com/88a7a49c60.js" crossorigin="anonymous"></script>
     <title>Solicitar | ReservEasy</title>
     <style>
@@ -43,7 +44,13 @@
     p{ 
         margin: 0px;
     }
-
+    .item-reserva{
+        height:380px;
+    }
+    .form-reserva-user {
+        overflow-x: auto;
+        max-height: 100vh;
+    }
     
     </style>
 </head>
@@ -114,7 +121,6 @@
                         <div class="informacoes-item-reserva" style="margin: 0;">
                         <h1 class="title-item-reserva"style="margin: 0;">{{ espaco.nome }}</h1>
                         <p class="descricao-item-reserva"style="margin: 0;">{{ espaco.descricao }}</p>
-                        <p class="descricao-item-reserva"style="margin: 0;">Setor: {{ espaco.setor }}</p>
                         </div>
                         <div class="btn-item-reserva">
                         <input type="checkbox" name="espacos" value="{{ espaco.id }}" />
@@ -157,7 +163,6 @@
                       <div class="informacoes-item-reserva">
                           <h1 class="title-item-reserva" style="margin: 0;">{{ equipamento.nome }}</h1>
                           <p class="descricao-item-reserva" style="margin: 0;">{{ equipamento.descricao }}</p>
-                          <p class="descricao-item-reserva" style="margin: 0;" >Setor: {{ equipamento.setor.nome }}</p>
                       </div>
                       <div class="btn-item-reserva">
                           <input type="checkbox" name="equipamentos" value="{{ equipamento.id }}">

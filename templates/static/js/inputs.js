@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var customLabel = document.createElement('label');
     customLabel.setAttribute('for', 'id_imagem');
     customLabel.className = 'person-file-label';
-    customLabel.textContent = 'Clique aqui para escolher um arquivo';
+    customLabel.textContent = 'Clique aqui para escolher um arquivo [Campo obrigatório]';
 
     // Cria o botão de remoção de arquivo
     var removeButton = document.createElement('button');
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Adiciona o evento de clique no botão de remoção
     removeButton.addEventListener('click', function() {
         inputFile.value = ''; // Limpa o valor do input file
-        customLabel.textContent = 'Clique aqui para escolher um arquivo';
+        customLabel.textContent = 'Clique aqui para escolher um arquivo [Campo obrigatório]';
         customLabel.classList.remove('attached'); // Remove a classe para mudar a cor
         removeButton.classList.remove('visible'); // Esconde o botão
     });
