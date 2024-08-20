@@ -16,6 +16,11 @@ from django.core.paginator import Paginator
 from datetime import datetime, date, timedelta
 from django.db.models import Count, F
 from django.db.models.functions import TruncMonth
+from django.http import HttpResponse
+from django.core.mail import EmailMultiAlternatives, EmailMessage
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.conf import settings
 
 @login_required
 def criar_reserva(request):
@@ -64,7 +69,9 @@ def criar_reserva(request):
             if usuario.groups.filter(name__in=['Administrador de Setor', 'Administrador Master']).exists():
                 andamento = 'aprovada'
                 situacao = 'ar'
-
+            else:
+                situacao = None
+                
             reserva = Reserva.objects.create(
                 usuario=Usuario.objects.get(pk=request.user.pk),
                 dataHorarioInicial=data_horario_inicial_dt,
@@ -79,6 +86,13 @@ def criar_reserva(request):
             for equipamento_id in equipamentos_selecionados:
                 equipamento = Equipamento.objects.get(pk=equipamento_id)
                 ReservaEquipamento.objects.create(reserva=reserva, recurso=equipamento)
+            # Chama a função para enviar o email confirmando o envio da solicitação
+            if usuario.groups.filter(name__in=['Administrador de Setor', 'Administrador Master']).exists():
+                idreserva = reserva.id
+                enviarEmailAvaliacao(request, idreserva)
+            else:
+                idreserva = reserva.id
+                enviarEmailSolicitacao(request, idreserva)
             return redirect('solicitacao_enviada', reserva_id=reserva.id)
     else:
         form = ReservaForm()
@@ -99,11 +113,6 @@ def solicitacaoEnviada(request, reserva_id):
         'codigo_solicitacao': reserva_id,
         'tipo_adm': tipo_adm,
     })
-
-# @login_required
-# def listar_reservas(request):
-#     reservas = Reserva.objects.all()
-#     return render(request, 'partials/reserva/lista_reserva.html', {'reservas': reservas})
 
 @login_required
 def listar_reservas_usuario(request):
@@ -199,7 +208,7 @@ def acessarDashboard(request):
         andamento='aprovada'
     )
     
-    contar = 5 - reservas_hoje
+    contar = max(0, 5 - reservas_hoje)
     reservas_proximas = Reserva.objects.filter(dataHorarioInicial__gte=data_posterior, andamento='aprovada').order_by('dataHorarioInicial')[:contar]
 
     # determina o tipo de administrador
@@ -311,6 +320,8 @@ def atualizar_status_reserva(request, reserva_id, status):
             reserva.situacao = 'ar'
         reserva.andamento = status
         reserva.save()
+        idreserva = reserva.id
+        enviarEmailAvaliacao(request, idreserva)
 
 
     return redirect('/reserva/solicitacoes/analise/')
@@ -339,3 +350,41 @@ def atualizar_situacao_reserva(request, reserva_id, situacao):
         reserva.save()
 
     return redirect('/reserva/reservas/pendencias/')
+
+def enviarEmailSolicitacao(request, idreserva):
+
+    reserva = Reserva.objects.get(pk=idreserva)
+    user = reserva.usuario
+    usuario = Usuario.objects.get(pk=user)
+    email_user = usuario.email
+
+    html_content = render_to_string('partials/emails/solicitacao_enviada.html', {'nome': usuario.first_name, 'reserva' : reserva})
+    text_content = strip_tags(html_content)
+
+    email = EmailMultiAlternatives('Confirmação de envio de Solicitação', text_content, settings.EMAIL_HOST_USER, [email_user])
+    email.attach_alternative(html_content, 'text/html')
+    email.send()
+
+def enviarEmailAvaliacao(request, idreserva):
+    reserva = Reserva.objects.get(pk=idreserva)
+    user = reserva.usuario
+    usuario = Usuario.objects.get(pk=user)
+    email_user = usuario.email
+    setores = Setor.objects.all()
+
+    if reserva.andamento == 'aprovada':
+        html_content = render_to_string('partials/emails/reserva_aprovada.html', {'nome': usuario.first_name, 'reserva' : reserva, 'setores': setores})
+        text_content = strip_tags(html_content)
+
+        email = EmailMultiAlternatives('Notificação de aprovação de reserva', text_content, settings.EMAIL_HOST_USER, [email_user])
+        email.attach_alternative(html_content, 'text/html')
+        email.send()
+    else:
+        html_content = render_to_string('partials/emails/reserva_negada.html', {'nome': usuario.first_name, 'reserva' : reserva, 'setores': setores})
+        text_content = strip_tags(html_content)
+
+        email = EmailMultiAlternatives('Notificação de recusa de reserva', text_content, settings.EMAIL_HOST_USER, [email_user])
+        email.attach_alternative(html_content, 'text/html')
+        email.send()
+
+    

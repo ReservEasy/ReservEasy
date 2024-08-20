@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva aprovada</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .content-email {
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+        }
+
+        .layout-email-reserva {
+            border: 1px solid #ddd;
+            padding: 20px 2rem;
+            border-top: 0.5rem solid #A0BE3D;
+            border-radius: 0.5rem;
+            background-color: #fff;
+        }
+
+        h1.title-request {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        p.text-request {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        strong {
+            font-weight: 600;
+            color: #A0BE3D;
+        }
+
+        .icon-system {
+            display: block;
+            max-width: 200px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <section class="content-email">
+    <div class="layout-email-reserva">
+        <img src="https://github.com/ReservEasy/ReservEasy/raw/main/templates/static/img/logo.png" alt="Logo" class="icon-system">
+        <div class="info-request">
+            <h1 class="title-request"><strong>Reserva Aprovada - #{{reserva.id}}!</strong></h1>
+            <p class="text-request">Olá, <strong>{{nome}}</strong>,
+                <br>
+                Temos o prazer de informar que sua reserva para o(s) seguinte(s) recurso(s) foi <strong>aprovada com sucesso:</strong>
+                <br>
+                <ul>
+                    <li><strong>Data e Horário Iniciais (de retirada): {{reserva.dataHorarioInicial}}</strong></li>
+                    <li><strong>Recurso(s) Reservado(s):</strong>
+                        <ul>
+                            {% if reserva.reserva_equipamento.all %}
+                                    {% for reserva_equipamento in reserva.reserva_equipamento.all %}
+                                        <li>{{ reserva_equipamento.recurso.nome }} | Setor: 
+                                            {% for setor in setores %}
+                                            {% if reserva_equipamento.recurso.setor_id == setor.id %}
+                                                {{setor.nome}}
+                                            {% endif %}
+                                            {% endfor %}
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                                {% if reserva.reserva_espaco.all %}
+                                    {% for reserva_espaco in reserva.reserva_espaco.all %}
+                                        <li>{{ reserva_espaco.espaco.nome }} | Setor: 
+                                            {% for setor in setores %}
+                                            {% if reserva_espaco.espaco.setor_id == setor.id %}
+                                                {{setor.nome}}
+                                            {% endif %}
+                                            {% endfor %}
+
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                        </ul>
+                    </li>
+                    <li><strong>Data e Horário Finais (de devolução): {{reserva.dataHorarioFinal}}</strong></li>
+                </ul>
+            </p>
+            <p class="text-request">
+                <strong>Cuidados e Recomendaçôes</strong>
+            <ul>
+                <li><strong>Retirada de Recurso(s):</strong> Não se esqueça de pegar o(s) recurso(s) no setor antes do início do seu uso.</li>
+                <li>Fique atento à data e horário da sua reserva e de devolução.</li>
+                <li><strong>Política de Cancelamento:</strong> Caso precise cancelar ou alterar sua reserva, pedimos que nos avise com antecedência para evitar problemas com outros usuários que talvez necessitem de uma reserva para o horário que você ocupou.</li>
+                <li><strong>Cuidados com os Espaços e Equipamentos:</strong> Pedimos que cuide bem das instalações e dos objetos e respeite as normas de convivência e conservação para garantir uma ótima experiência para todos.</li>
+                <li><strong>Contato:</strong> Em caso de qualquer necessidade durante o uso, você pode nos contatar por esse email.</li>
+            </ul>
+        </p>
+        <br>
+        <p class="text-request">
+            Estamos à disposição para qualquer dúvida.
+            <br>Atenciosamente,<br>
+            Equipe ReservEasy
+    </p>
+        </div>
+    </div>
+</section>
+</body>
+</html>
+

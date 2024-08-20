@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva em análise</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .content-email {
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+        }
+
+        .layout-email-reserva {
+            border: 1px solid #ddd;
+            padding: 10px 2rem;
+            border-top: 0.5rem solid #A0BE3D;
+            border-radius: 0.5rem;
+            background-color: #fff;
+        }
+
+        h1.title-request {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        p.text-request {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        strong {
+            font-weight: 600;
+            color: #A0BE3D;
+        }
+
+        .icon-system {
+            display: block;
+            max-width: 200px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <section class="content-email">
+        <div class="layout-email-reserva">
+            <img src="https://github.com/ReservEasy/ReservEasy/raw/main/templates/static/img/logo.png" alt="Logo" class="icon-system">
+            <div class="info-request">
+                <h1 class="title-request"><strong>Reserva em Análise - #{{reserva.id}}!</strong></h1>
+                <p class="text-request">Olá, <strong>{{nome}}</strong>,
+                    <br><br>
+                    Recebemos sua solicitação de reserva para o(s) seguinte(s) recurso(s):
+                    <br><br>
+                    <ul>
+                        <li><strong>Data e Horário de envio da solicitação: </strong>{{reserva.dataHorarioSolicitacao}}</li>
+                        <li><strong>Data e Horário Iniciais: </strong>{{reserva.dataHorarioInicial}}</li>
+                        <li><strong>Data e Horário Finais: </strong> {{reserva.dataHorarioFinal}}</li>
+                        <li><strong>Recurso(s) Solicitado(s):</strong>
+                            <ul>
+                                {% if reserva.reserva_equipamento.all %}
+                                    {% for reserva_equipamento in reserva.reserva_equipamento.all %}
+                                        <li>{{ reserva_equipamento.recurso.nome }}</li>
+                                    {% endfor %}
+                                {% endif %}
+                                {% if reserva.reserva_espaco.all %}
+                                    {% for reserva_espaco in reserva.reserva_espaco.all %}
+                                        <li>{{ reserva_espaco.espaco.nome }}</li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </li>
+                    </ul>
+                    <br>
+                    Já estamos processando sua solicitação e, em breve, você receberá a análise final, de aprovação ou reprovação.
+                    <br><br>
+                    Caso precise de mais alguma informação, não hesite em entrar em contato conosco por esse mesmo email. Agradecemos a sua compreensão!
+                    <br><br>
+                </p>
+                <p class="text-request">
+                    <br><br>Atenciosamente, <br>
+                    Equipe ReservEasy
+                </p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -151,6 +151,6 @@ EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_HOST = config('EMAIL_HOST')
 
 GRAPH_MODELS = {
-  'all_applications': True,
-  'group_models': True,
+    'all_applications': True,
+    'group_models': True,
 }
