@@ -156,10 +156,10 @@ def promoverAdmMaster(request):
 
 class RedirectAuthenticatedLoginView(BaseLoginView):
     """
-    Esta view herda de LoginView e redireciona usuários autenticados de volta para a página anterior
-    em vez de permitir que eles permaneçam na página de login.
+    vai redirecionar os usuarios autenticados de volta para pagina anterior 
+    (se caso tentarem acessar a pagina de login), a view vai herdar de loginview
     """
-    # Configura para redirecionar usuários autenticados automaticamente
+    # configura para redirecionar usuários autenticados automaticamente
     redirect_authenticated_user = True
 
     @method_decorator(sensitive_post_parameters())
@@ -167,16 +167,17 @@ class RedirectAuthenticatedLoginView(BaseLoginView):
     @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
         """
-        Sobrescreve o método dispatch para verificar se o usuário está autenticado.
-        Se estiver, redireciona o usuário para a URL de onde ele veio.
+        sobrescreve o método dispatch para verificar se o usuário está autenticado.
+        se estiver, redireciona o usuário para a URL de onde ele veio.
         """
-        # Verifica se o usuário já está autenticado
+        # verifica se o usuário já está autenticado
         if request.user.is_authenticated:
-            # Obtém a URL da qual o usuário veio (HTTP_REFERER) ou redireciona para a URL padrão de login
+            # pega URL da qual o usuário veio (HTTP_REFERER) ou redireciona para a URL padrão de login
             redirect_to = request.META.get('HTTP_REFERER', resolve_url(settings.LOGIN_REDIRECT_URL))
-            # Redireciona para a URL obtida
+            # redireciona para a URL obtida
             return HttpResponseRedirect(redirect_to)
         # Caso o usuário não esteja autenticado, chama o método dispatch da classe base
         return super().dispatch(request, *args, **kwargs)
+    
 # def hadler404(request, exception):
 #     return render(request, 'partials/404.html', status=404)
