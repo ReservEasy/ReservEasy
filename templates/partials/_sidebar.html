@@ -156,18 +156,6 @@
                 {% endfor %}
             {% endif %}
 
-            {% if user.is_authenticated %} {% comment %} verifica se o usuário está autenticado {% endcomment %}
-                {% for group in user.groups.all %} {% comment %} obtem os grupos nos quais o usuário pertence {% endcomment %}
-                    {% if group.name == "Administrador de Setor" %}
-                        <li class="servicos">
-                            <a href="/reserva/reservas/pendencias" class="link-service">
-                                <i class="fa-solid fa-user-tie"></i>
-                                <p>Pendências</p>
-                            </a> 
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
 
 
         </ul>
