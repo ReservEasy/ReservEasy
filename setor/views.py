@@ -12,6 +12,7 @@ import os
 from django.core.paginator import Paginator
 from django.urls import reverse
 from urllib.parse import urlencode
+from django.contrib import messages
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
 def listarSetores(request):
@@ -40,6 +41,7 @@ def criarSetor(request):
         form = SetorForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, "Setor criado com sucesso!")
             return HttpResponseRedirect('/setor/?msg=Salvo')
     else:
         form = SetorForm() #se tiver erro as informações do formulário voltam 
@@ -76,6 +78,7 @@ def alocarAdm(request, id_setor):
                 usuario.groups.set([group])  # Define o grupo do usuário como o grupo 'Administrador de Setor' (remove qualquer outro que tinha antes)
                 usuario.setor = setor
                 usuario.save()
+                messages.success(request, "Administrador de setor alocado com sucesso!")
             return redirect(reverse('detalharSetor', args=[id_setor])) # retorna para a pagina de detalhar o setor
     else:
         usuarios = Usuario.objects.filter(tipo=2) #filtra para usuarios do tipo 2
@@ -97,6 +100,7 @@ def removerAdm(request, id_adm):
     url = reverse('detalharSetor', args=[id_setor]) 
     query_string = urlencode({'msg': 'salvo'})
     redirect_url = f'{url}?{query_string}'
+    messages.success(request, "Administrador de setor removido com sucesso!")
     return redirect(redirect_url) #retorna a pagina anterior com o id setor
 
 
@@ -109,6 +113,7 @@ def transferirAdm(request, id_adm):
         novo_setor = get_object_or_404(Setor, id=novo_setor_id)  # Obtém a instância do setor com base no ID
         usuario.setor = novo_setor  
         usuario.save()
+        messages.success(request, "Administrador de setor transferido com sucesso!")
         return HttpResponseRedirect('/setor/?msg=Salvo')
     setores = Setor.objects.all()
     return render(request, 'partials/setor/formTransferirAdm.html', {'usuario': usuario, 'setores': setores, 'idsetor': idsetor})
@@ -120,6 +125,7 @@ def editarSetor(request, id_setor):
         form = SetorForm(request.POST, instance= setor)
         if form.is_valid():
             form.save()
+            messages.success(request, "Setor atualizado com sucesso!")
             return HttpResponseRedirect('/setor/?msg=Salvo')
     else:
         form = SetorForm(instance= setor)
@@ -134,5 +140,5 @@ def confirmarDelete(request, id_setor):
 @user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
 def deletar(request, id_setor):
     Setor.objects.get(pk=id_setor).delete()
-
+    messages.success(request, "Setor apagado com sucesso!")
     return HttpResponseRedirect("/setor/?msg=Exclui")

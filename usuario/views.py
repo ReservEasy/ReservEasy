@@ -18,6 +18,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.cache import never_cache 
 from django.conf import settings
+from django.contrib import messages
 
 
 def register(request):
@@ -32,7 +33,7 @@ def register(request):
             solicitante_group, created = Group.objects.get_or_create(name='Solicitante') #pega o grupo solicitante
             usuario.groups.add(solicitante_group) #add o usuario ao grupo
             usuario.save() #salva as alterações
-            # messages.success(request, "Usuário salvo com sucesso!")
+            messages.success(request, "Usuário salvo com sucesso!")
             return redirect('login')
     else:
         form = UsuarioForm()
@@ -89,6 +90,7 @@ def editarPerfilUser(request):
         form = UsuarioUpdateForm(request.POST, instance=usuario, user=usuario)
         if form.is_valid():
             form.save()
+            messages.success(request, "Perfil atualizado com sucesso!")
             return redirect('perfil_usuario') 
     else:
         form = UsuarioUpdateForm(instance=usuario, user=usuario)
@@ -131,6 +133,7 @@ def removerAdmMaster(request, id_adm):
     group, created = Group.objects.get_or_create(name='Solicitante')  # Obtém ou cria o grupo
     usuario.groups.set([group])  # Define o grupo do usuário como o grupo 'Solicitante' (remove qualquer outro que tinha antes)
     usuario.save()
+    messages.success(request, "Administrador removido com sucesso!")
     return redirect(reverse('listarAdmMaster'))
 
 @user_passes_test(lambda u: u.groups.filter(name='Administrador Master').exists()) #só acessa se for adm master
@@ -144,6 +147,7 @@ def promoverAdmMaster(request):
                 group, created = Group.objects.get_or_create(name='Administrador Master')  # Obtém ou cria o grupo
                 usuario.groups.set([group])  # Define o grupo do usuário como o grupo 'Administrador Master' (remove qualquer outro que tinha antes)
                 usuario.save()
+            messages.success(request, "Administrador promovido com sucesso!")
             return redirect(reverse('listarAdmMaster'))
     else:
         grupo_adm_master = Group.objects.get(name="Administrador Master")

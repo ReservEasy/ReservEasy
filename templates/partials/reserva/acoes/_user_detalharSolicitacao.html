@@ -115,6 +115,7 @@
     }
     .status-request{
         font-size: 10px;
+        
     }
     .title-table{
         font-weight: 600;
@@ -231,6 +232,9 @@
         p{
             margin: 0;
         }
+        .status-request-text{
+            color: #252525;
+        }
     </style>
 </head>
 <body>
@@ -346,7 +350,7 @@
                         <th class="th-column">Data e horário de envio</th>
                         <th class="th-column">Data e horário iniciais</th>
                         <th class="th-column">Data e horário finais</th>
-                        <th class="th-column">Situação</th>
+                        <th class="th-column">Andamento</th>
                     </tr>
                 </thead>
                 <tbody id="resource-list">
@@ -378,17 +382,36 @@
             <table class="table table-striped table-bordered mt-3">
                 <thead>
                     <tr class="tr-row">
-                        <th class="th-column">Grupo do requisitante</th>
+                        <th class="th-column">Status</th>
                     </tr>
                 </thead>
                 <tbody id="resource-list">
                     
                     <tr class="tr-row">
-                        <td class="recurso-view"> <div class="progress-request aprovado"> 
-                        {% for group in usuario.groups.all %}
-                            {{ group.name }}
-                        {% endfor %}
-                    </div></td>
+                        <td class="recurso-view"> 
+                            <div class="status-request progress-request
+                            {% if reserva.situacao == 'ar' %}
+                                status-analise
+                            {% elif reserva.situacao == 'ad' %}
+                                status-reprovado
+                            {% elif reserva.situacao == 'd' %}
+                                status-aprovado
+                            {% else %}
+                            status-aprovado
+                            {% endif %}">
+                            <p class="situacao-text " style="margin: 0px;">
+                                {% if reserva.situacao == 'ar' %}
+                                    Aguardando Retirada
+                                {% elif reserva.situacao == 'ad' %}
+                                    Aguardando Devolução
+                                {% elif reserva.situacao == 'd' %}
+                                    Devolvido
+                                {% else %}
+                                    Sem situação
+                                {% endif %}
+                            </p>
+                        </div>
+                        </td>
                     </tr>
                     
                 </tbody>

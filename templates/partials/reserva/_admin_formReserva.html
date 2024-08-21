@@ -51,7 +51,18 @@
         overflow-x: auto;
         max-height: 100vh;
     }
-    
+    .busca-disponibilidade{
+        width: 90%;
+    }
+    .itens-reserva {
+        width: 960px !important;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        flex-wrap: wrap;
+        align-content: center;
+        gap: 15px;
+        }   
     </style>
 </head>
 <body>
@@ -69,7 +80,7 @@
                     <i class="fa-regular fa-calendar"></i>
                     <div class="fields-data-reserva">
                         <p style="margin: 0;">
-                            <label for="dataHorarioInicial">Data e Horário Inicial</label>
+                            <label for="dataHorarioInicial"><strong>Data e Horário Inicial</strong></label>
                             <input type="datetime-local" id="dataHorarioInicial" name="dataHorarioInicial" required value="{{ dataHorarioInicial|default_if_none:'' }}">
                         </p>
                         
@@ -80,7 +91,7 @@
                     <i class="fa-regular fa-calendar"></i>
                     <div class="fields-data-reserva">
                         <p  style="margin: 0;">
-                            <label for="dataHorarioFinal">Data e Horário final</label>
+                            <label for="dataHorarioFinal"><strong>Data e Horário final</strong></label>
                             <input type="datetime-local" id="dataHorarioFinal" name="dataHorarioFinal" required value="{{ dataHorarioFinal|default_if_none:'' }}">
                         </p>
                         <span class="placeholder-field"> Escolha a data e o horário de término</span>

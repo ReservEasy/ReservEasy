@@ -160,6 +160,8 @@ def deletarReserva(request, id_reserva):
         return HttpResponseForbidden("Você não tem permissão para deletar esta reserva.")
     else:
         reservaa.delete()
+        
+        messages.success(request, "Reserva deletada com sucesso!")
         return redirect('/reserva/listar')
 
 def usuario_ou_admin_master(u):
@@ -348,7 +350,7 @@ def atualizar_situacao_reserva(request, reserva_id, situacao):
     if situacao in ['ad', 'd']:
         reserva.situacao = situacao
         reserva.save()
-
+    messages.success(request, "Situação de reserva atualizado com sucesso!")
     return redirect('/reserva/reservas/pendencias/')
 
 def enviarEmailSolicitacao(request, idreserva):

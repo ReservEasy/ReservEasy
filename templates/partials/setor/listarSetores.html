@@ -90,7 +90,8 @@
             margin-left: 15px;
         }
         .sector-list {
-            
+            overflow-x: auto;
+            max-height: 100vh;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -266,6 +267,11 @@
             border-color: #022376;
             font-size:12px;
         }
+        .aviso-sucesso{
+            background-color: rgba(163, 194, 62, 0.6) !important;
+            border: solid #ffffff 0.5px !important;
+            font-size:12px;
+    }
     </style>
 </head>
 <body>
@@ -293,6 +299,16 @@
                 <p class="data-service-title">Setores cadastrados</p>
             </div>
         </div>
+        {% if messages %}
+                        <div class="container mt-4">
+                            {% for message in messages %}
+                                <div class="alert {{ message.tags }} alert-success aviso-sucesso alert-dismissible fade show" role="alert">
+                                    {{ message|safe }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
         <table class="table table-striped table-bordered mt-3">
             <thead>
                 <tr class="tr-row">

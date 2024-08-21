@@ -99,10 +99,12 @@
         }
         .adm-list {
             /* height: 100vh; */
-            margin: 50px;
+            margin: 20px;
             display: flex;
             flex-direction: column;
             gap: 20px;
+            overflow-x: auto;
+            max-height: 100vh;
         }
         .data-service {
             display: flex;
@@ -229,7 +231,6 @@
             margin: 0px;
         }
         .data-services-list{
-            width: 100%;
             display: flex;
             margin-left: 25px;
         }
@@ -243,6 +244,11 @@
             margin: 0px;
             padding: 10px 40px;
         }
+        .aviso-sucesso{
+            background-color: rgba(163, 194, 62, 0.6) !important;
+            border: solid #ffffff 0.5px !important;
+            font-size:12px;
+    }
     </style>
 </head>
 <body>
@@ -254,6 +260,16 @@
                 <a  href="/setor/" id="btnVoltar">Voltar</a>
             </div>
         </div>
+        {% if messages %}
+                        <div class="container mt-4">
+                            {% for message in messages %}
+                                <div class="alert {{ message.tags }} alert-success aviso-sucesso alert-dismissible fade show" role="alert">
+                                    {{ message|safe }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
         <div class="search-adm">
             
             <div class="data-service">

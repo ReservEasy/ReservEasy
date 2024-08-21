@@ -9,6 +9,7 @@ from usuario.models import Usuario
 from .forms import EquipamentoForm, EspacoForm
 from django.contrib.auth.models import Group
 import os
+from django.contrib import messages
 from django.core.paginator import Paginator
 
 @login_required
@@ -67,6 +68,7 @@ def criarEquipamento(request):
             equipamento = form.save(commit=False)
             equipamento.setor = request.user.usuario.setor  # Define o setor do recurso com base no setor do usuário
             equipamento.save()
+            messages.success(request, "Equipamento criado com sucesso!")
             return HttpResponseRedirect('/recursos/estoque?msg=Salvo')
     else:
         form = EquipamentoForm()
@@ -81,6 +83,7 @@ def criarEspaco(request):
             espaco = form.save(commit=False)
             espaco.setor = request.user.usuario.setor  # Define o setor do recurso com base no setor do usuário
             espaco.save()
+            messages.success(request, "Espaço criado com sucesso!")
             return HttpResponseRedirect('/recursos/estoque?msg=Salvo')
     else:
         form = EspacoForm()
@@ -101,6 +104,7 @@ def editarRecurso(request, id_recurso):
         form = form_class(request.POST, request.FILES, instance=recurso)
         if form.is_valid():
             form.save()
+            messages.success(request, "Recurso atualizado com sucesso!")
             return HttpResponseRedirect('/recursos/estoque?msg=Salvo')
     else:
         form = form_class(instance=recurso)
@@ -126,7 +130,7 @@ def deletarEquipamento(request, id_recurso):
     
     # Exclui o espaço do banco de dados
     equipamento.delete()
-    
+    messages.success(request, "Equipamento deletado com sucesso!")
     return HttpResponseRedirect("/recursos/estoque?msg=Excluído")
 
 
@@ -148,7 +152,7 @@ def deletarEspaco(request, id_recurso):
     
     # Exclui o espaço do banco de dados
     espaco.delete()
-    
+    messages.success(request, "Espaço deletado com sucesso!")
     return HttpResponseRedirect("/recursos/estoque?msg=Excluído")
 
 # @login_required

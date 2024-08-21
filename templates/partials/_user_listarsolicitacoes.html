@@ -21,6 +21,14 @@
         .identification p{
             margin: 0px !important;
         }
+        .aviso-sucesso{
+            background-color: rgba(163, 194, 62, 0.6) !important;
+            border: solid #ffffff 0.5px !important;
+            font-size:12px;
+    }
+    .mt-4{
+        padding: 0 !important;
+    }
     </style>
 </head>
 <body>
@@ -30,6 +38,16 @@
     <section class="request-user">
         <div class="request-user-title-filter">
             <h1>Solicitações</h1>
+            {% if messages %}
+            <div class="container mt-4">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-success aviso-sucesso alert-dismissible fade show" role="alert">
+                        {{ message|safe }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
             <div class="request-filter-service">
                 <div class="request-filter">
                     {% comment %} <button id="btnFilter">
