@@ -13,23 +13,4 @@ Este projeto é um Sistema de Gerenciamento de Equipamentos e Espaços desenvolv
 O objetivo deste projeto é desenvolver um sistema de gestão eficiente e acessível para os ambientes e equipamentos disponíveis no IF Baiano - campus Guanambi, visando otimizar a organização desses recursos, aprimorar a qualidade dos serviços de alocação oferecidos pela instituição e facilitar o acesso dos usuários a essa ferramenta por meio da utilização de tecnologia, através da automatização do fluxo de reservas e disponibilização de uma interface intuitiva para acompanhamento e solicitação de reservas.
 ---
 
-
-## Diagrama de Classe
-
-![Diagrama de Classe](link_para_imagem)
-
----
-
-## Diagrama de Caso de Uso
-
-![Diagrama de Caso de Uso](link_para_imagem)
-
----
-
-## Diagrama de Entidade-Relacionamento
-
-![Diagrama de Entidade-Relacionamento](link_para_imagem)
-
----
-
 Para mais detalhes sobre o projeto e seu desenvolvimento, favor consultar a documentação e o código fonte disponíveis no repositório.
